@@ -1423,10 +1423,10 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     <button class="btn" id="sync" type="button" title="Rebuild the database from archive.org">⟳ Sync</button>
     <div class="clock" id="clock" aria-hidden="true"></div>
     <button class="btn ghost" id="queueBtn" type="button" title="Optional download queue">☷ Queue <span id="queueCount">0</span></button>
-    <button class="profile" id="profBtn" type="button" hidden aria-haspopup="dialog" title="Profile">
+    
+    <span id="accountLight" class="account-light is-off" role="status" aria-label="Not logged in" title="Not logged in"></span><button class="btn" id="loginBtn" type="button" aria-haspopup="dialog">👤 Guest Account</button><button class="profile" id="profBtn" type="button" hidden aria-haspopup="dialog" title="Profile">
       <span class="av" id="chipAv">P</span><span class="pn" id="chipName">Player</span><span class="cnt" id="chipCnt">0</span>
     </button>
-    <span id="accountLight" class="account-light is-off" role="status" aria-label="Not logged in" title="Not logged in"></span><button class="btn" id="loginBtn" type="button" aria-haspopup="dialog">👤 Guest Account</button>
   </header>
 
   <nav class="tabs" id="tabs" role="tablist" aria-label="Category">
@@ -1443,10 +1443,10 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   <div class="stage">
     <main id="main">
       <section class="nxe-command-rail" aria-label="Dashboard shortcuts">
-        <div class="rail-heading"><span class="rail-kicker">XBOX 360 ARCHIVE</span><strong id="railTitle">Your library</strong><span class="rail-caption">Browse collections, inspect titles, and build a download queue.</span></div>
+        <div class="rail-heading"><span class="rail-kicker">XBOX 360 ARCHIVE</span><strong id="railTitle">Games On Demand</strong><span class="rail-caption">Browse collections, inspect titles, and build a download queue.</span></div>
         
       </section>
-      <div class="library-toolbar"><div class="library-label"><span class="status-square"></span><span id="libraryViewTitle">GAMES LIBRARY</span><span class="toolbar-separator">/</span><span class="toolbar-muted">XENIOS DASHBOARD</span></div><div class="toolbar-tools"><button type="button" class="mini-tool" id="clearSearchNXE" title="Clear search">Clear search <span>×</span></button><span class="keyboard-hint"><kbd>/</kbd> Search <kbd>Q</kbd><kbd>E</kbd> Switch tabs</span></div></div>
+      
       <p class="count" id="count"></p>
       <div class="grid" id="grid"></div>
       <section id="guidesPanel" class="guide-panel" hidden>
@@ -1540,44 +1540,27 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
 <!-- settings and themes -->
 <div class="dlg" id="settings" hidden>
   <div class="card settings-card" id="settingsCard" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
-    <h2 id="settingsTitle">Xenios Settings</h2>
-    <div class="settings-tabs" role="tablist" aria-label="Settings sections">
-      <button class="chip on" id="settingsGeneralTab" type="button" role="tab" aria-selected="true">General</button>
-    </div>
-    <div class="settings-panel" id="settingsGeneralPanel" role="tabpanel">
-      <p class="settings-note">Database tools and storage credentials.</p>
-      <section class="settings-section database-tools-section">
-        <div class="section-heading"><div><h3>Database tools</h3><p>Manage the Xenios catalogue in one place: export a portable index or import database JSON.</p></div><span class="section-icon">▤</span></div>
-        <div class="database-tools-grid">
-<div class="database-tool">
-        <div class="section-heading"><div><h3>Database export</h3><p>Save the current game, arcade, DLC, and cover metadata index as a portable JSON file.</p></div><span class="section-icon">⬇</span></div>
-        <div class="section-actions"><button class="btn small" id="bExport" type="button" title="Download the whole database as JSON">⬇ Export database</button></div>
+    <h2 id="settingsTitle">Settings</h2>
+    <div class="st-body" id="settingsGeneralPanel">
+      <div class="st-group"><h3>Display</h3>
+        <div class="st-row"><span><b>Details bar</b><small>Title, size, date and source bar shown at the bottom of every tab.</small></span><button class="btn ghost small" id="infoToggle" type="button" aria-pressed="true">On</button></div>
       </div>
-<div class="database-tool">
-        <div class="section-heading"><div><h3>Database import</h3><p>Import a Xenios JSON backup or an Archive.org file-listing JSON. Entries are merged with the local index.</p></div><span class="section-icon">⬆</span></div>
-        <div class="section-actions"><button class="btn ghost small" id="bImport" type="button" title="Import a database JSON">⬆ Choose JSON files</button><input type="file" id="bFile" accept=".json,application/json" multiple hidden></div>
+      <div class="st-group"><h3>Database</h3>
+        <div class="st-row"><span><b>Export database</b><small>Save the game, arcade and DLC index as JSON.</small></span><button class="btn small" id="bExport" type="button">⬇ Export</button></div>
+        <div class="st-row"><span><b>Import database</b><small>Merge a Xenios or Archive.org listing JSON.</small></span><button class="btn ghost small" id="bImport" type="button">⬆ Import</button><input type="file" id="bFile" accept=".json,application/json" multiple hidden></div>
       </div>
-        </div>
-      </section>
-      <section class="settings-section s3-section">
-        <div class="section-heading"><div><h3>Storage credentials</h3><p>Enter the normal access key and secret key, then test the connection. Save Keys to TXT becomes available only after successful verification.</p></div><span class="section-icon">☁</span></div>
-        <label>Normal key<input class="fld" id="kAccess" type="text" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Paste normal key"></label>
-        <label>Secret key<span class="pw"><input class="fld" id="kSecret" type="password" spellcheck="false" autocomplete="new-password" placeholder="Paste secret key"><button class="btn ghost" id="kShow" type="button">Show</button></span></label>
-        <button class="btn ghost small remember-toggle" id="kRememberToggle" type="button" aria-pressed="false">Remember keys: Off</button>
+      <div class="st-group"><h3>Storage credentials</h3>
+        <label class="st-field">Normal key<input class="fld" id="kAccess" type="text" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Paste normal key"></label>
+        <label class="st-field">Secret key<span class="pw"><input class="fld" id="kSecret" type="password" spellcheck="false" autocomplete="new-password" placeholder="Paste secret key"><button class="btn ghost small" id="kShow" type="button">Show</button></span></label>
+        <div class="st-row"><span><b>Remember keys</b><small>Keep keys on this device.</small></span><button class="btn ghost small remember-toggle" id="kRememberToggle" type="button" aria-pressed="false">Off</button></div>
         <input id="kRemember" type="checkbox" hidden>
         <div class="s3-account-line"><span class="s3-status-dot" id="s3Dot"></span><span id="s3Status" role="status">No keys verified yet.</span></div>
-        <div class="section-actions"><button class="btn ghost small" id="kTest" type="button">Test connection</button><button class="btn small" id="saveKeysTxt" type="button" disabled>Save Keys to TXT</button></div>
+        <div class="st-actions"><button class="btn small" id="kTest" type="button">Test connection</button><button class="btn ghost small" id="saveKeysTxt" type="button" disabled>Save Keys to TXT</button></div>
         <p class="settings-note" id="s3StorageMsg" role="status">Keys are only written to a text file when you choose Save Keys to TXT.</p>
         <div class="msg" id="lMsg" role="status"></div>
-      </section>
-    </div>
-    <section class="settings-panel nxe-settings-overview" id="settingsNxePanel" role="region" aria-label="NXE interface">
-      <div class="settings-section">
-        <div class="section-heading"><div><h3>NXE Dashboard</h3><p>Accurate NXE is the Xenios interface. Classic green glass, graphite panels, silver edging, and restrained orange accents are applied throughout the site.</p></div><span class="section-icon">◈</span></div>
-        <div class="nxe-status-row"><span class="nxe-status-dot"></span><div><strong>Accurate NXE active</strong><small>Single fixed dashboard design · no theme switching</small></div></div>
       </div>
-    </section>
-    <div class="settings-actions"><button class="btn ghost" id="settingsClose" type="button">Close</button></div>
+    </div>
+    <div class="settings-actions"><button class="btn" id="settingsClose" type="button">Close</button></div>
   </div>
 </div>
 
@@ -1610,7 +1593,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     <h2 id="pTitle">Profile</h2>
     <div id="profileView">
       <div class="pf-id"><span class="av big profile-avatar-edit" id="pAv" tabindex="0" aria-label="Profile picture">P</span>
-        <div class="pf-who"><div class="pf-name" id="pNameView">Player</div><small id="pKey"></small></div></div>
+        <div class="pf-who"><input class="fld pf-nameinput" id="pName" type="text" maxlength="20" placeholder="Profile name" aria-label="Profile name" autocomplete="off"><span id="pNameView" hidden>Player</span><small id="pKey"></small></div></div>
       <div class="pf-stats">
         <div><b id="sCount">0</b><span>Downloads</span></div>
         <div><b id="sSize">0 GB</b><span>Total size</span></div>
@@ -1621,7 +1604,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     </div>
     <div id="profLegacy" hidden>
       <button id="editGamerpic" type="button">Edit Gamerpic</button>
-      <input id="pName" type="text"><input id="pBio" type="text">
+      <input id="pBio" type="text">
       <details id="pLibraryWrap"><summary><span id="pLibCount"></span></summary><input id="pLibSearch" type="search"><div id="pLibrary"></div></details>
       <details id="pCust"><div id="avGrid"></div><div id="avHue"></div><div id="bnHue"></div><button id="pPhoto" type="button"></button><button id="pPhotoOff" type="button"></button><input type="file" id="pImg"></details>
       <section id="gamerpicEditor" hidden><input id="gamerpicSearch" type="search"><button id="gamerpicFind" type="button"></button><button id="gamerpicBack" type="button"></button><div id="gamerpicResults"></div></section>
@@ -2381,10 +2364,10 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       if (tab) tab.click();
     });
   });
-  const railTitles = { games: "Your library", arcade: "Arcade classics", dlc: "DLC Center", guides: "Console guides" };
+  const railTitles = { games: "Games On Demand", arcade: "Xbox LIVE Arcade", dlc: "Add-Ons", guides: "Console guides" };
   function syncNxeRail(tabName) {
     document.querySelectorAll("[data-rail-tab]").forEach(b => b.classList.toggle("is-selected", b.dataset.railTab === tabName));
-    const title = document.getElementById("railTitle"); if (title) title.textContent = railTitles[tabName] || "Your library";
+    const title = document.getElementById("railTitle"); if (title) title.textContent = railTitles[tabName] || "Games On Demand";
     const label = document.getElementById("libraryViewTitle"); if (label) label.textContent = (tabName || "games").toUpperCase() + (tabName === "dlc" ? " CENTER" : " LIBRARY");
   }
   document.getElementById("clearSearchNXE")?.addEventListener("click", () => {
@@ -3676,7 +3659,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   let keysVerified = false;
   function syncKeyButtons(){
     const b = $("#saveKeysTxt"); if (b) b.disabled = !keysVerified || !creds;
-    const t = $("#kRememberToggle"); if (t) { t.setAttribute("aria-pressed", String(remembered)); t.textContent = "Remember keys: " + (remembered ? "On" : "Off"); t.classList.toggle("on", remembered); }
+    const t = $("#kRememberToggle"); if (t) { t.setAttribute("aria-pressed", String(remembered)); t.textContent = remembered ? "On" : "Off"; t.classList.toggle("on", remembered); }
   }
   $("#kRememberToggle").addEventListener("click", () => {
     arm(); const a=kA.value.trim(), s=kS.value.trim();
@@ -4462,7 +4445,6 @@ html body.accurate-nxe nav#tabs button[data-tab="games"]:not(.bump):not(.zz):not
 html body.accurate-nxe nav#tabs button[data-tab="guides"]:not(.bump):not(.zz):not(.zy):not(.zx):is(.on,:hover){background:linear-gradient(180deg,#e1ffb4 0%,#9be44c 14%,#56b01e 49%,#56b01e 51%,#7bd33a 100%)!important;border:1px solid #2f7a12!important;color:#0f2a06!important;-webkit-text-fill-color:#0f2a06!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important;font-weight:600!important;transform:translateY(-1px)}
 html body.accurate-nxe nav#tabs button[data-tab="arcade"]:not(.bump):not(.zz):not(.zy):not(.zx):is(.on,:hover){background:linear-gradient(180deg,#ffe8c2 0%,#ffb257 14%,#e0731a 49%,#e0731a 51%,#ffa23d 100%)!important;border:1px solid #8a3d0a!important;color:#3a1804!important;-webkit-text-fill-color:#3a1804!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important;font-weight:600!important;transform:translateY(-1px)}
 html body.accurate-nxe nav#tabs button[data-tab="dlc"]:not(.bump):not(.zz):not(.zy):not(.zx):is(.on,:hover){background:linear-gradient(180deg,#f1e4ff 0%,#c9a2f5 14%,#8450c4 49%,#8450c4 51%,#b184e8 100%)!important;border:1px solid #4c2a82!important;color:#22103d!important;-webkit-text-fill-color:#22103d!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important;font-weight:600!important;transform:translateY(-1px)}
-html body.accurate-nxe #tabInd{display:none!important}
 html body.accurate-nxe .letter-menu-overlay.games-category :is(.letter-menu-close,.xen-menu-dl,.letter-menu-views button.is-active):not(.zz){background:linear-gradient(180deg,#e1ffb4 0%,#9be44c 14%,#56b01e 49%,#56b01e 51%,#7bd33a 100%)!important;border:1px solid #2f7a12!important;color:#0f2a06!important;-webkit-text-fill-color:#0f2a06!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important}
 html body.accurate-nxe .letter-menu-overlay.games-category .letter-menu-views button:not(.is-active):not(.zz){background:rgba(0,0,0,.3)!important;border:1px solid rgba(126,220,50,.55)!important;color:#fff!important;-webkit-text-fill-color:#fff!important;box-shadow:none!important;text-shadow:none!important}
 html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) :is(#settings,#queueDlg) .card{background:linear-gradient(145deg,#3f7a35 0%,#245a2c 50%,#102f1c 100%)!important;border:1px solid #a9eb83!important;color:#f5fff0!important;box-shadow:0 26px 80px #000a,inset 0 1px rgba(255,255,255,.4)!important}
@@ -4522,6 +4504,145 @@ html body.accurate-nxe #prof .pcard.card .pf-name:not(.zz){color:#fff!important;
 /* Aero nostalgic DLC base */
 html body.accurate-nxe.dlc-mode{background:radial-gradient(ellipse 80% 55% at 25% 0%,#9b6be0 0%,rgba(155,107,224,0) 65%),linear-gradient(180deg,#43228a 0%,#241258 45%,#100a33 80%,#070520 100%) fixed!important}
 </style>
+<style id="xenios-121-css">
+
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #tabInd{display:block!important;background:linear-gradient(90deg,#d6f5c1,#7cd444,#3fa21e)!important;box-shadow:0 0 10px #7cd44488!important;height:3px!important;border-radius:3px!important;bottom:-3px!important;will-change:left,width}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #settings .card,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #queueDlg .card,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #game .gcard,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #prof .pcard.card,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-overlay .letter-menu-panel,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .browser{position:relative;overflow:hidden;background:radial-gradient(ellipse 60% 40% at 18% 12%,rgba(255,255,255,.26),transparent 70%),radial-gradient(ellipse 70% 30% at 40% 100%,rgba(0,0,0,.4),transparent 70%),linear-gradient(160deg,#8f9a92 0%,#5f6b63 34%,#3a443e 68%,#232a26 100%)!important;border:1px solid rgba(235,242,238,.55)!important;border-top-color:rgba(255,255,255,.8)!important;border-radius:6px!important;color:#eef3ee!important;box-shadow:0 26px 80px rgba(0,0,0,.7),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(126,220,50,.2)!important;backdrop-filter:none!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) :is(#settings,#queueDlg,#game) .card>h2,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-head{background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,.06) 52%,rgba(0,0,0,.12) 52%,rgba(255,255,255,.04))!important;border-bottom:2px solid #6cc72a!important;border-left:0!important;color:#fff!important;-webkit-text-fill-color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.7)!important;font-weight:400!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #settings .card:before,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #queueDlg .card:before,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #game .gcard:before{content:"";position:absolute;inset:-25%;z-index:0;pointer-events:none;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.14),transparent 28%),radial-gradient(circle at 75% 60%,rgba(255,255,255,.1),transparent 30%);filter:blur(14px);animation:xlSmoke 22s ease-in-out infinite alternate}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #settings .card>*,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #queueDlg .card>*,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #game .gcard>*{position:relative;z-index:1}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) :is(#settings,#queueDlg,#game) .card :is(h3,p,label,small,b,strong,dt,dd,.settings-note,.queue-main b,.queue-main small,#s3Status,.gextra,.gextra *:not(a):not(.btn)){background:none!important;color:#eef3ee!important;-webkit-text-fill-color:#eef3ee!important;text-shadow:0 1px 2px rgba(0,0,0,.45)}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) :is(#settings,#queueDlg,#game) .card :is(h3,dt,.gextra a){color:#b7f07a!important;-webkit-text-fill-color:#b7f07a!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) :is(#settings,#queueDlg,#game) .card :is(.st-group,.queue-row,.gbody,.gextra,.gfoot){background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(0,0,0,.2))!important;border:1px solid rgba(235,242,238,.22)!important;border-radius:3px!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-head small{color:#b7f07a!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-head :is(h2,p){color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-head p{color:#dfe7e1!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-tools,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-foot{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(0,0,0,.25))!important;border-color:rgba(235,242,238,.2)!important;color:#dfe7e1!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-views{background:rgba(0,0,0,.3)!important;border:1px solid rgba(235,242,238,.3)!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-views button:not(.is-active){background:transparent!important;color:#eef3ee!important;-webkit-text-fill-color:#eef3ee!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-title-item{background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.22))!important;border:1px solid rgba(235,242,238,.25)!important;border-radius:3px!important;color:#fff!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-title-item:is(:hover,:focus-visible){background:linear-gradient(145deg,rgba(126,220,50,.42),rgba(0,0,0,.25))!important;border-color:#b7f07a!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-title-art{background:linear-gradient(180deg,#e1ffb4 0%,#9be44c 14%,#56b01e 49%,#56b01e 51%,#7bd33a 100%)!important;border:1px solid #2f7a12!important;color:#0f2a06!important;border-radius:4px!important;text-shadow:none!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-title-copy b{color:#fff!important}html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-title-copy small{color:#cfd8d2!important}html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-title-arrow{color:#b7f07a!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-panel{width:min(720px,94vw)!important;min-width:0!important;max-height:min(78vh,720px)!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-overlay.search-open .letter-menu-panel{width:min(1040px,95vw)!important;max-height:86vh!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-items{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important;gap:8px!important;padding:14px 16px!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-items.list-mode{grid-template-columns:1fr!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) :is(#settings,#queueDlg,#game) .card .btn:not(.ghost),html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) :is(#settings,#queueDlg,#game) .card .btn[aria-pressed="true"],html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-close,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .letter-menu-views button.is-active,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .xen-menu-dl{background:linear-gradient(180deg,#e1ffb4 0%,#9be44c 14%,#56b01e 49%,#56b01e 51%,#7bd33a 100%)!important;border:1px solid #2f7a12!important;color:#0f2a06!important;-webkit-text-fill-color:#0f2a06!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important;border-radius:4px!important;font-weight:700!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) :is(#settings,#queueDlg,#game) .card .btn.ghost:not([aria-pressed="true"]):not(.zz):not(.zy):not(.zx):not(.zw){background:linear-gradient(180deg,#fbfdfb 0%,#dfe6e1 48%,#b4beb8 52%,#d3dbd6 100%)!important;border:1px solid #5d6a63!important;color:#1e2b23!important;-webkit-text-fill-color:#1e2b23!important;text-shadow:0 1px 0 rgba(255,255,255,.6)!important;border-radius:4px!important;box-shadow:inset 0 1px 0 #fff,0 2px 5px rgba(0,0,0,.45)!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) :is(#settings,#queueDlg,#game) .card .btn:hover{filter:brightness(1.1)!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) :is(#settings,#queueDlg) .card .fld,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #prof .pf-nameinput,html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .xen-menu-q{background:linear-gradient(180deg,#eef2ef,#c4cdc7)!important;border:1px solid rgba(225,235,226,.65)!important;color:#1e2b23!important;-webkit-text-fill-color:#1e2b23!important;border-radius:3px!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .tile>.badge{position:absolute!important;top:10px!important;left:10px!important;right:auto!important;bottom:auto!important;margin:0!important;z-index:6!important;display:inline-flex!important;align-items:center!important;background:linear-gradient(180deg,#d4ffa8,#6fc43a)!important;border:1px solid #eaffd2!important;color:#0f2a06!important;-webkit-text-fill-color:#0f2a06!important;border-radius:999px!important;padding:3px 10px!important;font-size:9px!important;font-weight:800!important;letter-spacing:.06em!important;text-shadow:0 1px 0 rgba(255,255,255,.35)!important;box-shadow:inset 0 1px rgba(255,255,255,.6),0 2px 4px rgba(0,0,0,.35)!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) header label.search{background:linear-gradient(160deg,#8f9a92 0%,#5f6b63 34%,#3a443e 68%,#232a26 100%)!important;border:1px solid rgba(235,242,238,.5)!important;border-radius:4px!important;box-shadow:inset 0 1px rgba(255,255,255,.35),0 2px 6px rgba(0,0,0,.35)!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) header label.search:focus-within{border-color:#b7f07a!important;box-shadow:0 0 0 2px rgba(126,220,50,.35),inset 0 1px rgba(255,255,255,.35)!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) header label.search input{color:#fff!important;-webkit-text-fill-color:#fff!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #prof .pcard.card>h2{border-bottom-color:#6cc72a!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #prof .pcard .btn:not(.ghost):not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,#e1ffb4 0%,#9be44c 14%,#56b01e 49%,#56b01e 51%,#7bd33a 100%)!important;border-color:#2f7a12!important;color:#0f2a06!important;-webkit-text-fill-color:#0f2a06!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #prof .pcard.card :is(.stats b,.pf-stats b){color:#b7f07a!important;-webkit-text-fill-color:#b7f07a!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) header label.search input{background:transparent!important;box-shadow:none!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) header label.search input::placeholder{color:#cdd6d0!important}
+
+html body.accurate-nxe.arcade-mode #tabInd{display:block!important;background:linear-gradient(90deg,#ffe3b8,#ff9c38,#e0600f)!important;box-shadow:0 0 10px #ff8b2899!important;height:3px!important;border-radius:3px!important;bottom:-3px!important;will-change:left,width}
+html body.accurate-nxe.arcade-mode #settings .card,html body.accurate-nxe.arcade-mode #queueDlg .card,html body.accurate-nxe.arcade-mode #game .gcard,html body.accurate-nxe.arcade-mode #prof .pcard.card,html body.accurate-nxe.arcade-mode .letter-menu-overlay .letter-menu-panel,html body.accurate-nxe.arcade-mode .browser{position:relative;overflow:hidden;background:radial-gradient(ellipse 60% 40% at 18% 12%,rgba(255,255,255,.26),transparent 70%),radial-gradient(ellipse 70% 30% at 40% 100%,rgba(0,0,0,.4),transparent 70%),linear-gradient(160deg,#a0958a 0%,#716357 34%,#4a3c31 68%,#2c231c 100%)!important;border:1px solid rgba(235,242,238,.55)!important;border-top-color:rgba(255,255,255,.8)!important;border-radius:6px!important;color:#eef3ee!important;box-shadow:0 26px 80px rgba(0,0,0,.7),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(255,150,50,.2)!important;backdrop-filter:none!important}
+html body.accurate-nxe.arcade-mode :is(#settings,#queueDlg,#game) .card>h2,html body.accurate-nxe.arcade-mode .letter-menu-head{background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,.06) 52%,rgba(0,0,0,.12) 52%,rgba(255,255,255,.04))!important;border-bottom:2px solid #f39a3a!important;border-left:0!important;color:#fff!important;-webkit-text-fill-color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.7)!important;font-weight:400!important}
+html body.accurate-nxe.arcade-mode #settings .card:before,html body.accurate-nxe.arcade-mode #queueDlg .card:before,html body.accurate-nxe.arcade-mode #game .gcard:before{content:"";position:absolute;inset:-25%;z-index:0;pointer-events:none;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.14),transparent 28%),radial-gradient(circle at 75% 60%,rgba(255,255,255,.1),transparent 30%);filter:blur(14px);animation:xlSmoke 22s ease-in-out infinite alternate}
+html body.accurate-nxe.arcade-mode #settings .card>*,html body.accurate-nxe.arcade-mode #queueDlg .card>*,html body.accurate-nxe.arcade-mode #game .gcard>*{position:relative;z-index:1}
+html body.accurate-nxe.arcade-mode :is(#settings,#queueDlg,#game) .card :is(h3,p,label,small,b,strong,dt,dd,.settings-note,.queue-main b,.queue-main small,#s3Status,.gextra,.gextra *:not(a):not(.btn)){background:none!important;color:#eef3ee!important;-webkit-text-fill-color:#eef3ee!important;text-shadow:0 1px 2px rgba(0,0,0,.45)}
+html body.accurate-nxe.arcade-mode :is(#settings,#queueDlg,#game) .card :is(h3,dt,.gextra a){color:#ffd09b!important;-webkit-text-fill-color:#ffd09b!important}
+html body.accurate-nxe.arcade-mode :is(#settings,#queueDlg,#game) .card :is(.st-group,.queue-row,.gbody,.gextra,.gfoot){background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(0,0,0,.2))!important;border:1px solid rgba(235,242,238,.22)!important;border-radius:3px!important}
+html body.accurate-nxe.arcade-mode .letter-menu-head small{color:#ffd09b!important}
+html body.accurate-nxe.arcade-mode .letter-menu-head :is(h2,p){color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+html body.accurate-nxe.arcade-mode .letter-menu-head p{color:#dfe7e1!important}
+html body.accurate-nxe.arcade-mode .letter-menu-tools,html body.accurate-nxe.arcade-mode .letter-menu-foot{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(0,0,0,.25))!important;border-color:rgba(235,242,238,.2)!important;color:#dfe7e1!important}
+html body.accurate-nxe.arcade-mode .letter-menu-views{background:rgba(0,0,0,.3)!important;border:1px solid rgba(235,242,238,.3)!important}
+html body.accurate-nxe.arcade-mode .letter-menu-views button:not(.is-active){background:transparent!important;color:#eef3ee!important;-webkit-text-fill-color:#eef3ee!important}
+html body.accurate-nxe.arcade-mode .letter-title-item{background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.22))!important;border:1px solid rgba(235,242,238,.25)!important;border-radius:3px!important;color:#fff!important}
+html body.accurate-nxe.arcade-mode .letter-title-item:is(:hover,:focus-visible){background:linear-gradient(145deg,rgba(255,150,50,.42),rgba(0,0,0,.25))!important;border-color:#ffd09b!important}
+html body.accurate-nxe.arcade-mode .letter-title-art{background:linear-gradient(180deg,#ffe8c2 0%,#ffb257 14%,#e0731a 49%,#e0731a 51%,#ffa23d 100%)!important;border:1px solid #8a3d0a!important;color:#3a1804!important;border-radius:4px!important;text-shadow:none!important}
+html body.accurate-nxe.arcade-mode .letter-title-copy b{color:#fff!important}html body.accurate-nxe.arcade-mode .letter-title-copy small{color:#cfd8d2!important}html body.accurate-nxe.arcade-mode .letter-title-arrow{color:#ffd09b!important}
+html body.accurate-nxe.arcade-mode .letter-menu-panel{width:min(720px,94vw)!important;min-width:0!important;max-height:min(78vh,720px)!important}
+html body.accurate-nxe.arcade-mode .letter-menu-overlay.search-open .letter-menu-panel{width:min(1040px,95vw)!important;max-height:86vh!important}
+html body.accurate-nxe.arcade-mode .letter-menu-items{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important;gap:8px!important;padding:14px 16px!important}
+html body.accurate-nxe.arcade-mode .letter-menu-items.list-mode{grid-template-columns:1fr!important}
+html body.accurate-nxe.arcade-mode :is(#settings,#queueDlg,#game) .card .btn:not(.ghost),html body.accurate-nxe.arcade-mode :is(#settings,#queueDlg,#game) .card .btn[aria-pressed="true"],html body.accurate-nxe.arcade-mode .letter-menu-close,html body.accurate-nxe.arcade-mode .letter-menu-views button.is-active,html body.accurate-nxe.arcade-mode .xen-menu-dl{background:linear-gradient(180deg,#ffe8c2 0%,#ffb257 14%,#e0731a 49%,#e0731a 51%,#ffa23d 100%)!important;border:1px solid #8a3d0a!important;color:#3a1804!important;-webkit-text-fill-color:#3a1804!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important;border-radius:4px!important;font-weight:700!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important}
+html body.accurate-nxe.arcade-mode :is(#settings,#queueDlg,#game) .card .btn.ghost:not([aria-pressed="true"]):not(.zz):not(.zy):not(.zx):not(.zw){background:linear-gradient(180deg,#fbfdfb 0%,#dfe6e1 48%,#b4beb8 52%,#d3dbd6 100%)!important;border:1px solid #5d6a63!important;color:#1e2b23!important;-webkit-text-fill-color:#1e2b23!important;text-shadow:0 1px 0 rgba(255,255,255,.6)!important;border-radius:4px!important;box-shadow:inset 0 1px 0 #fff,0 2px 5px rgba(0,0,0,.45)!important}
+html body.accurate-nxe.arcade-mode :is(#settings,#queueDlg,#game) .card .btn:hover{filter:brightness(1.1)!important}
+html body.accurate-nxe.arcade-mode :is(#settings,#queueDlg) .card .fld,html body.accurate-nxe.arcade-mode #prof .pf-nameinput,html body.accurate-nxe.arcade-mode .xen-menu-q{background:linear-gradient(180deg,#eef2ef,#c4cdc7)!important;border:1px solid rgba(225,235,226,.65)!important;color:#1e2b23!important;-webkit-text-fill-color:#1e2b23!important;border-radius:3px!important}
+html body.accurate-nxe.arcade-mode .tile>.badge{position:absolute!important;top:10px!important;left:10px!important;right:auto!important;bottom:auto!important;margin:0!important;z-index:6!important;display:inline-flex!important;align-items:center!important;background:linear-gradient(180deg,#ffd9a3,#ee8a2c)!important;border:1px solid #fff0d6!important;color:#3a1804!important;-webkit-text-fill-color:#3a1804!important;border-radius:999px!important;padding:3px 10px!important;font-size:9px!important;font-weight:800!important;letter-spacing:.06em!important;text-shadow:0 1px 0 rgba(255,255,255,.35)!important;box-shadow:inset 0 1px rgba(255,255,255,.6),0 2px 4px rgba(0,0,0,.35)!important}
+html body.accurate-nxe.arcade-mode header label.search{background:linear-gradient(160deg,#a0958a 0%,#716357 34%,#4a3c31 68%,#2c231c 100%)!important;border:1px solid rgba(235,242,238,.5)!important;border-radius:4px!important;box-shadow:inset 0 1px rgba(255,255,255,.35),0 2px 6px rgba(0,0,0,.35)!important}
+html body.accurate-nxe.arcade-mode header label.search:focus-within{border-color:#ffd09b!important;box-shadow:0 0 0 2px rgba(255,150,50,.35),inset 0 1px rgba(255,255,255,.35)!important}
+html body.accurate-nxe.arcade-mode header label.search input{color:#fff!important;-webkit-text-fill-color:#fff!important}
+html body.accurate-nxe.arcade-mode #prof .pcard.card>h2{border-bottom-color:#f39a3a!important}
+html body.accurate-nxe.arcade-mode #prof .pcard .btn:not(.ghost):not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,#ffe8c2 0%,#ffb257 14%,#e0731a 49%,#e0731a 51%,#ffa23d 100%)!important;border-color:#8a3d0a!important;color:#3a1804!important;-webkit-text-fill-color:#3a1804!important}
+html body.accurate-nxe.arcade-mode #prof .pcard.card :is(.stats b,.pf-stats b){color:#ffd09b!important;-webkit-text-fill-color:#ffd09b!important}
+html body.accurate-nxe.arcade-mode header label.search input{background:transparent!important;box-shadow:none!important}
+html body.accurate-nxe.arcade-mode header label.search input::placeholder{color:#cdd6d0!important}
+
+html body.accurate-nxe.dlc-mode #tabInd{display:block!important;background:linear-gradient(90deg,#f3eaff,#b99aff,#7a5bd8)!important;box-shadow:0 0 10px #b09aff99!important;height:3px!important;border-radius:3px!important;bottom:-3px!important;will-change:left,width}
+html body.accurate-nxe.dlc-mode #settings .card,html body.accurate-nxe.dlc-mode #queueDlg .card,html body.accurate-nxe.dlc-mode #game .gcard,html body.accurate-nxe.dlc-mode #prof .pcard.card,html body.accurate-nxe.dlc-mode .letter-menu-overlay .letter-menu-panel,html body.accurate-nxe.dlc-mode .browser{position:relative;overflow:hidden;background:radial-gradient(ellipse 60% 40% at 18% 12%,rgba(255,255,255,.26),transparent 70%),radial-gradient(ellipse 70% 30% at 40% 100%,rgba(0,0,0,.4),transparent 70%),linear-gradient(160deg,#958fa3 0%,#686078 34%,#413a52 68%,#272333 100%)!important;border:1px solid rgba(235,242,238,.55)!important;border-top-color:rgba(255,255,255,.8)!important;border-radius:6px!important;color:#eef3ee!important;box-shadow:0 26px 80px rgba(0,0,0,.7),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(190,140,255,.2)!important;backdrop-filter:none!important}
+html body.accurate-nxe.dlc-mode :is(#settings,#queueDlg,#game) .card>h2,html body.accurate-nxe.dlc-mode .letter-menu-head{background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,.06) 52%,rgba(0,0,0,.12) 52%,rgba(255,255,255,.04))!important;border-bottom:2px solid #a77de9!important;border-left:0!important;color:#fff!important;-webkit-text-fill-color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.7)!important;font-weight:400!important}
+html body.accurate-nxe.dlc-mode #settings .card:before,html body.accurate-nxe.dlc-mode #queueDlg .card:before,html body.accurate-nxe.dlc-mode #game .gcard:before{content:"";position:absolute;inset:-25%;z-index:0;pointer-events:none;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.14),transparent 28%),radial-gradient(circle at 75% 60%,rgba(255,255,255,.1),transparent 30%);filter:blur(14px);animation:xlSmoke 22s ease-in-out infinite alternate}
+html body.accurate-nxe.dlc-mode #settings .card>*,html body.accurate-nxe.dlc-mode #queueDlg .card>*,html body.accurate-nxe.dlc-mode #game .gcard>*{position:relative;z-index:1}
+html body.accurate-nxe.dlc-mode :is(#settings,#queueDlg,#game) .card :is(h3,p,label,small,b,strong,dt,dd,.settings-note,.queue-main b,.queue-main small,#s3Status,.gextra,.gextra *:not(a):not(.btn)){background:none!important;color:#eef3ee!important;-webkit-text-fill-color:#eef3ee!important;text-shadow:0 1px 2px rgba(0,0,0,.45)}
+html body.accurate-nxe.dlc-mode :is(#settings,#queueDlg,#game) .card :is(h3,dt,.gextra a){color:#e0c9ff!important;-webkit-text-fill-color:#e0c9ff!important}
+html body.accurate-nxe.dlc-mode :is(#settings,#queueDlg,#game) .card :is(.st-group,.queue-row,.gbody,.gextra,.gfoot){background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(0,0,0,.2))!important;border:1px solid rgba(235,242,238,.22)!important;border-radius:3px!important}
+html body.accurate-nxe.dlc-mode .letter-menu-head small{color:#e0c9ff!important}
+html body.accurate-nxe.dlc-mode .letter-menu-head :is(h2,p){color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+html body.accurate-nxe.dlc-mode .letter-menu-head p{color:#dfe7e1!important}
+html body.accurate-nxe.dlc-mode .letter-menu-tools,html body.accurate-nxe.dlc-mode .letter-menu-foot{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(0,0,0,.25))!important;border-color:rgba(235,242,238,.2)!important;color:#dfe7e1!important}
+html body.accurate-nxe.dlc-mode .letter-menu-views{background:rgba(0,0,0,.3)!important;border:1px solid rgba(235,242,238,.3)!important}
+html body.accurate-nxe.dlc-mode .letter-menu-views button:not(.is-active){background:transparent!important;color:#eef3ee!important;-webkit-text-fill-color:#eef3ee!important}
+html body.accurate-nxe.dlc-mode .letter-title-item{background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.22))!important;border:1px solid rgba(235,242,238,.25)!important;border-radius:3px!important;color:#fff!important}
+html body.accurate-nxe.dlc-mode .letter-title-item:is(:hover,:focus-visible){background:linear-gradient(145deg,rgba(190,140,255,.42),rgba(0,0,0,.25))!important;border-color:#e0c9ff!important}
+html body.accurate-nxe.dlc-mode .letter-title-art{background:linear-gradient(180deg,#f1e4ff 0%,#c9a2f5 14%,#8450c4 49%,#8450c4 51%,#b184e8 100%)!important;border:1px solid #4c2a82!important;color:#22103d!important;border-radius:4px!important;text-shadow:none!important}
+html body.accurate-nxe.dlc-mode .letter-title-copy b{color:#fff!important}html body.accurate-nxe.dlc-mode .letter-title-copy small{color:#cfd8d2!important}html body.accurate-nxe.dlc-mode .letter-title-arrow{color:#e0c9ff!important}
+html body.accurate-nxe.dlc-mode .letter-menu-panel{width:min(720px,94vw)!important;min-width:0!important;max-height:min(78vh,720px)!important}
+html body.accurate-nxe.dlc-mode .letter-menu-overlay.search-open .letter-menu-panel{width:min(1040px,95vw)!important;max-height:86vh!important}
+html body.accurate-nxe.dlc-mode .letter-menu-items{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important;gap:8px!important;padding:14px 16px!important}
+html body.accurate-nxe.dlc-mode .letter-menu-items.list-mode{grid-template-columns:1fr!important}
+html body.accurate-nxe.dlc-mode :is(#settings,#queueDlg,#game) .card .btn:not(.ghost),html body.accurate-nxe.dlc-mode :is(#settings,#queueDlg,#game) .card .btn[aria-pressed="true"],html body.accurate-nxe.dlc-mode .letter-menu-close,html body.accurate-nxe.dlc-mode .letter-menu-views button.is-active,html body.accurate-nxe.dlc-mode .xen-menu-dl{background:linear-gradient(180deg,#f1e4ff 0%,#c9a2f5 14%,#8450c4 49%,#8450c4 51%,#b184e8 100%)!important;border:1px solid #4c2a82!important;color:#22103d!important;-webkit-text-fill-color:#22103d!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important;border-radius:4px!important;font-weight:700!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important}
+html body.accurate-nxe.dlc-mode :is(#settings,#queueDlg,#game) .card .btn.ghost:not([aria-pressed="true"]):not(.zz):not(.zy):not(.zx):not(.zw){background:linear-gradient(180deg,#fbfdfb 0%,#dfe6e1 48%,#b4beb8 52%,#d3dbd6 100%)!important;border:1px solid #5d6a63!important;color:#1e2b23!important;-webkit-text-fill-color:#1e2b23!important;text-shadow:0 1px 0 rgba(255,255,255,.6)!important;border-radius:4px!important;box-shadow:inset 0 1px 0 #fff,0 2px 5px rgba(0,0,0,.45)!important}
+html body.accurate-nxe.dlc-mode :is(#settings,#queueDlg,#game) .card .btn:hover{filter:brightness(1.1)!important}
+html body.accurate-nxe.dlc-mode :is(#settings,#queueDlg) .card .fld,html body.accurate-nxe.dlc-mode #prof .pf-nameinput,html body.accurate-nxe.dlc-mode .xen-menu-q{background:linear-gradient(180deg,#eef2ef,#c4cdc7)!important;border:1px solid rgba(225,235,226,.65)!important;color:#1e2b23!important;-webkit-text-fill-color:#1e2b23!important;border-radius:3px!important}
+html body.accurate-nxe.dlc-mode .tile>.badge{position:absolute!important;top:10px!important;left:10px!important;right:auto!important;bottom:auto!important;margin:0!important;z-index:6!important;display:inline-flex!important;align-items:center!important;background:linear-gradient(180deg,#e3c9ff,#a77de9)!important;border:1px solid #f1e4ff!important;color:#22103d!important;-webkit-text-fill-color:#22103d!important;border-radius:999px!important;padding:3px 10px!important;font-size:9px!important;font-weight:800!important;letter-spacing:.06em!important;text-shadow:0 1px 0 rgba(255,255,255,.35)!important;box-shadow:inset 0 1px rgba(255,255,255,.6),0 2px 4px rgba(0,0,0,.35)!important}
+html body.accurate-nxe.dlc-mode header label.search{background:linear-gradient(160deg,#958fa3 0%,#686078 34%,#413a52 68%,#272333 100%)!important;border:1px solid rgba(235,242,238,.5)!important;border-radius:4px!important;box-shadow:inset 0 1px rgba(255,255,255,.35),0 2px 6px rgba(0,0,0,.35)!important}
+html body.accurate-nxe.dlc-mode header label.search:focus-within{border-color:#e0c9ff!important;box-shadow:0 0 0 2px rgba(190,140,255,.35),inset 0 1px rgba(255,255,255,.35)!important}
+html body.accurate-nxe.dlc-mode header label.search input{color:#fff!important;-webkit-text-fill-color:#fff!important}
+html body.accurate-nxe.dlc-mode #prof .pcard.card>h2{border-bottom-color:#a77de9!important}
+html body.accurate-nxe.dlc-mode #prof .pcard .btn:not(.ghost):not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,#f1e4ff 0%,#c9a2f5 14%,#8450c4 49%,#8450c4 51%,#b184e8 100%)!important;border-color:#4c2a82!important;color:#22103d!important;-webkit-text-fill-color:#22103d!important}
+html body.accurate-nxe.dlc-mode #prof .pcard.card :is(.stats b,.pf-stats b){color:#e0c9ff!important;-webkit-text-fill-color:#e0c9ff!important}
+html body.accurate-nxe.dlc-mode header label.search input{background:transparent!important;box-shadow:none!important}
+html body.accurate-nxe.dlc-mode header label.search input::placeholder{color:#cdd6d0!important}
+
+html body.accurate-nxe header #profBtn.profile[hidden]:not(.zz):not(.zy):not(.zx):not(.zw){display:none!important}
+html body.accurate-nxe header #profBtn.profile:not([hidden]){animation:profIn .5s cubic-bezier(.2,.9,.3,1.15) both;margin-left:0}
+@keyframes profIn{from{max-width:0;opacity:0;padding-left:0;padding-right:0;transform:scale(.4)}to{max-width:260px;opacity:1;transform:scale(1)}}
+#prof #pName.pf-nameinput{display:block!important}
+#prof .pf-nameinput{width:100%;max-width:260px;font-size:18px;font-weight:700;padding:6px 10px;margin-bottom:2px}
+body.hide-info .info{display:none!important}
+/* settings layout */
+#settings .card{width:min(560px,94vw)}
+#settings .st-body{padding:14px 18px;display:flex;flex-direction:column;gap:12px;max-height:68vh;overflow:auto}
+#settings .st-group{padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+#settings .st-group h3{margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+#settings .st-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#settings .st-row span{display:flex;flex-direction:column;gap:2px;min-width:0}#settings .st-row small{font-size:11px;opacity:.85}
+#settings .st-field{display:flex;flex-direction:column;gap:5px;font-size:12px}
+#settings .st-field .pw{display:flex;gap:8px}#settings .st-field .pw .fld{flex:1}
+#settings .st-actions{display:flex;gap:8px;flex-wrap:wrap}
+#settings .settings-actions{padding:10px 18px 14px;display:flex;justify-content:flex-end}
+/* performance */
+body.accurate-nxe .tile,body.accurate-nxe .browser,body.accurate-nxe .card,body.accurate-nxe .settings-card,body.accurate-nxe .settings-section{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+body.accurate-nxe .tile{content-visibility:auto;contain-intrinsic-size:auto 190px}
+body.accurate-nxe nav#tabs button{transition:color .12s,background-color .12s,border-color .12s!important;transform:none!important;text-shadow:none}
+body.accurate-nxe nav#tabs #tabInd{transition:left .22s cubic-bezier(.2,.8,.3,1),width .22s cubic-bezier(.2,.8,.3,1),background .2s!important}
+
+</style>
+<script id="xenios-121">
+(function(){const b=document.getElementById("infoToggle");if(!b)return;let on=true;try{on=localStorage.getItem("xenInfo")!=="0"}catch(e){}
+const ap=()=>{document.body.classList.toggle("hide-info",!on);b.textContent=on?"On":"Off";b.setAttribute("aria-pressed",String(on))};
+b.addEventListener("click",()=>{on=!on;try{localStorage.setItem("xenInfo",on?"1":"0")}catch(e){}ap()});ap();})();
+</script>
 <script id="xenios-119-live">
 (function(){
   const body=document.body; if(document.getElementById('liveBg'))return;
@@ -4533,7 +4654,7 @@ html body.accurate-nxe.dlc-mode{background:radial-gradient(ellipse 80% 55% at 25
   function seed(){
     P=[];
     if(mode==='arcade'){
-      const n=Math.round(Math.min(80,W*H/20000));
+      const n=Math.round(Math.min(40,W*H/24000));
       for(let i=0;i<n;i++)P.push({x:rnd(0,W),y:rnd(0,H),r:rnd(14,95),v:rnd(8,30),dx:rnd(-6,6),a:rnd(.06,.22),ph:rnd(0,6.28),h:rnd(10,60)});
     }else if(mode==='dlc'){
       for(let i=0;i<150;i++)P.push({k:'s',x:rnd(0,W),y:rnd(0,H),r:rnd(.4,1.7),ph:rnd(0,6.28),sp:rnd(.6,2.2)});
@@ -4541,7 +4662,7 @@ html body.accurate-nxe.dlc-mode{background:radial-gradient(ellipse 80% 55% at 25
     }
   }
   function size(){
-    const d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;
+    const d=1;W=innerWidth;H=innerHeight;
     cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);seed();
   }
   function arcade(t,dt){
@@ -4567,38 +4688,30 @@ html body.accurate-nxe.dlc-mode{background:radial-gradient(ellipse 80% 55% at 25
     });
   }
   function dlc(t,dt){
-    ctx.globalCompositeOperation='lighter';
-    const bl=ctx.createRadialGradient(W*.25,-H*.1,0,W*.25,-H*.1,H*1.0);
-    bl.addColorStop(0,'rgba(210,170,255,.38)');bl.addColorStop(.5,'rgba(140,100,230,.12)');bl.addColorStop(1,'rgba(90,60,200,0)');
-    ctx.fillStyle=bl;ctx.fillRect(0,0,W,H);
-    ctx.save();ctx.translate(W*.5,H*.55);ctx.rotate(-.16);ctx.translate(-W*.6,-H*.55);
-    const step=18,span=W*1.3;
-    for(let i=0;i<5;i++){
-      const base=H*(.28+i*.1),amp=34+i*10,f1=.0024+i*.0004,s1=.28+i*.05,ph=i*1.4;
-      const top=[],bot=[];
-      for(let x=0;x<=span;x+=step){
-        const y=base+Math.sin(x*f1+t*s1+ph)*amp+Math.sin(x*f1*2.3-t*s1*.7+ph)*amp*.35;
-        top.push(y);bot.push(y+26+i*7+Math.sin(x*.004+t*.4+i)*16);
+    if(!dlc.lat||dlc.w!==W||dlc.h!==H){
+      const o=document.createElement('canvas');o.width=W;o.height=H;const c=o.getContext('2d');
+      const s=Math.max(70,Math.min(110,W/14));dlc.s=s;dlc.f=[];
+      for(let r=-1;r<H/(s*.6)+2;r++)for(let q=-1;q<W/s+2;q++){
+        const cx=q*s+(r%2?s/2:0),cy=r*s*.6,v=(((q*73856093)^(r*19349663))>>>0)%100/100;
+        c.beginPath();c.moveTo(cx,cy-s*.6);c.lineTo(cx+s/2,cy);c.lineTo(cx,cy+s*.6);c.lineTo(cx-s/2,cy);c.closePath();
+        c.fillStyle='rgba('+((150+v*60)|0)+','+((110+v*50)|0)+',255,'+(.03+v*.07)+')';c.fill();
+        c.strokeStyle='rgba(225,200,255,'+(.08+v*.08)+')';c.lineWidth=1;c.stroke();
+        if(v>.78)dlc.f.push({cx,cy,ph:v*40,sp:.5+v});
       }
-      ctx.beginPath();
-      for(let k=0;k<top.length;k++)ctx[k?'lineTo':'moveTo'](k*step,top[k]);
-      for(let k=bot.length-1;k>=0;k--)ctx.lineTo(k*step,bot[k]);
-      ctx.closePath();
-      const g=ctx.createLinearGradient(0,base-amp,0,base+amp+70);
-      g.addColorStop(0,'rgba(215,180,255,.34)');g.addColorStop(.5,'rgba(150,110,235,.16)');g.addColorStop(1,'rgba(110,80,220,.03)');
-      ctx.fillStyle=g;ctx.fill();
-      ctx.beginPath();for(let k=0;k<top.length;k++)ctx[k?'lineTo':'moveTo'](k*step,top[k]);
-      ctx.strokeStyle='rgba(255,255,255,'+(.34-i*.04)+')';ctx.lineWidth=1.6;ctx.shadowColor='rgba(220,190,255,.8)';ctx.shadowBlur=10;ctx.stroke();ctx.shadowBlur=0;
+      dlc.lat=o;dlc.w=W;dlc.h=H;
     }
-    ctx.restore();
-    P.forEach(p=>{
-      if(p.k!=='s')return;
-      const a=.2+.8*(.5+.5*Math.sin(t*p.sp+p.ph));
-      if(p.r>1.15){const L=5+p.r*5*a;ctx.strokeStyle='rgba(255,245,255,'+(a*.9)+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x-L,p.y);ctx.lineTo(p.x+L,p.y);ctx.moveTo(p.x,p.y-L);ctx.lineTo(p.x,p.y+L);ctx.stroke();}
-      ctx.fillStyle='rgba(240,225,255,'+(a*.8)+')';ctx.beginPath();ctx.arc(p.x,p.y,p.r*.8,0,6.283);ctx.fill();
-    });
+    ctx.globalCompositeOperation='source-over';ctx.drawImage(dlc.lat,0,0,W,H);
+    ctx.globalCompositeOperation='lighter';
+    const x=((t*80)%(W+700))-350,g=ctx.createLinearGradient(x,0,x+260,H*.5);
+    g.addColorStop(0,'rgba(230,205,255,0)');g.addColorStop(.5,'rgba(235,215,255,.13)');g.addColorStop(1,'rgba(230,205,255,0)');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    const s=dlc.s;
+    dlc.f.forEach(f=>{const a=Math.pow(Math.max(0,Math.sin(t*f.sp+f.ph)),8)*.4;if(a<.02)return;
+      ctx.beginPath();ctx.moveTo(f.cx,f.cy-s*.6);ctx.lineTo(f.cx+s/2,f.cy);ctx.lineTo(f.cx,f.cy+s*.6);ctx.lineTo(f.cx-s/2,f.cy);ctx.closePath();
+      ctx.fillStyle='rgba(205,165,255,'+a+')';ctx.fill();});
   }
   function frame(ms){
+    if(!reduce&&ms-(frame.l||0)<33){raf=requestAnimationFrame(frame);return;} frame.l=ms;
     const t=ms/1000,dt=Math.min(.05,Math.max(0,t-last));last=t;
     ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,W,H);
     if(mode==='arcade')arcade(t,dt);else if(mode==='dlc')dlc(t,dt);
