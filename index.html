@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Xenios NXE 1.0 · Xbox 360 Archive Dashboard</title>
+<title>Xenios NXE 1.25 · Xbox 360 Archive Dashboard</title>
 <style>
   :root{
     --green:#7ed321;
@@ -1412,7 +1412,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     <div class="orb" aria-hidden="true"></div>
     <button class="iconbtn" id="settingsBtn" type="button" title="NXE settings" aria-label="Open settings">⚙</button>
     <div class="brand">
-      <h1><b>Xenios</b> <span class="release-mark">NXE 1.0</span> · Xbox 360 Archive</h1>
+      <h1><b>Xenios</b> <span class="release-mark">v1.25</span> · Xbox 360 Archive</h1>
       <p id="stats">Your Xbox 360 archive dashboard · Offline-friendly library</p>
     </div>
     <div class="spacer"></div>
@@ -1424,9 +1424,9 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     <div class="clock" id="clock" aria-hidden="true"></div>
     <button class="btn ghost" id="queueBtn" type="button" title="Optional download queue">☷ Queue <span id="queueCount">0</span></button>
     
-    <span id="accountLight" class="account-light is-off" role="status" aria-label="Not logged in" title="Not logged in"></span><button class="btn" id="loginBtn" type="button" aria-haspopup="dialog">👤 Guest Account</button><button class="profile" id="profBtn" type="button" hidden aria-haspopup="dialog" title="Profile">
+    <button class="profile" id="profBtn" type="button" hidden aria-haspopup="dialog" title="Profile">
       <span class="av" id="chipAv">P</span><span class="pn" id="chipName">Player</span><span class="cnt" id="chipCnt">0</span>
-    </button>
+    </button><span id="accountLight" class="account-light is-off" role="status" aria-label="Not logged in" title="Not logged in"></span><button class="btn" id="loginBtn" type="button" aria-haspopup="dialog">👤 Guest Account</button>
   </header>
 
   <nav class="tabs" id="tabs" role="tablist" aria-label="Category">
@@ -1450,32 +1450,30 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       <p class="count" id="count"></p>
       <div class="grid" id="grid"></div>
       <section id="guidesPanel" class="guide-panel" hidden>
-        <div class="guide-notice"><b>Optimized for ABadAvatar</b><span>These guides describe common Xbox 360 content layouts. Exact paths depend on your dashboard and storage setup.</span></div>
-        <details class="guide-accordion" open><summary>Installing content onto Xbox 360 (ABadAvatar)</summary>
-          <div class="guide-copy"><p><b>Before you copy anything:</b> use files you own or are authorized to use; make a backup first; confirm your console/dashboard supports the format. Paths below are common examples, not universal defaults. Set the content paths in ABadAvatar to match the drive and folder layout actually used by your console.</p></div>
-          <details class="guide-sub"><summary>Games — extracted files, ISO, GOD, and multi-disc releases</summary><div class="guide-copy"><ol>
-            <li><b>Identify the format.</b> An <code>.iso</code> is a disc image; extracted game files often contain <code>default.xex</code>; GOD (Games on Demand) output is a numbered package folder. ABadAvatar must support the format you choose.</li>
-            <li><b>For an extracted game:</b> copy the complete extracted game folder into your configured games path (often a folder such as <code>Hdd1:/Games/Game Name/</code>). Keep <code>default.xex</code> and its neighboring files together; avoid accidental double nesting such as <code>Games/Game/Game/default.xex</code>.</li>
-            <li><b>For an ISO you want as GOD:</b> use <a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD information and downloads (ConsoleMods)</a>. Select the ISO, choose an output folder, convert it, then copy the produced GOD content folder to <code>Hdd1:/Content/0000000000000000/</code> while preserving the generated title-ID and package structure. Rescan the dashboard.</li>
-            <li><b>Disc 1 install disc + Disc 2 play disc:</b> check the release notes or a trusted compatibility list to determine what each disc contains. If Disc 1 is only an install/data disc and Disc 2 is the play disc, extract the install disc with a suitable ISO extraction tool such as <a href="https://github.com/XboxDev/extract-xiso" target="_blank" rel="noopener noreferrer">extract-xiso</a> or <a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD / ConsoleMods guidance</a>. Inspect the extracted files and identify the game data/content by title ID. Convert the play disc to GOD if that is your chosen format, then merge/copy only the required install-data files into the matching title's expected structure. Do not blindly overwrite files or combine unrelated title IDs. Some games expect data under <code>Content/0000000000000000/TITLEID/00000002/</code>; others use a game-specific folder or a different disc workflow. Verify the exact title-specific method first.</li>
-            <li><b>DiscXplorer:</b> useful for inspecting Xbox 360 disc/content layouts and finding files on install discs. Use it to inspect/extract your own disc image and identify the correct game-data folder; preserve paths and title IDs. Search for a trusted source/community reference before downloading: <a href="https://consolemods.org/wiki/Xbox_360" target="_blank" rel="noopener noreferrer">ConsoleMods Xbox 360 documentation</a>.</li>
-            <li><b>After copying:</b> refresh/rescan the configured ABadAvatar path, confirm the title appears, and test it. Multi-disc games may need a dashboard-specific disc-swap or launch setup.</li>
-          </ol><p><b>Common paths:</b> extracted games: <code>Hdd1:/Games/</code> (if configured); GOD games: <code>Hdd1:/Content/0000000000000000/TITLEID/00007000/</code> is a common GOD container location; supplemental content may use <code>00000002</code>. Keep the package's own generated directory structure intact and follow the format expected by your dashboard.</p></div></details>
-          <details class="guide-sub"><summary>DLC — title IDs, content IDs, and refresh</summary><div class="guide-copy"><ol>
-            <li>Match DLC to the exact base game and title ID. Regional or edition differences can mean a DLC package is not recognized by another version.</li>
-            <li>For many Xbox 360 DLC packages, the common content path is <code>Hdd1:/Content/0000000000000000/TITLEID/00000002/</code>. Replace <code>TITLEID</code> with the game's title ID (often eight hexadecimal characters). The inner package filename/content ID is normally significant—do not rename it arbitrarily.</li>
-            <li>Copy the full package into that folder while preserving the folder structure. If the download is an archive, extract it first only when it contains a package file or a documented content tree.</li>
-            <li>Refresh the dashboard's content list and launch the base game. Check in-game menus for the add-on. Some DLC requires an appropriate license/entitlement and may not work merely because the files are present.</li>
-            <li>If it does not appear, verify title ID, region/edition, file integrity, content path, and whether the package is actually DLC rather than a title update or theme.</li>
-          </ol><p><b>Typical structure:</b> <code>Content/0000000000000000/4D5307E6/00000002/&lt;content package&gt;</code> (example title ID only). Never assume the example ID belongs to your game.</p></div></details>
-          <details class="guide-sub"><summary>Arcade — make a package usable on Xbox 360</summary><div class="guide-copy"><ol>
-            <li>Identify whether the item is an XBLA/GOD package, an extracted game, or an ISO. These are not interchangeable formats. Check that the title ID and package are for the intended game.</li>
-            <li><b>For a GOD/XBLA package:</b> preserve the generated content folder and copy it under <code>Hdd1:/Content/0000000000000000/</code>, keeping the title-ID and package directories intact. Rescan the dashboard.</li>
-            <li><b>For an extracted game:</b> put the complete extracted folder in the configured games path (for example <code>Hdd1:/Games/Arcade Title/</code>) only if the dashboard supports launching that format.</li>
-            <li><b>Package unlock / compatibility:</b> on a compatible modified console, <a href="https://github.com/Byrom90/GOD-Unlocker-XB360" target="_blank" rel="noopener noreferrer">GOD Unlocker (GitHub)</a> can unlock supported GOD packages for launch on JTAG/RGH consoles. Make a backup first; use it only with content you are authorized to use. It does not convert an ISO to GOD or guarantee every package will work.</li>
-            <li><b>XM360:</b> a homebrew utility commonly used to scan content and manage/unlock DLC/XBLA packages on compatible modified consoles. Use a reputable community source and read its documentation before running it; it may not be compatible with every dashboard or package. Do not use it to bypass licensing for content you do not own.</li>
-            <li>Afterward, refresh/rescan content, confirm the title is listed, and test launch. If it is missing, re-check the content path, title ID, package integrity, console/dashboard compatibility, and whether the item needs a license or a different format.</li>
-          </ol><p><b>References:</b> <a href="https://github.com/Byrom90/GOD-Unlocker-XB360" target="_blank" rel="noopener noreferrer">GOD Unlocker source and notes</a> · <a href="https://consolemods.org/wiki/Xbox_360" target="_blank" rel="noopener noreferrer">ConsoleMods Xbox 360 wiki</a>. A current authoritative XM360 project link could not be confidently verified, so use a trusted community archive rather than an arbitrary mirror.</p></div></details>
+        <div class="guide-notice"><b>Xenios Guide</b><span>Quick reference for where Xbox 360 content goes. Only use files you own or are authorized to use, and back up your drive first.</span></div>
+        <details class="guide-accordion" open><summary>Xenios Guide</summary>
+          <div class="guide-copy"><p><b>Tip:</b> replace <code>&lt;TitleID&gt;</code> with the game's 8-character title ID. Use <code>Usb0:\</code> instead of <code>Hdd1:\</code> for a USB drive.</p>
+          <details class="guide-sub"><summary>Games — GOD and extracted</summary><div class="guide-copy">
+            <h4>Games on Demand (GOD)</h4>
+            <ul><li><code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\00007000\</code></li><li>Convert ISOs first: <a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD</a></li></ul>
+            <h4>Extracted games</h4>
+            <ul><li><code>Hdd1:\Games\&lt;Game Name&gt;\default.xex</code></li><li>Extract ISOs: <a href="https://github.com/XboxDev/extract-xiso" target="_blank" rel="noopener noreferrer">extract-xiso</a></li></ul>
+            <h4>Multi-disc and editions</h4>
+            <ul><li>Copy every disc. Editions and bundles are linked on each game's page under “Linked titles”.</li></ul>
+          </div></details>
+          <details class="guide-sub"><summary>DLC — add-ons</summary><div class="guide-copy">
+            <ul><li><code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\00000002\&lt;ContentID&gt;</code></li><li>Unlock / refresh: <a href="https://github.com/Byrom90/GOD-Unlocker-XB360" target="_blank" rel="noopener noreferrer">GOD Unlocker</a></li><li>Rescan your content, then launch the game once.</li></ul>
+          </div></details>
+          <details class="guide-sub"><summary>Arcade — XBLA packages</summary><div class="guide-copy">
+            <ul><li><code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\000D0000\&lt;ContentID&gt;</code></li><li>Unlock the package: <a href="https://github.com/Byrom90/GOD-Unlocker-XB360" target="_blank" rel="noopener noreferrer">GOD Unlocker</a></li><li>Rescan your content and check the Arcade list.</li></ul>
+          </div></details>
+          <details class="guide-sub"><summary>Paths &amp; tools — cheat sheet</summary><div class="guide-copy">
+            <h4>Content type folders</h4>
+            <ul><li><code>00007000</code> Games on Demand</li><li><code>00000002</code> DLC / marketplace</li><li><code>000D0000</code> Arcade (XBLA)</li><li><code>00004000</code> Installed game</li></ul>
+            <h4>Links</h4>
+            <ul><li><a href="https://consolemods.org/wiki/Xbox_360" target="_blank" rel="noopener noreferrer">ConsoleMods Xbox 360 wiki</a></li><li><a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD</a></li><li><a href="https://github.com/XboxDev/extract-xiso" target="_blank" rel="noopener noreferrer">extract-xiso</a></li><li><a href="https://github.com/Byrom90/GOD-Unlocker-XB360" target="_blank" rel="noopener noreferrer">GOD Unlocker</a></li></ul>
+          </div></details>
+          </div>
         </details>
       </section>
     </main>
@@ -1519,8 +1517,11 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       <div><span>Size</span><b id="iSize">—</b></div>
       <div><span>Added</span><b id="iDate">—</b></div>
       <div><span>Source</span><b id="iSrc">—</b></div>
+      <div><span>Parts</span><b id="iParts">—</b></div>
+      <div><span>Titles</span><b id="iTitles">—</b></div>
     </div>
-    <button class="btn" id="iOpen" type="button">Ⓐ Browse files</button>
+    <div class="imeter" title="Relative size"><i id="iBar"></i></div>
+    <div class="iact"><button class="btn ghost small" id="iCopy" type="button">⧉ Copy</button><button class="btn ghost small" id="iFind" type="button">⌕ Search</button><button class="btn" id="iOpen" type="button">Ⓐ Browse files</button></div>
   </section>
 
   <footer>
@@ -1543,7 +1544,9 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     <h2 id="settingsTitle">Settings</h2>
     <div class="st-body" id="settingsGeneralPanel">
       <div class="st-group"><h3>Display</h3>
-        <div class="st-row"><span><b>Details bar</b><small>Title, size, date and source bar shown at the bottom of every tab.</small></span><button class="btn ghost small" id="infoToggle" type="button" aria-pressed="true">On</button></div>
+        <div class="st-row"><span><b>Controller colors</b><small>Use real Xbox 360 controller colors (green / red / blue / yellow) for the A B X Y hints instead of the tab color.</small></span><button class="btn ghost small" id="ctrlToggle" type="button" aria-pressed="false">Off</button></div>
+        <div class="st-row"><span><b>Details bar</b><small>Futuristic details HUD with size, source, parts, titles and quick actions.</small></span><button class="btn ghost small" id="infoToggle" type="button" aria-pressed="false">Off</button></div>
+        
       </div>
       <div class="st-group"><h3>Database</h3>
         <div class="st-row"><span><b>Export database</b><small>Save the game, arcade and DLC index as JSON.</small></span><button class="btn small" id="bExport" type="button">⬇ Export</button></div>
@@ -1564,21 +1567,22 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   </div>
 </div>
 
-<div id="nxeContextMenu" hidden role="menu" aria-label="NXE quick menu"><div class="ctx-heading" id="nxeContextTitle">Xenios Quick Menu</div><button type="button" data-action="open"><span class="ctx-icon">◉</span>Open selected item</button><button type="button" data-action="queue"><span class="ctx-icon">＋</span>Add to download queue</button><div class="ctx-separator"></div><button type="button" data-action="search"><span class="ctx-icon">⌕</span>Search this title</button><button type="button" data-action="settings"><span class="ctx-icon">⚙</span>Open settings</button><button type="button" data-action="close"><span class="ctx-icon ctx-accent">×</span>Close menu</button></div>
+<div id="nxeContextMenu" hidden role="menu" aria-label="NXE quick menu"><div class="ctx-heading" id="nxeContextTitle">Xenios Quick Menu</div><button type="button" data-action="open"><span class="ctx-icon">◉</span>Open details</button><button type="button" data-action="download"><span class="ctx-icon">⬇</span>Download</button><button type="button" data-action="queue"><span class="ctx-icon">＋</span>Add to download queue</button><div class="ctx-separator"></div><button type="button" data-action="search"><span class="ctx-icon">⌕</span>Search this title</button><button type="button" data-action="settings"><span class="ctx-icon">⚙</span>Open settings</button><button type="button" data-action="close"><span class="ctx-icon ctx-accent">×</span>Close menu</button></div>
 
 <!-- game details widget -->
 <div class="dlg" id="game" hidden>
   <div class="card gcard" role="dialog" aria-modal="true" aria-labelledby="gTitle">
     <h2 id="gHead">Game details</h2>
     <div class="gbody">
-      <div class="cover" id="gCover"><span id="gGlyph">A</span><img id="gImg" alt="" hidden referrerpolicy="no-referrer"></div>
+      <div class="cover" id="gCover"><span id="gGlyph">A</span></div>
       <dl class="gmeta">
         <div><dt>Title</dt><dd id="gTitle"></dd></div>
-        <div><dt>Release date</dt><dd id="gDate"></dd></div>
+        
         <div><dt>Size</dt><dd id="gSize"></dd></div>
       </dl>
     </div>
     <div class="gextra" id="gExtra"></div>
+    <div class="grel" id="gRel" hidden></div>
     <div class="gfoot">
       <div class="dlbox" id="gDlBox"></div>
       <small id="gNote"></small>
@@ -1593,7 +1597,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     <h2 id="pTitle">Profile</h2>
     <div id="profileView">
       <div class="pf-id"><span class="av big profile-avatar-edit" id="pAv" tabindex="0" aria-label="Profile picture">P</span>
-        <div class="pf-who"><input class="fld pf-nameinput" id="pName" type="text" maxlength="20" placeholder="Profile name" aria-label="Profile name" autocomplete="off"><span id="pNameView" hidden>Player</span><small id="pKey"></small></div></div>
+        <div class="pf-who"><input class="fld pf-nameinput" id="pName" type="text" maxlength="20" placeholder="Profile name" aria-label="Profile name" autocomplete="off"><span id="pNameView" hidden>Player</span><button class="btn ghost small" id="pChangePic" type="button">Change Gamerpic</button><small id="pKey"></small></div></div>
       <div class="pf-stats">
         <div><b id="sCount">0</b><span>Downloads</span></div>
         <div><b id="sSize">0 GB</b><span>Total size</span></div>
@@ -1610,7 +1614,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       <section id="gamerpicEditor" hidden><input id="gamerpicSearch" type="search"><button id="gamerpicFind" type="button"></button><button id="gamerpicBack" type="button"></button><div id="gamerpicResults"></div></section>
     </div>
     <div class="foot">
-      <button class="btn ghost small" id="pExport" type="button">Export history</button>
+      
       <button class="btn ghost small" id="pClear" type="button">Clear history</button>
       <span style="flex:1"></span>
       <button class="btn small" id="pClose" type="button">Close</button>
@@ -1868,7 +1872,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     const menu = document.getElementById("nxeContextMenu");
     const title = document.getElementById("nxeContextTitle");
     if (!menu) return;
-    let target = null;
+    let target = null, rec = null;
     const hide = () => { menu.hidden = true; target = null; };
     const getTitle = node => {
       if (!node) return "Xenios Quick Menu";
@@ -1879,17 +1883,25 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       if (e.target.closest("input,textarea,select,[contenteditable=true]")) return;
       e.preventDefault();
       target = e.target.closest(".tile,.brow,.brow-inner,.game-card,.dlc-card,.profile,.card") || e.target;
-      title.textContent = getTitle(target);
+      const itm = e.target.closest(".letter-title-item"); rec = (itm && itm._rec) || null;
+      title.textContent = rec ? String(rec.t || rec.f || "Selected title").slice(0,80) : getTitle(target);
+      menu.classList.toggle("ctx-rec", !!rec);
       menu.hidden = false;
       const w = Math.min(280, window.innerWidth - 16), h = Math.min(menu.scrollHeight || 240, window.innerHeight - 16);
       menu.style.left = Math.max(8, Math.min(e.clientX, window.innerWidth - w - 8)) + "px";
       menu.style.top = Math.max(8, Math.min(e.clientY, window.innerHeight - h - 8)) + "px";
-      menu.querySelector('[data-action="queue"]').hidden = !target?.matches?.(".tile,.brow,.brow-inner,.game-card,.dlc-card");
-      menu.querySelector('[data-action="open"]').hidden = !target?.matches?.(".tile,.brow,.brow-inner,.game-card,.dlc-card,.profile");
+      menu.querySelector('[data-action="queue"]').hidden = rec ? false : !target?.matches?.(".tile,.brow,.brow-inner,.game-card,.dlc-card");
+      menu.querySelector('[data-action="open"]').hidden = rec ? false : !target?.matches?.(".tile,.brow,.brow-inner,.game-card,.dlc-card,.profile");
     });
     menu.addEventListener("click", e => {
       const button = e.target.closest("button[data-action]"); if (!button) return;
-      const action = button.dataset.action, picked = target; hide();
+      const action = button.dataset.action, picked = target, pr = rec; hide(); rec = null;
+      if (pr && action !== "close") {
+        if (action === "queue") queueEntry(pr);
+        else if (action === "download") xenDownload(pr);
+        else if (action === "open") { if (letterMenu) letterMenu.hidden = true; openGame(pr, document.activeElement); }
+        return;
+      }
       if (action === "close") return;
       if (action === "settings") { document.getElementById("settingsBtn")?.click(); return; }
       if (action === "search") {
@@ -2007,11 +2019,19 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     if (sep && /\b(dlc|add.?on|pack|expansion|map|content|episode|mission|costume|character|weapon|track|car|campaign|bonus|season pass|premium|chapter|quest|story|level|arena|skin|theme)\b/i.test(sep[2])) return sep[1].trim();
     return label;
   }
-  function dlcGameGroups(){
+  function dlcDerive(label){
+    let s = String(label || "").trim();
+    const m = s.match(/^(.{3,}?)\s+[-–—:|]\s+/);
+    if (m) s = m[1]; else s = s.replace(/\s+(?:dlc|add[- ]?on|map pack|expansion(?: pack)?|season pass|content pack|bonus content|pack|episode|chapter|part)\b.*$/i, "").trim();
+    s = s.replace(/\s*\([^)]*\)\s*$/, "").trim();
+    return s.length >= 3 ? s : (String(label || "").trim() || "Misc Add-Ons");
+  }
+  function dlcGameGroups(){ return dlcGameGroupsRaw(); }
+  function dlcGameGroupsRaw(){
     // Associate add-ons with known game records from the existing archive database.
     // No second catalogue is created: game names are derived from DB.entries.
     const blocked = /\b(avatar|gamerpic|gamer picture|dashboard theme|theme pack|premium theme|picture pack|profile theme|theme)\b/i;
-    const gameRecords = DB.entries.filter(e => e.c === "games" && e.t)
+    const gameRecords = DB.entries.filter(e => (e.c === "games" || (e.c === "arcade" && normDlcKey(e.t).length >= 6)) && e.t)
       .map(e => ({ title: String(e.t).replace(/\s*\([^)]*(?:disc|disk)\s*\d+[^)]*\)/ig, "").trim(), key: normDlcKey(e.t) }))
       .filter(g => g.key.length >= 3)
       .sort((a,b) => b.key.length-a.key.length);
@@ -2029,8 +2049,10 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
         const candidate = normDlcKey(dlcCandidate(label));
         match = uniqueGames.find(g => candidate === g.key || candidate.startsWith(g.key + " "));
       }
-      // Unmatched items are not shown as standalone fake game boxes.
-      if (!match) return;
+      if (!match) {
+        const dn = dlcDerive(label), dk = normDlcKey(dn);
+        match = { key: "~" + (dk || "misc add ons"), title: dk ? dn : "Misc Add-Ons" };
+      }
       if (!map.has(match.key)) map.set(match.key,{key:match.key,name:match.title,entries:[]});
       map.get(match.key).entries.push(e);
     });
@@ -2161,16 +2183,27 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     const seen=new Set();
     let records=[];
     if(letterMenuCategory==='search'){
-      const seenS=new Set(); records=xeniosSearchRecords().slice(0,400);
+      const seenS=new Set(); const allS=xeniosSearchRecords(); const capS=window.__xsCap||120; records=allS.slice(0,capS); records.total=allS.length;
       records.forEach(e=>{
+        if(e.dlcEntries){
+          const gk='g|'+e.dlcKey; if(seenS.has(gk))return; seenS.add(gk);
+          const gb=el('button','letter-title-item'); gb.type='button'; gb.setAttribute('role','listitem');
+          const gart=el('span','letter-title-art',(e.dlcName.match(/[A-Za-z0-9]/)||['D'])[0].toUpperCase());
+          const gcopy=el('span','letter-title-copy'); gcopy.appendChild(el('b','',e.dlcName)); gcopy.appendChild(el('small','',e.dlcEntries.length+' add-on'+(e.dlcEntries.length===1?'':'s')+' \u00b7 '+fmtSize(e.bytes||0)));
+          gb.append(gart,gcopy,el('span','letter-title-arrow','\u203a'));
+          gb.addEventListener('click',()=>{letterMenuCategory='dlc';letterMenuDlcGame=e;letterMenuLetter='';letterMenu.querySelector('#letterMenuTitle').textContent='DLC for '+e.dlcName;paintLetterMenu();});
+          root.appendChild(gb); return;
+        }
         const title=(e.c==='dlc'?dlcFileLabel(e):String(e.t||e.f||'')).trim(), key=e.c+'|'+title.toLowerCase(); if(!title||seenS.has(key))return; seenS.add(key);
         const b=el('button','letter-title-item'); b.type='button'; b.setAttribute('role','listitem');
         const art=el('span','letter-title-art',title.replace(/[^a-z0-9]/ig,'').slice(0,1).toUpperCase()||'#');
         const copy=el('span','letter-title-copy'); copy.appendChild(el('b','',title)); copy.appendChild(el('small','',(CAT_NAME[e.c]||'')+' \u00b7 '+fmtSize(e.s||0)));
         b.append(art,copy,el('span','letter-title-arrow','\u203a'));
         b.addEventListener('click',()=>{letterMenu.hidden=true;openGame(e,b);});
+        b._rec=e;b.title='Right-click for options';
         root.appendChild(b);
       });
+      if(allS.length>capS){const mb=el('button','xen-more','Show '+Math.min(120,allS.length-capS)+' more of '+(allS.length-capS).toLocaleString()+' remaining');mb.type='button';mb.addEventListener('click',()=>{window.__xsCap=capS+120;paintLetterMenuBase();});root.appendChild(mb);}
     } else if(letterMenuCategory==='dlc' && letterMenuDlcGame){
       records=(letterMenuDlcGame.dlcEntries||[]).slice().sort((a,b)=>dlcFileLabel(a).localeCompare(dlcFileLabel(b),undefined,{numeric:true,sensitivity:'base'}));
       records.forEach(e=>{
@@ -2186,6 +2219,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
           letterMenu.hidden=true;
           openGame(e, b);
         });
+        b._rec=e;b.title='Right-click for options';
         root.appendChild(b);
       });
     } else if(letterMenuCategory==='dlc') {
@@ -2216,7 +2250,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
         const b=el('button','letter-title-item'); b.type='button'; b.setAttribute('role','listitem');
         const art=el('span','letter-title-art',title.replace(/[^a-z0-9]/ig,'').slice(0,1).toUpperCase()||letterMenuLetter);
         const copy=el('span','letter-title-copy'); copy.appendChild(el('b','',title));
-        /* Keep archive identifier/source listing out of the selection tile. */
+        { const rn = relatedOf(e).length; if (rn) copy.appendChild(el('small', '', '⛓ ' + rn + ' linked edition' + (rn > 1 ? 's' : ''))); }
         b.append(art,copy,el('span','letter-title-arrow','›'));
         b.addEventListener('click',()=>{
           // A title tile opens its metadata/download details directly; it must
@@ -2224,10 +2258,11 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
           letterMenu.hidden=true;
           openGame(e, b);
         });
+        b._rec=e;b.title='Right-click for options';
         root.appendChild(b);
       });
     }
-    const count=records.length;
+    const count=records.total||records.length;
     letterMenu.querySelector('#letterMenuCount').textContent=count.toLocaleString()+(letterMenuCategory==='dlc'&&letterMenuDlcGame?' DLC item'+(count===1?'':'s'):' title'+(count===1?'':'s'));
     if(!count) root.appendChild(el('div','letter-menu-empty',DB.ready?'No matching titles found for this selection.':'The library index is still loading. Sync or wait for the archive database to load.'));
     letterMenu.querySelector('#letterMenuSub').textContent=letterMenuCategory==='search'?'Results across Games, Arcade and DLC.':letterMenuCategory==='dlc'&&letterMenuDlcGame
@@ -2237,7 +2272,8 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   }
 
   /* ---- 1.19: search results menu + DLC download-all ---- */
-  let searchMenuQuery = "", searchCloseBound = false;
+  let searchMenuQuery = "", searchCloseBound = false, searchDlcMode = "game";
+  function searchLead(){ return state.tab === "arcade" ? "Arcade results" : state.tab === "dlc" ? "DLC results" : state.tab === "games" ? "Game results" : "Search results"; }
   function xeniosClearSearch(){
     if (letterMenuCategory === "search") { qEl.value = ""; const c = document.getElementById("clearSearchNXE"); if (c) c.disabled = true; }
   }
@@ -2246,7 +2282,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     const m = ensureLetterMenu(); const wasHidden = m.hidden; m.hidden = false;
     m.classList.remove("games-category", "arcade-category", "dlc-category");
     m.classList.add(state.tab === "arcade" ? "arcade-category" : state.tab === "dlc" ? "dlc-category" : "games-category");
-    m.querySelector("#letterMenuTitle").textContent = "Search results for “" + v.trim() + "”";
+    m.querySelector("#letterMenuTitle").textContent = searchLead() + " for “" + v.trim() + "”";
     if (!searchCloseBound) {
       searchCloseBound = true;
       m.querySelector(".letter-menu-close").addEventListener("click", xeniosClearSearch);
@@ -2258,15 +2294,19 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     if (sb) { if (sb.value !== v) sb.value = v; if (document.activeElement !== sb) { sb.focus(); try { sb.setSelectionRange(v.length, v.length); } catch (e) {} } }
   }
   function xeniosSearchRecords(){
+    if (window.__xsQ !== searchMenuQuery) { window.__xsQ = searchMenuQuery; window.__xsCap = 120; }
     const tq = String(searchMenuQuery || "").toLowerCase().replace(/['’]/g, "").split(/\s+/).filter(Boolean);
     if (!tq.length || !DB.ready) return [];
-    const out = DB.entries.filter(e => { const h = hay(e); return tq.every(t => h.includes(t)); });
+    if (state.tab === "dlc" && searchDlcMode === "game") { const sq = state.q, sl = state.letter; state.q = String(searchMenuQuery || "").trim(); state.letter = ""; try { return dlcGameGroupsRaw(); } finally { state.q = sq; state.letter = sl; } }
+    const sc0 = state.tab === "arcade" ? "arcade" : state.tab === "dlc" ? "dlc" : state.tab === "games" ? "games" : "";
+    const out = DB.entries.filter(e => { if (sc0 && e.c !== sc0) return false; const h = hay(e); return tq.every(t => h.includes(t)); });
     const sc = e => (e.sk || "").startsWith(tq[0]) ? 0 : (e.sk || "").includes(" " + tq[0]) ? 1 : 2;
     out.sort((a, b) => sc(a) - sc(b) || (a.sk || "").localeCompare(b.sk || "", undefined, { numeric: true }));
     return out;
   }
   function xeniosMenuExtras(){
     if (!letterMenu) return;
+    { const sm = letterMenu.querySelector(".letter-menu-head small"); if (sm) sm.textContent = letterMenuCategory === "arcade" ? "★ XBOX LIVE ARCADE" : letterMenuCategory === "dlc" ? "XBOX 360 · ADD-ONS" : letterMenuCategory === "search" ? "XENIOS SEARCH" : "XBOX 360 · GAMES ON DEMAND"; }
     const tools = letterMenu.querySelector(".letter-menu-tools");
     letterMenu.classList.toggle("search-open", letterMenuCategory === "search");
     let dl = letterMenu.querySelector("#letterMenuDlAll");
@@ -2291,13 +2331,26 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       sb.addEventListener("input", () => {
         qEl.value = sb.value; searchMenuQuery = sb.value;
         const c = document.getElementById("clearSearchNXE"); if (c) c.disabled = !sb.value;
-        letterMenu.querySelector("#letterMenuTitle").textContent = sb.value.trim() ? "Search results for “" + sb.value.trim() + "”" : "Search";
+        letterMenu.querySelector("#letterMenuTitle").textContent = sb.value.trim() ? searchLead() + " for “" + sb.value.trim() + "”" : "Search";
         paintLetterMenu();
       });
     }
     sb.hidden = letterMenuCategory !== "search";
+    sb.placeholder = state.tab === "arcade" ? "Search Xbox LIVE Arcade…" : state.tab === "dlc" ? "Search Add-Ons…" : state.tab === "games" ? "Search Games On Demand…" : "Search all games, arcade and DLC…";
+    let dm = letterMenu.querySelector(".xen-dlcmode");
+    if (!dm) {
+      dm = el("div", "xen-dlcmode"); dm.setAttribute("role", "group"); dm.setAttribute("aria-label", "DLC search mode");
+      [["game", "By Game"], ["item", "Individual"]].forEach(([v, t]) => { const b = el("button", "", t); b.type = "button"; b.dataset.mode = v; b.addEventListener("click", () => { searchDlcMode = v; window.__xsCap = 120; paintLetterMenuBase(); xeniosMenuExtras(); }); dm.appendChild(b); });
+      tools.insertBefore(dm, tools.querySelector(".letter-menu-views"));
+    }
+    dm.hidden = !(letterMenuCategory === "search" && state.tab === "dlc");
+    dm.querySelectorAll("button").forEach(b => b.classList.toggle("is-active", b.dataset.mode === searchDlcMode));
   }
-  function paintLetterMenu(){ paintLetterMenuBase(); xeniosMenuExtras(); }
+  let _pt=0,_lc="";
+  function paintLetterMenu(){
+    if(letterMenuCategory==="search"&&_lc==="search"){ xeniosMenuExtras(); clearTimeout(_pt); _pt=setTimeout(()=>{paintLetterMenuBase();xeniosMenuExtras();},120); return; }
+    clearTimeout(_pt); _lc=letterMenuCategory; paintLetterMenuBase(); xeniosMenuExtras();
+  }
 
 
   function buildLetters(){
@@ -2334,6 +2387,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     $("#iSize").textContent = fmtSize(groupBytes(g));
     $("#iDate").textContent = g.date || "—";
     $("#iSrc").textContent = g.type === "dlcGame" ? "DLC · grouped by title" : g.type === "arcade" ? "XBLA / XBLIG" : g.items[0].src;
+    { const sz = groupBytes(g); window.__xmax = Math.max(window.__xmax || 0, sz); $("#iParts").textContent = String((g.items || []).length || 1); $("#iTitles").textContent = DB.ready ? n.toLocaleString() : "…"; $("#iBar").style.width = Math.max(4, Math.round(sz / (window.__xmax || 1) * 100)) + "%"; }
   }
   $("#iOpen").addEventListener("click", e => {
     arm();
@@ -2364,7 +2418,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       if (tab) tab.click();
     });
   });
-  const railTitles = { games: "Games On Demand", arcade: "Xbox LIVE Arcade", dlc: "Add-Ons", guides: "Console guides" };
+  const railTitles = { games: "Games On Demand", arcade: "Xbox LIVE Arcade", dlc: "Add-Ons", guides: "Xenios Guide" };
   function syncNxeRail(tabName) {
     document.querySelectorAll("[data-rail-tab]").forEach(b => b.classList.toggle("is-selected", b.dataset.railTab === tabName));
     const title = document.getElementById("railTitle"); if (title) title.textContent = railTitles[tabName] || "Games On Demand";
@@ -2573,8 +2627,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   }
   function setEntries(list){
     list.forEach(e => { if (e.sk == null) e.sk = (e.t || "").toLowerCase().replace(/^[^a-z0-9]+/, ""); });
-    DB.entries = list.filter(e => e.c !== "updates" && !/title[- ]updates/i.test((e.t||"")+" "+(e.f||"")));
-    DB.entries.forEach(e => { const found = autoCoverResults.get(coverKey(e)); if (found && !(e.q && e.q.cover)) e.q = found; });
+    DB.entries = list.filter(e => e.c !== "updates" && !/title[- ]updates/i.test((e.t||"")+" "+(e.f||"")) && !(e.c === "dlc" && (/(^|[^a-z0-9])TU[\s_.\-]?\d+/i.test((e.t||"")+" "+(e.f||"")) || /title[\s_-]*updates?/i.test((e.t||"")+" "+(e.f||"")))));
     DB.byKey = new Map(list.map(e => [entryKey(e), e]));
     DB.ready = true; DB.ts = Date.now();
     updateStats();
@@ -2624,7 +2677,6 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
             (j.files || []).filter(isListed).forEach(f => {
               const parsed = parseFile(it, f); if (parsed) raw.push(parsed);
               const prior = old.get(entryKey(parsed));
-              if (!prior || !prior.q) enqueueAutoCover(parsed);
             });
           } catch (e) { failed.push(it.id); }
           done++;
@@ -2638,7 +2690,6 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       list.forEach(e => { const o = old.get(entryKey(e)); if (o && o.q) e.q = o.q; });
       DB.removed = res.removed;
       setEntries(list);
-      startAutoCoverScan(list);
       saveDb(true);
       prog(null);
       const rm = Object.values(res.removed).reduce((a, b) => a + b, 0);
@@ -2663,7 +2714,6 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       (cached.items || []).forEach(r => { if (!items.some(i => i.id === r[0])) items.push(makeItem(r, true)); });
       DB.removed = cached.removed || {}; setEntries(cached.entries); DB.ts = cached.ts || Date.now();
       render();
-      startAutoCoverScan(DB.entries);
       return;
     }
     buildDb();
@@ -2677,7 +2727,6 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       if (counts[e.c] != null) counts[e.c]++;
       return {
         category: CAT_NAME[e.c] || e.c, collection: e.i, file: e.f, title: e.t, region: e.r, kind: e.k,
-        releaseDate: (e.q && e.q.rel) || "", coverArt: (e.q && e.q.cover) || "",
         sizeBytes: e.s, downloadUrl: dlUrl(e), md5: e.h, modified: e.m,
         discs: e.d ? e.d.map(d => ({ disc: d.n, collection: d.i, file: d.f, sizeBytes: d.s, downloadUrl: dlUrl(d) })) : undefined
       };
@@ -2714,7 +2763,6 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
               }
               stripTmp(e); DB.entries.push(e); DB.byKey.set(key, e); added++;
             } else merged++;
-            if (x.releaseDate || x.coverArt) e.q = Object.assign({}, e.q, { rel: x.releaseDate || (e.q && e.q.rel) || "", cover: x.coverArt || (e.q && e.q.cover) || "", ts: Date.now() });
           });
         } else if (j && Array.isArray(j.files) && j.metadata && j.metadata.identifier) {   /* raw archive.org metadata */
           const it = items.find(i => i.id === j.metadata.identifier); if (!it) continue;
@@ -2877,11 +2925,6 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
 
   function buildBLetters(){ /* Alphabet suffix bars intentionally removed from the NXE interface. */ }
 
-  function coverImg(e, cb){
-    const im = new Image(); im.loading = "lazy"; im.referrerPolicy = "no-referrer"; im.alt = "";
-    if (e.q && e.q.cw) im.style.objectPosition = "100% 50%";
-    im.src = e.q.cover; im.onerror = cb; return im;
-  }
   function gridColumnCount(){
     if (!bList) return 4;
     const w = bList.clientWidth || 800;
@@ -2904,6 +2947,26 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   let downloadQueue = lsGet(QUEUE_KEY, []);
   if (!Array.isArray(downloadQueue)) downloadQueue = [];
   function saveQueue(){ lsSet(QUEUE_KEY, downloadQueue); renderQueue(); }
+  /* linked editions / bundles of the same base game */
+  let _relIdx = null, _relN = -1;
+  const EDW = /\b(game of the year|goty|ultimate|complete|definitive|platinum hits?|greatest hits|classics|essentials|collectors?|limited|special|deluxe|gold|legendary|anniversary|remastered|premium|standard|directors cut|edition|collection|bundle|pack)\b/g;
+  function baseKey(t){ let s = String(t || "").toLowerCase().replace(/\(.*?\)|\[.*?\]/g, " ").replace(/&/g, " and ").replace(/['’]/g, ""); s = s.replace(EDW, " ").replace(/[^a-z0-9]+/g, " ").replace(/\bthe\b/g, " ").replace(/\s+/g, " ").trim(); return s; }
+  const isEdition = t => { EDW.lastIndex = 0; const r = EDW.test(String(t || "").toLowerCase().replace(/\(.*?\)|\[.*?\]/g, " ")); EDW.lastIndex = 0; return r; };
+  function relatedOf(e){
+    if (!e || e.c !== "games" || !DB.ready) return [];
+    if (!_relIdx || _relN !== DB.entries.length) { _relIdx = new Map(); _relN = DB.entries.length; DB.entries.forEach(x => { if (x.c !== "games") return; const k = baseKey(x.t); if (k.length < 3) return; if (!_relIdx.has(k)) _relIdx.set(k, []); _relIdx.get(k).push(x); }); }
+    const g = _relIdx.get(baseKey(e.t)) || [];
+    return g.filter(x => x !== e).sort((a, b) => (isEdition(a.t) - isEdition(b.t)) || String(a.t).localeCompare(String(b.t))).slice(0, 12);
+  }
+  function relLabel(e, r){ if (String(r.t).toLowerCase() === String(e.t).toLowerCase()) return "Other region" + (r.r ? " (" + r.r + ")" : ""); if (!isEdition(r.t) && isEdition(e.t)) return "Base game"; if (isEdition(r.t) && !isEdition(e.t)) return "Edition / bundle"; return "Related edition"; }
+  function xenDownload(e){
+    if (!e || !e.f || !e.i) return;
+    if (e.d && e.d.length > 1) { if (letterMenu) letterMenu.hidden = true; openGame(e, document.activeElement); toast("Multi-disc title: pick a disc to download"); return; }
+    const d = { n: 0, i: e.i, f: e.f, s: e.s };
+    recordDownload(e, d, false);
+    const a = document.createElement("a"); a.href = dlUrl(d); a.target = "_blank"; a.rel = "noopener noreferrer";
+    document.body.appendChild(a); a.click(); a.remove(); toast("Download started");
+  }
   function queueEntry(e){ if (!e || !e.f || !e.i) return; const k=entryKey(e); if (downloadQueue.some(x=>x.k===k)) { toast("Already in queue"); return; } downloadQueue.push({k,t:e.t,c:e.c,i:e.i,f:e.f,s:e.s}); saveQueue(); toast("Added to queue: "+e.t); }
   function renderQueue(){
     const n=document.querySelector("#queueCount"); if(n)n.textContent=downloadQueue.length;
@@ -2930,7 +2993,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     const r = el("div", "item" + (i === bw.sel ? " sel" : "") + (isGrid ? " grid-item" : ""));
     r.dataset.i = i; r.setAttribute("role", "option"); r.tabIndex = -1;
     const th = el("span", "th");
-    if (e.q && e.q.cover) th.appendChild(coverImg(e, ev => { ev.target.remove(); th.textContent = e.l; })); else th.textContent = e.l;
+    th.textContent = e.l;
     const nm = el("span", "nm");
     const search = bw.g && bw.g.type === "search";
     const sub = [search ? CAT_NAME[e.c] : "", e.k, e.r, e.d ? e.d.length + " discs" : "", e.q && e.q.rel ? e.q.rel : ""].filter(Boolean).join(" · ");
@@ -2999,189 +3062,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   $("#bImport").addEventListener("click", () => { arm(); $("#bFile").click(); });
   $("#bFile").addEventListener("change", e => { if (e.target.files.length) importFiles([...e.target.files]); e.target.value = ""; });
 
-  /* ======================================================================
-     METADATA LOOK-UP (release date + cover art), on demand
-       release date → Wikipedia infobox (picks the release matching the file's region)
-       cover art    → DVDCover.com Xbox 360 covers (its WordPress API), Wikipedia box art as fallback
-       you can also paste any image URL (e.g. one from The Cover Project) as a custom cover
-     ====================================================================== */
-  const enrichable = e => e.c === "games" || e.c === "arcade";
-  const toks = s => s.toLowerCase().replace(/\(.*?\)/g, " ").replace(/['’]/g, "").replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").split(" ").filter(Boolean);
-  const dec = h => { const t = document.createElement("textarea"); t.innerHTML = h || ""; return t.value; };
-  function cleanQuery(t){ return flipThe(t.replace(/\s*\(.*$/, "")).replace(/ - /g, ": ").replace(/\s+/g, " ").trim(); }
-
-  const MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December";
-  function niceDate(s){
-    s = (s || "").replace(/<[^>]*>/g, " ").replace(/\[\[(?:[^\]|]*\|)?([^\]]*)\]\]/g, "$1").replace(/\{\{[^}]*\}\}/g, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
-    let m = s.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
-    if (m) return new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
-    m = s.match(new RegExp("(" + MONTHS + ")\\s+(\\d{1,2}),?\\s+(\\d{4})"));
-    if (m) return m[1] + " " + (+m[2]) + ", " + m[3];
-    m = s.match(new RegExp("(\\d{1,2})\\s+(" + MONTHS + ")\\s+(\\d{4})"));
-    if (m) return m[2] + " " + (+m[1]) + ", " + m[3];
-    m = s.match(new RegExp("(" + MONTHS + ")\\s+(\\d{4})"));
-    if (m) return m[1] + " " + m[2];
-    m = s.match(/\b(19|20)\d{2}\b/);
-    return m ? m[0] : "";
-  }
-  function extractTpl(wt){
-    const m = /\{\{\s*(?:video game release|vgrelease)\b/i.exec(wt);
-    if (!m) return "";
-    let depth = 0;
-    for (let j = m.index; j < wt.length - 1; j++) {
-      if (wt[j] === "{" && wt[j + 1] === "{") { depth++; j++; }
-      else if (wt[j] === "}" && wt[j + 1] === "}") { depth--; j++; if (depth === 0) return wt.slice(m.index, j + 1); }
-    }
-    return wt.slice(m.index);
-  }
-  function parseRelease(wt, region){
-    if (!wt) return "";
-    const prep = s => s.replace(/<ref[^>]*\/>/gi, "").replace(/<ref[^>]*>[\s\S]*?<\/ref>/gi, "")
-      .replace(/\{\{\s*(?:start date|release date|dts|start-date)\s*\|(?:[a-z]+\s*=[^|}]*\|)*\s*(\d{4})\s*\|\s*(\d{1,2})\s*\|\s*(\d{1,2})[^}]*\}\}/gi, "$1-$2-$3");
-    const tpl = extractTpl(wt);
-    if (tpl) {
-      const parts = prep(tpl).replace(/^\{\{|\}\}$/g, "").split("|").map(s => s.trim());
-      const map = {}; let cur = null;
-      for (let i = 1; i < parts.length; i++) {
-        const p = parts[i];
-        if (/^[A-Z]{2,3}$/.test(p)) { cur = p; continue; }
-        if (!cur || p.includes("=") || cur in map) continue;
-        const d = niceDate(p); if (d) map[cur] = d;
-      }
-      const pref = region === "Europe" ? ["EU", "PAL", "WW", "NA", "AU"] : region === "World" ? ["WW", "NA", "EU", "PAL"] : ["NA", "WW", "EU", "PAL", "AU", "JP"];
-      for (const k of pref) if (map[k]) return map[k];
-      const any = Object.values(map)[0]; if (any) return any;
-    }
-    const m = prep(wt).match(/\|\s*released?\s*=\s*([^\n]*)/i);
-    return m ? niceDate(m[1]) : "";
-  }
-
-  const wp = "https://en.wikipedia.org/w/api.php?format=json&origin=*";
-  async function wikiInfo(q, region){
-    const s = await fetchJson(wp + "&action=query&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=" + encodeURIComponent(q + " video game") +
-      "&prop=pageimages|info&piprop=thumbnail&pithumbsize=500&inprop=url");
-    const pages = Object.values((s.query && s.query.pages) || {}).sort((a, b) => (a.index || 9) - (b.index || 9));
-    const qt = toks(q), cands = [];
-    pages.forEach(p => {
-      const pt = toks(p.title), common = qt.filter(w => pt.includes(w)).length;
-      const score = common / Math.max(qt.length, pt.length, 1);
-      if (score >= 0.6) cands.push({ p, score });
-    });
-    cands.sort((a, b) => b.score - a.score);
-    let res = null;
-    for (const c of cands.slice(0, 2)) {
-      let rel = "";
-      try {
-        const w = await fetchJson(wp + "&action=parse&redirects=1&prop=wikitext&section=0&pageid=" + c.p.pageid);
-        const wt = w.parse && w.parse.wikitext;
-        rel = parseRelease(typeof wt === "string" ? wt : wt && wt["*"], region);
-      } catch (err) { /* try the next candidate */ }
-      const thumb = c.p.thumbnail || {};
-      const coverLike = !!(thumb.source && thumb.width && thumb.height && thumb.height >= thumb.width * 1.12);
-      const r = { name: c.p.title, wiki: c.p.fullurl || "", cover: coverLike ? thumb.source : "", rel };
-      if (!res) res = r;
-      if (rel) { res = r; break; }
-    }
-    return res;
-  }
-  async function dvdCover(q, region){
-    const j = await fetchJson("https://dvdcover.com/wp-json/wp/v2/posts?per_page=10&_embed=wp:featuredmedia&search=" + encodeURIComponent(q + " xbox 360"));
-    const qt = toks(q); let best = null;
-    (Array.isArray(j) ? j : []).forEach(p => {
-      const title = dec(p.title && p.title.rendered);
-      if (!/xbox\s*360/i.test(title)) return;
-      const pt = toks(title.split(/[(,]/)[0]);
-      let score = qt.filter(w => pt.includes(w)).length / Math.max(qt.length, pt.length, 1);
-      if (score < 0.6) return;
-      if (region === "Europe" ? /PAL|Europe/i.test(title) : /USA|NTSC/i.test(title)) score += 0.05;
-      const m = p._embedded && p._embedded["wp:featuredmedia"] && p._embedded["wp:featuredmedia"][0];
-      const sz = m && m.media_details && m.media_details.sizes;
-      const url = m && ((sz && (sz.medium_large || sz.large || sz.medium || {}).source_url) || m.source_url);
-      if (url && (!best || score > best.score)) best = { score, url, link: p.link };
-    });
-    return best;
-  }
-  async function lookup(e){
-    const q = cleanQuery(e.t), out = { ts: Date.now() };
-    
-    try {
-      const w = await wikiInfo(q, e.r);
-      if (w) { out.name = w.name; out.wiki = w.wiki; out.rel = w.rel;  }
-    } catch (err) { /* Wikipedia unreachable */ }
-    if (!out.cover && !out.rel && !out.wiki) out.none = true;
-    return out;
-  }
-
-  /* Automatic cover-art pipeline. It starts as collection listings are discovered,
-     deduplicates by normalized title + region, and never blocks database creation. */
-  const AUTO_COVERS = { running: false, queue: [], seen: new Set(), done: 0, total: 0 };
-  const autoCoverResults = new Map();
-  const coverKey = e => toks(cleanQuery(e.t || "")).join(" ") + "|" + (e.r || "USA");
-  function enqueueAutoCover(e){ return; /* cover scraping removed */
-    if (!e || !enrichable(e) || !e.t || !["USA", "Europe", "World"].includes(e.r)) return;
-    const key = coverKey(e);
-    if (AUTO_COVERS.seen.has(key) || (e.q && e.q.cover)) return;
-    AUTO_COVERS.seen.add(key); AUTO_COVERS.queue.push({ t: e.t, r: e.r, c: e.c, _coverKey: key });
-    AUTO_COVERS.total++;
-    if (!AUTO_COVERS.running) runAutoCoverQueue();
-  }
-  function applyAutoCoverResult(key, result){
-    autoCoverResults.set(key, result);
-    if (!DB.ready) return;
-    let changed = false;
-    DB.entries.forEach(e => {
-      if (coverKey(e) === key && !(e.q && e.q.cover)) { e.q = result; changed = true; }
-    });
-    if (changed) {
-      saveDb();
-      if (bw && bw.open) renderRows();
-      if (gCur && gameOpen() && coverKey(gCur) === key) paintGame(gCur);
-    }
-  }
-  function startAutoCoverScan(entries){ return; /* cover scraping removed */
-    (entries || []).forEach(e => {
-      if (e.q && e.q.cover) { AUTO_COVERS.seen.add(coverKey(e)); return; }
-      enqueueAutoCover(e);
-    });
-    if (!AUTO_COVERS.running && AUTO_COVERS.queue.length) runAutoCoverQueue();
-  }
-  async function runAutoCoverQueue(){
-    if (AUTO_COVERS.running) return;
-    AUTO_COVERS.running = true;
-    const worker = async () => {
-      while (AUTO_COVERS.queue.length || DB.loading) {
-        const e = AUTO_COVERS.queue.shift();
-        if (!e) { await new Promise(r => setTimeout(r, 220)); continue; }
-        try {
-          let result = await lookup(e);
-          if (!result || (!result.cover && !result.rel && !result.wiki)) result = { ts: Date.now(), none: true };
-          applyAutoCoverResult(e._coverKey, result);
-        } catch (err) { applyAutoCoverResult(e._coverKey, { ts: Date.now(), none: true }); }
-        AUTO_COVERS.done++;
-        if (!DB.loading) prog("Automatic cover-art scan · " + AUTO_COVERS.done.toLocaleString() + " / " + AUTO_COVERS.total.toLocaleString(), AUTO_COVERS.total ? AUTO_COVERS.done / AUTO_COVERS.total : 1);
-        if (AUTO_COVERS.done % 10 === 0) { saveDb(); if (bw && bw.open) renderRows(); }
-        await new Promise(r => setTimeout(r, 420));
-      }
-    };
-    try { await Promise.all([worker(), worker()]); }
-    finally {
-      AUTO_COVERS.running = false;
-      if (!DB.loading) prog(null);
-      saveDb(true);
-      if (bw && bw.open) renderRows();
-      if (AUTO_COVERS.queue.length) setTimeout(() => runAutoCoverQueue(), 0);
-    }
-  }
-
   const pending = new Map();
-  function enrich(e, force){
-    if (!enrichable(e) || (e.q && !force)) return Promise.resolve(e.q || null);
-    const k = entryKey(e);
-    if (pending.has(k)) return pending.get(k);
-    const p = lookup(e).then(r => { e.q = r; saveDb(); return r; }).catch(() => null).finally(() => pending.delete(k));
-    pending.set(k, p); return p;
-  }
-
 
   /* ======================================================================
      GAME DETAILS WIDGET
@@ -3198,35 +3079,22 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   function paintGame(e){
     const q = e.q, multi = !!(e.d && e.d.length > 1), k = entryKey(e);
     setField("#gTitle", e.t);
-    setField("#gDate", q && q.rel ? q.rel : "",
-      !enrichable(e) ? "Not applicable" : pending.has(k) ? "Looking up…" : q && q.none ? "No match found online" : "Not available");
     setField("#gSize", fmtSize(e.s) + (multi ? " total · " + e.d.map(d => "Disc " + d.n + ": " + fmtSize(d.s)).join(" · ") : e.s ? " (" + e.s.toLocaleString() + " bytes)" : ""));
-    const img = $("#gImg"), cov = $("#gCover");
     $("#gGlyph").textContent = e.l;
-    cov.classList.toggle("load", pending.has(k));
-    if (q && q.cover) {
-      img.src = q.cover; img.hidden = false; img.onerror = () => { img.hidden = true; };
-      img.style.objectPosition = q.cw ? "100% 50%" : "50% 50%";
-    } else { img.hidden = true; img.removeAttribute("src"); }
 
     const x = $("#gExtra"); x.textContent = "";
     x.append(document.createTextNode([CAT_NAME[e.c], e.k, e.r].filter(Boolean).join(" · ") + " — " + (multi ? e.d.map(d => d.f).join(" + ") : e.f)));
     const add = (label, href) => { x.append(document.createTextNode(" · ")); const a = el("a", "", label); a.href = href; a.target = "_blank"; a.rel = "noopener noreferrer"; x.appendChild(a); };
-    if (q && q.wiki) add("Release info: Wikipedia", q.wiki);
-    if (q && q.cl) add("Cover: DVDCover.com", q.cl);
-    
-    if (q && q.none && !q.custom) { x.append(document.createTextNode(" · ")); const b = el("a", "", "Retry lookup"); b.href = "#"; b.addEventListener("click", ev => { ev.preventDefault(); e.q = null; startLookup(e); }); x.appendChild(b); }
-    const row = el("div", "ccov");
-    const inp = el("input", "fld"); inp.type = "text"; inp.placeholder = "Paste a cover image URL…"; inp.setAttribute("aria-label", "Custom cover image URL");
-    const btn = el("button", "btn ghost small", "Set cover"); btn.type = "button";
-    btn.addEventListener("click", () => {
-      const u = inp.value.trim();
-      if (!/^https?:\/\//i.test(u)) { toast("Enter a full image URL (https://…)"); return; }
-      e.q = Object.assign({}, e.q, { cover: u, cw: false, cl: "", custom: true, none: false, ts: Date.now() });
-      saveDb(); paintGame(e); if (bw.open) renderRows(); toast("Cover updated");
-    });
-    row.append(inp, btn); x.appendChild(row);
 
+    const rl = $("#gRel"); rl.textContent = "";
+    const rel = relatedOf(e); rl.hidden = !rel.length;
+    if (rel.length) {
+      rl.append(el("h4", "", "Linked titles"));
+      if (isEdition(e.t)) rl.append(el("p", "grel-note", "This looks like an edition or bundle of “" + (rel.find(r => !isEdition(r.t)) || rel[0]).t + "”. Editions often include or expand the base game, so check the linked titles below."));
+      const wrap = el("div", "grel-list");
+      rel.forEach(r => { const b = el("button", "grel-item"); b.type = "button"; b.append(el("b", "", r.t), el("small", "", relLabel(e, r) + " · " + fmtSize(r.s))); b.addEventListener("click", () => openGame(r, b)); wrap.appendChild(b); });
+      rl.appendChild(wrap);
+    }
     const box = $("#gDlBox");
     if (box.dataset.k !== k) {
       box.dataset.k = k; box.textContent = "";
@@ -3239,11 +3107,6 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       });
     }
     $("#gNote").textContent = multi ? "This game has " + e.d.length + " discs. Download each disc separately." : "Opens the file on archive.org. Some collections need you to be signed in there.";
-  }
-  function startLookup(e){
-    if (!enrichable(e)) { paintGame(e); return; }
-    const p = enrich(e); paintGame(e);
-    p.then(() => { if (gCur === e && gameOpen()) paintGame(e); if (bw.open) renderRows(); });
   }
   function gameDownload(){
     const f = document.activeElement;
@@ -3261,7 +3124,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     paintGame(e);
     gameEl.hidden = false; sfx.open();
     const a = $("#gDlBox a"); if (a) a.focus();
-    if (!e.q) startLookup(e);
+    paintGame(e);
   }
   function closeGame(silent){
     if (!gameOpen()) return;
@@ -3300,7 +3163,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     else { n.style.backgroundImage = ""; n.classList.remove("img"); n.textContent = !prof.av || prof.av === "letter" ? initial(prof.name) : prof.av; }
   }
   function recordDownload(e, d, multi){
-    hist.unshift({ k: entryKey(e), t: e.t + (multi ? " (Disc " + d.n + ")" : ""), c: e.c, s: d.s, u: dlUrl(d), l: e.l, cv: (e.q && e.q.cover) || "", cw: !!(e.q && e.q.cw), ts: Date.now() });
+    hist.unshift({ k: entryKey(e), t: e.t + (multi ? " (Disc " + d.n + ")" : ""), c: e.c, s: d.s, u: dlUrl(d), l: e.l, ts: Date.now() });
     hist = hist.slice(0, 500); lsSet(HISTORE, hist); paintProfile();
   }
   function paintProfile(){
@@ -3345,7 +3208,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     const unique=new Map();
     DB.entries.filter(e=>e.c==="games"||e.c==="arcade").forEach(e=>{
       const key=normTitle(e.t); if(!key||!downloadedKeys.has(key))return;
-      if(!unique.has(key)||(!unique.get(key).q?.cover&&e.q?.cover))unique.set(key,e);
+      if(!unique.has(key))unique.set(key,e);
     });
     const dlcDownloaded=new Set(hist.filter(h=>h.c==="dlc").map(h=>h.k));
     const grouped=dlcGameGroups();
@@ -3356,7 +3219,6 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       const row=el("div","plib-row-wrap");
       const b=el("button","plib-row"); b.type="button"; b.setAttribute("role","option"); b.title="Open "+e.t;
       const th=el("span","plib-cover",e.l||"?");
-      if(e.q&&e.q.cover){const im=new Image();im.alt="";im.loading="lazy";im.referrerPolicy="no-referrer";im.src=e.q.cover;im.onerror=()=>{im.remove();th.textContent=e.l||"?";};th.textContent="";th.appendChild(im);}
       const nm=el("span","plib-main");nm.append(el("b","",e.t),el("small","",(e.c==="arcade"?"Arcade":"Game")+(e.r?" · "+e.r:"")));
       b.append(th,nm,el("span","plib-size",fmtSize(e.s)));b.addEventListener("click",()=>{closeProfile(true);openGame(e,$("#profBtn"));});row.appendChild(b);
       const candidates=grouped.find(g=>normTitle(g.dlcName)===normTitle(e.t)||normTitle(g.dlcName).includes(normTitle(e.t))||normTitle(e.t).includes(normTitle(g.dlcName)));
@@ -3461,6 +3323,90 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   document.querySelector("#gamerpicSearch").addEventListener("keydown",e=>{if(e.key==="Enter")searchGamerpics();});
   document.querySelector("#editGamerpic").addEventListener("click",()=>{window.open("https://xboxgamer.pics/titles/all","_blank","noopener,noreferrer");});
   document.querySelector("#gamerpicBack").addEventListener("click",()=>{document.querySelector("#gamerpicEditor").hidden=true;document.querySelector("#profileView").hidden=false;document.querySelector("#pTitle").textContent="Profile";});
+  /* ---- Gamerpic picker (XboxGamer.Pics) ---- */
+  const GPX = { pages: new Map(), next: 1, done: false, busy: false, titles: [], view: "titles", cur: null, tok: 0 };
+  async function gpFetchText(url){
+    const tries = [url, "https://r.jina.ai/" + url, "https://api.allorigins.win/raw?url=" + encodeURIComponent(url)];
+    let last;
+    for (const u of tries) { try { const r = await fetch(u, { credentials: "omit" }); if (!r.ok) throw new Error("HTTP " + r.status); const t = await r.text(); if (t && t.length > 200) return t; } catch (e) { last = e; } }
+    throw last || new Error("unreachable");
+  }
+  function gpParse(text){
+    const out = []; let cur = null;
+    const addPic = (tid, img) => { if (!cur || img === "8000") return; if (!cur.tid) cur.tid = tid; if (cur.tid !== tid) return; if (!cur.pics.some(p => p.id === img)) cur.pics.push({ id: img, url: "https://assets.xboxgamer.pics/titles/" + tid + "/" + img + ".png" }); };
+    if (/<html|<a\s|<img\s/i.test(text.slice(0, 4000))) {
+      const doc = new DOMParser().parseFromString(text, "text/html");
+      doc.querySelectorAll("a[href],img[src]").forEach(n => {
+        const h = n.getAttribute("href") || n.getAttribute("src") || "";
+        let m = h.match(/\/titles\/(?:games|bonus|magazines|promotional|unknown)\/([^/?#]+)\/?$/);
+        if (m) { const name = (n.textContent || n.getAttribute("alt") || "").trim(); if (name) { cur = { name, slug: m[1], tid: "", pics: [] }; out.push(cur); } return; }
+        m = h.match(/titles\/([0-9a-f]{8})\/(\d+)\.png/i);
+        if (m) addPic(m[1].toLowerCase(), m[2]);
+      });
+    } else {
+      text.split(/\r?\n/).forEach(line => {
+        const m = line.match(/^#{2,4}\s*\[([^\]]+)\]\(\S*\/titles\/(?:games|bonus|magazines|promotional|unknown)\/([^/)\s]+)/);
+        if (m) { cur = { name: m[1].trim(), slug: m[2], tid: "", pics: [] }; out.push(cur); return; }
+        const re = /titles\/([0-9a-f]{8})\/(\d+)\.png/gi; let mm;
+        while ((mm = re.exec(line))) addPic(mm[1].toLowerCase(), mm[2]);
+      });
+    }
+    return out.filter(t => t.tid && t.pics.length);
+  }
+  async function gpLoadPage(n){
+    const url = n === 1 ? GP_BASE + "/titles/all" : GP_BASE + "/titles/all/page/" + n;
+    const rows = gpParse(await gpFetchText(url));
+    GPX.pages.set(n, rows); if (!rows.length) GPX.done = true;
+    rows.forEach(r => { if (!GPX.titles.some(t => t.tid === r.tid)) GPX.titles.push(r); });
+  }
+  async function gpMore(count){
+    if (GPX.busy || GPX.done) return; GPX.busy = true; const st = $("#gpStatus");
+    try {
+      for (let i = 0; i < count && !GPX.done && GPX.next <= 200; i++) { st.textContent = "Loading XboxGamer.Pics page " + GPX.next + "…"; await gpLoadPage(GPX.next++); gpRender(); }
+      st.textContent = GPX.titles.length.toLocaleString() + " games loaded" + (GPX.done ? " (end of list)" : "");
+    } catch (err) { st.textContent = "Couldn't read XboxGamer.Pics from this browser (" + String(err.message || err) + "). Try again or open the site directly."; }
+    GPX.busy = false;
+  }
+  function gpClose(){ const d = $("#gpDlg"); if (d) d.hidden = true; }
+  function gpPick(url){ prof.img = url; prof.av = "letter"; saveProf(); refreshLook(); gpClose(); toast("Gamerpic selected"); }
+  function gpRender(){
+    const g = $("#gpGrid"); if (!g) return; g.textContent = "";
+    $("#gpBack").hidden = GPX.view === "titles";
+    if (GPX.view === "pics" && GPX.cur) {
+      $("#gpTitle").textContent = GPX.cur.name + " · " + GPX.cur.pics.length + " gamerpics";
+      GPX.cur.pics.forEach(p => { const b = el("button", "gp-pick"); b.type = "button"; b.title = "Use this gamerpic"; const im = new Image(); im.loading = "lazy"; im.alt = ""; im.referrerPolicy = "no-referrer"; im.src = p.url; im.onerror = () => b.remove(); b.appendChild(im); b.addEventListener("click", () => gpPick(p.url)); g.appendChild(b); });
+      return;
+    }
+    $("#gpTitle").textContent = "Choose a Gamerpic";
+    const q = ($("#gpQ").value || "").trim().toLowerCase();
+    const list = GPX.titles.filter(t => !q || t.name.toLowerCase().includes(q) || t.tid.includes(q)).slice(0, 150);
+    list.forEach(t => {
+      const b = el("button", "gp-title"); b.type = "button";
+      const im = new Image(); im.loading = "lazy"; im.alt = ""; im.referrerPolicy = "no-referrer"; im.src = "https://assets.xboxgamer.pics/titles/" + t.tid + "/8000.png"; im.onerror = () => { im.onerror = null; im.src = t.pics[0].url; };
+      b.append(im, el("b", "", t.name), el("small", "", t.pics.length + " gamerpics"));
+      b.addEventListener("click", () => { GPX.view = "pics"; GPX.cur = t; gpRender(); g.scrollTop = 0; });
+      g.appendChild(b);
+    });
+    if (!list.length) g.appendChild(el("p", "gp-empty", GPX.busy ? "Searching…" : (q ? "No loaded game matches “" + q + "”. Use “Load more pages” to scan further." : "Loading gamerpics…")));
+  }
+  function openGamerpicPicker(){
+    let d = $("#gpDlg");
+    if (!d) {
+      d = el("div", "dlg"); d.id = "gpDlg"; d.hidden = true;
+      d.innerHTML = '<div class="card gp-card" role="dialog" aria-modal="true" aria-labelledby="gpTitle"><h2 id="gpTitle">Choose a Gamerpic</h2><div class="gp-tools"><input class="fld" id="gpQ" type="search" placeholder="Search games…" autocomplete="off" aria-label="Search gamerpic games"><button class="btn ghost small" id="gpBack" type="button" hidden>← Games</button></div><div class="gp-status" id="gpStatus" role="status"></div><div class="gp-grid" id="gpGrid"></div><div class="settings-actions"><button class="btn ghost small" id="gpMore" type="button">Load more pages</button><button class="btn ghost small" id="gpReset" type="button">Use letter avatar</button><button class="btn small" id="gpClose" type="button">Close</button></div></div>';
+      document.body.appendChild(d);
+      $("#gpClose").addEventListener("click", gpClose);
+      d.addEventListener("click", e => { if (e.target === d) gpClose(); });
+      $("#gpBack").addEventListener("click", () => { GPX.view = "titles"; gpRender(); });
+      $("#gpMore").addEventListener("click", () => gpMore(5));
+      $("#gpReset").addEventListener("click", () => { prof.img = ""; prof.av = "letter"; saveProf(); refreshLook(); gpClose(); toast("Using letter avatar"); });
+      let tm = 0; $("#gpQ").addEventListener("input", () => { GPX.view = "titles"; gpRender(); clearTimeout(tm); tm = setTimeout(() => { const q = $("#gpQ").value.trim().toLowerCase(); if (q && GPX.titles.filter(t => t.name.toLowerCase().includes(q)).length < 6) gpMore(8); }, 500); });
+      document.addEventListener("keydown", e => { if (e.key === "Escape" && !d.hidden) { e.stopPropagation(); gpClose(); } }, true);
+    }
+    GPX.view = "titles"; d.hidden = false; gpRender(); $("#gpQ").focus();
+    if (!GPX.titles.length) gpMore(2);
+  }
+  $("#pChangePic").addEventListener("click", openGamerpicPicker);
   function fillProfile(){
     const gpMode=document.querySelector("#gamerpicMode"); if(gpMode) gpMode.textContent=(lsGet(GAMERPIC_UNLOCK_KEY,true)!==false?"Unlock after download":"Search by game title");
     $("#pName").value = prof.name || ""; { const nv = document.getElementById("pNameView"); if (nv) nv.textContent = prof.name || "Player"; } $("#pBio").value = prof.bio || "";
@@ -3477,7 +3423,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     hist.forEach((h, idx) => {
       const r = el("div", "hrow");
       const th = el("span", "th");
-      if (h.cv) { const im = new Image(); im.alt = ""; im.referrerPolicy = "no-referrer"; if (h.cw) im.style.objectPosition = "100% 50%"; im.src = h.cv; im.onerror = () => { im.remove(); th.textContent = h.l || "?"; }; th.appendChild(im); } else th.textContent = h.l || "?";
+      th.textContent = h.l || "?";
       const nm = el("span", "nm"); nm.append(el("b", "", h.t), el("small", "", CAT_NAME[h.c] + " · " + fmtSize(h.s) + " · " + fmtWhen(h.ts)));
       const re = el("a", "re", "⬇"); re.href = h.u; re.target = "_blank"; re.rel = "noopener noreferrer"; re.title = "Download again";
       re.addEventListener("click", ev => { ev.stopPropagation(); hist.unshift(Object.assign({}, h, { ts: Date.now() })); lsSet(HISTORE, hist); paintProfile(); });
@@ -3526,11 +3472,6 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   $("#pClear").addEventListener("click", () => {
     if (!hist.length) return;
     hist = []; lsSet(HISTORE, hist); paintProfile(); fillProfile(); sfx.back(); toast("Download history cleared");
-  });
-  $("#pExport").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({ gamertag: prof.name, exported: new Date().toISOString(), downloads: hist }, null, 1)], { type: "application/json" });
-    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "cvlt-download-history.json";
-    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
   });
 
   /* ======================================================================
@@ -4421,7 +4362,7 @@ html body.accurate-nxe #login #loginCard .btn.ghost:not(.zz):hover,html body.acc
 html body.accurate-nxe #prof .pcard .fld{background:linear-gradient(180deg,#eef2ef,#c4cdc7)!important;color:#1e2b23!important;-webkit-text-fill-color:#1e2b23!important}
 
 /* Cover scraping removed: hide manual cover tools */
-.ccov{display:none!important}
+
 /* Download-all lives only in the DLC game menu */
 #bDownloadAll{display:none!important}
 
@@ -4637,11 +4578,315 @@ body.accurate-nxe .tile{content-visibility:auto;contain-intrinsic-size:auto 190p
 body.accurate-nxe nav#tabs button{transition:color .12s,background-color .12s,border-color .12s!important;transform:none!important;text-shadow:none}
 body.accurate-nxe nav#tabs #tabInd{transition:left .22s cubic-bezier(.2,.8,.3,1),width .22s cubic-bezier(.2,.8,.3,1),background .2s!important}
 
+
+
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode){--tilebg:linear-gradient(160deg,#9aa59d 0%,#68746c 36%,#3d4741 72%,#242b27 100%)}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #game #gDlBox .btn:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv){position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 34px!important;border-radius:999px!important;
+ background:linear-gradient(180deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.3) 46%,rgba(255,255,255,0) 50%),radial-gradient(ellipse 90% 70% at 50% 125%,rgba(255,255,255,.55) 0%,transparent 70%),linear-gradient(180deg,#b6f06c 0%,#5dbb22 55%,#2f8a0d 100%)!important;
+ border:1px solid #2f7a12!important;color:#0f2a06!important;-webkit-text-fill-color:#0f2a06!important;font-weight:800!important;font-size:15px!important;letter-spacing:.03em;text-shadow:0 1px 0 rgba(255,255,255,.6)!important;
+ box-shadow:inset 0 2px 2px rgba(255,255,255,.95),inset 0 -9px 16px rgba(0,0,0,.3),0 0 0 3px rgba(255,255,255,.14),0 9px 20px rgba(0,0,0,.55),0 0 24px rgba(126,220,50,.5)!important;transition:transform .15s,filter .15s,box-shadow .15s}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #game #gDlBox .btn:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):hover{filter:brightness(1.1) saturate(1.1);transform:translateY(-2px)}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #game #gDlBox .btn:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):active{transform:translateY(1px);box-shadow:inset 0 3px 8px rgba(0,0,0,.45),0 3px 8px rgba(0,0,0,.5)!important}
+
+html body.accurate-nxe.arcade-mode{--tilebg:linear-gradient(160deg,#aa9e92 0%,#796b5e 36%,#4c3e33 72%,#2d241d 100%)}
+html body.accurate-nxe.arcade-mode #game #gDlBox .btn:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv){position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 34px!important;border-radius:999px!important;
+ background:linear-gradient(180deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.3) 46%,rgba(255,255,255,0) 50%),radial-gradient(ellipse 90% 70% at 50% 125%,rgba(255,255,255,.55) 0%,transparent 70%),linear-gradient(180deg,#ffc77a 0%,#f07a1c 55%,#b8500a 100%)!important;
+ border:1px solid #8a3d0a!important;color:#3a1804!important;-webkit-text-fill-color:#3a1804!important;font-weight:800!important;font-size:15px!important;letter-spacing:.03em;text-shadow:0 1px 0 rgba(255,255,255,.6)!important;
+ box-shadow:inset 0 2px 2px rgba(255,255,255,.95),inset 0 -9px 16px rgba(0,0,0,.3),0 0 0 3px rgba(255,255,255,.14),0 9px 20px rgba(0,0,0,.55),0 0 24px rgba(255,150,50,.5)!important;transition:transform .15s,filter .15s,box-shadow .15s}
+html body.accurate-nxe.arcade-mode #game #gDlBox .btn:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):hover{filter:brightness(1.1) saturate(1.1);transform:translateY(-2px)}
+html body.accurate-nxe.arcade-mode #game #gDlBox .btn:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):active{transform:translateY(1px);box-shadow:inset 0 3px 8px rgba(0,0,0,.45),0 3px 8px rgba(0,0,0,.5)!important}
+
+html body.accurate-nxe.dlc-mode{--tilebg:linear-gradient(160deg,#9e98ad 0%,#6c647c 36%,#443c56 72%,#282435 100%)}
+html body.accurate-nxe.dlc-mode #game #gDlBox .btn:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv){position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 34px!important;border-radius:999px!important;
+ background:linear-gradient(180deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.3) 46%,rgba(255,255,255,0) 50%),radial-gradient(ellipse 90% 70% at 50% 125%,rgba(255,255,255,.55) 0%,transparent 70%),linear-gradient(180deg,#d9bdff 0%,#9a63e0 55%,#5f34a6 100%)!important;
+ border:1px solid #4c2a82!important;color:#22103d!important;-webkit-text-fill-color:#22103d!important;font-weight:800!important;font-size:15px!important;letter-spacing:.03em;text-shadow:0 1px 0 rgba(255,255,255,.6)!important;
+ box-shadow:inset 0 2px 2px rgba(255,255,255,.95),inset 0 -9px 16px rgba(0,0,0,.3),0 0 0 3px rgba(255,255,255,.14),0 9px 20px rgba(0,0,0,.55),0 0 24px rgba(190,140,255,.5)!important;transition:transform .15s,filter .15s,box-shadow .15s}
+html body.accurate-nxe.dlc-mode #game #gDlBox .btn:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):hover{filter:brightness(1.1) saturate(1.1);transform:translateY(-2px)}
+html body.accurate-nxe.dlc-mode #game #gDlBox .btn:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):active{transform:translateY(1px);box-shadow:inset 0 3px 8px rgba(0,0,0,.45),0 3px 8px rgba(0,0,0,.5)!important}
+
+body.accurate-nxe{--n1:#7cd444;--n1l:#d6f5c1;--n2:#ff9c38;--tg:126,220,50}
+body.accurate-nxe.arcade-mode{--n1:#ff9c38;--n1l:#ffe3b8;--n2:#7cd444;--tg:255,150,50}
+body.accurate-nxe.dlc-mode{--n1:#b99aff;--n1l:#f3eaff;--n2:#ffb257;--tg:190,140,255}
+html body.accurate-nxe .release-mark{color:var(--n1l)!important;border:1px solid var(--n1)!important;border-radius:999px!important;padding:4px 10px!important;background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(var(--tg),.28))!important;text-shadow:0 0 8px rgba(var(--tg),.8);box-shadow:0 0 12px rgba(var(--tg),.4),inset 0 1px rgba(255,255,255,.45);transition:color .3s,border-color .3s,box-shadow .3s}
+html body.accurate-nxe :is(button,a,summary,.tile,input):focus-visible{outline:2px solid var(--n1l)!important;outline-offset:3px}
+html body.accurate-nxe .tile:focus-visible{outline:none!important}
+/* ---- futuristic details bar ---- */
+html body.accurate-nxe .info{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px 22px;margin:10px 48px 4px;padding:16px 24px;border-radius:14px;overflow:hidden;
+ background:var(--infobg)!important;
+ border:1px solid rgba(var(--tg),.75)!important;border-top-color:rgba(255,255,255,.7)!important;box-shadow:0 14px 34px rgba(0,0,0,.5),inset 0 1px rgba(255,255,255,.5),0 0 0 1px rgba(var(--tg),.22)!important}
+html body.accurate-nxe .info::before{content:"";position:absolute;top:0;left:0;width:30%;height:2px;background:linear-gradient(90deg,transparent,var(--n1),transparent);box-shadow:0 0 12px var(--n1);display:none;pointer-events:none}
+@keyframes infoScan{from{transform:translateX(-100%)}to{transform:translateX(430%)}}
+html body.accurate-nxe .info::after{content:"";position:absolute;inset:6px;pointer-events:none;border-radius:9px;
+ background:linear-gradient(var(--n2),var(--n2)) 0 0/14px 2px no-repeat,linear-gradient(var(--n2),var(--n2)) 0 0/2px 14px no-repeat,linear-gradient(var(--n2),var(--n2)) 100% 0/14px 2px no-repeat,linear-gradient(var(--n2),var(--n2)) 100% 0/2px 14px no-repeat,linear-gradient(var(--n2),var(--n2)) 0 100%/14px 2px no-repeat,linear-gradient(var(--n2),var(--n2)) 0 100%/2px 14px no-repeat,linear-gradient(var(--n2),var(--n2)) 100% 100%/14px 2px no-repeat,linear-gradient(var(--n2),var(--n2)) 100% 100%/2px 14px no-repeat;opacity:.8}
+html body.accurate-nxe .info>*{position:relative;z-index:1}
+html body.accurate-nxe .info .t span{display:block;font-size:20px;font-weight:700;color:#fff!important;text-shadow:0 0 14px rgba(var(--tg),.7),0 1px 2px rgba(0,0,0,.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html body.accurate-nxe .info .t small{display:block;margin-top:4px;color:var(--n1l)!important;letter-spacing:.06em;font-size:11px;text-transform:uppercase;opacity:.9}
+html body.accurate-nxe .info .m{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start;grid-column:1;grid-row:2}
+html body.accurate-nxe .info .t{grid-column:1;grid-row:1;min-width:0}
+html body.accurate-nxe .info .iact{grid-column:2;grid-row:1}
+html body.accurate-nxe .info .m>div{display:flex;flex-direction:column;gap:3px;min-width:76px;padding:7px 12px;border-radius:9px;background:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.22));border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 1px rgba(255,255,255,.12)}
+html body.accurate-nxe .info .m span{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--n2)!important}
+html body.accurate-nxe .info .m b{font-size:14px;font-variant-numeric:tabular-nums;color:#fff!important;font-family:ui-monospace,Consolas,monospace}
+html body.accurate-nxe .info .imeter{grid-column:2;grid-row:2;width:240px;height:8px;border-radius:8px;background:rgba(0,0,0,.45);box-shadow:inset 0 1px 3px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.15);overflow:hidden}
+html body.accurate-nxe .info .imeter i{display:block;height:100%;width:4%;border-radius:8px;background:linear-gradient(90deg,var(--n1l),var(--n1) 60%,var(--n2));box-shadow:0 0 10px var(--n1);transition:width .35s cubic-bezier(.2,.8,.3,1)}
+html body.accurate-nxe .info .iact{display:flex;gap:8px;align-items:center}
+@media(max-width:1000px){html body.accurate-nxe .info{grid-template-columns:1fr;margin:8px 12px}}
+
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode){--infobg:linear-gradient(180deg,rgba(255,255,255,.24) 0%,rgba(255,255,255,.05) 40%,rgba(0,0,0,.12) 40%),linear-gradient(160deg,#4c8a38 0%,#2b6125 45%,#143a1c 100%);--pg:linear-gradient(180deg,#e1ffb4 0%,#9be44c 14%,#56b01e 49%,#56b01e 51%,#7bd33a 100%);--ptx:#0f2a06;--pbd:#2f7a12}
+html body.accurate-nxe.arcade-mode{--infobg:linear-gradient(180deg,rgba(255,255,255,.24) 0%,rgba(255,255,255,.05) 40%,rgba(0,0,0,.12) 40%),linear-gradient(160deg,#a8622a 0%,#6e3a14 45%,#38190a 100%);--pg:linear-gradient(180deg,#ffe8c2 0%,#ffb257 14%,#e0731a 49%,#e0731a 51%,#ffa23d 100%);--ptx:#3a1804;--pbd:#8a3d0a}
+html body.accurate-nxe.dlc-mode{--infobg:linear-gradient(180deg,rgba(255,255,255,.24) 0%,rgba(255,255,255,.05) 40%,rgba(0,0,0,.12) 40%),linear-gradient(160deg,#7e52bd 0%,#4f2f86 45%,#2a1850 100%);--pg:linear-gradient(180deg,#f1e4ff 0%,#c9a2f5 14%,#8450c4 49%,#8450c4 51%,#b184e8 100%);--ptx:#22103d;--pbd:#4c2a82}
+#tabPill i.g{background:linear-gradient(180deg,#e1ffb4 0%,#9be44c 14%,#56b01e 49%,#56b01e 51%,#7bd33a 100%);border:1px solid #2f7a12;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 6px rgba(0,0,0,.4)}
+#tabPill i.a{background:linear-gradient(180deg,#ffe8c2 0%,#ffb257 14%,#e0731a 49%,#e0731a 51%,#ffa23d 100%);border:1px solid #8a3d0a;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 6px rgba(0,0,0,.4)}
+#tabPill i.d{background:linear-gradient(180deg,#f1e4ff 0%,#c9a2f5 14%,#8450c4 49%,#8450c4 51%,#b184e8 100%);border:1px solid #4c2a82;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 6px rgba(0,0,0,.4)}
+
+/* tab bar: one smooth pill + slit that glides to the hovered tab */
+html body.accurate-nxe nav#tabs{position:relative}
+#tabPill{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none;z-index:0;will-change:transform,width;transition:transform .34s cubic-bezier(.22,.8,.3,1),width .34s cubic-bezier(.22,.8,.3,1),height .2s}
+#tabPill i{position:absolute;inset:0;border-radius:3px;opacity:0;transition:opacity .3s}
+nav#tabs[data-hot="g"] #tabPill i.g,nav#tabs[data-hot="a"] #tabPill i.a,nav#tabs[data-hot="d"] #tabPill i.d{opacity:1}
+html body.accurate-nxe nav#tabs button[data-tab]:not(.bump):not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):is(.on,:hover){background:transparent!important;border-color:transparent!important;box-shadow:none!important}
+html body.accurate-nxe nav#tabs button[data-tab]:not(.bump){position:relative;z-index:1;transition:color .25s!important}
+html body.accurate-nxe nav#tabs[data-hot-tab="games"] button[data-tab="games"]:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):not(.zu):not(.zt),html body.accurate-nxe nav#tabs[data-hot-tab="guides"] button[data-tab="guides"]:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):not(.zu):not(.zt){color:#0f2a06!important;-webkit-text-fill-color:#0f2a06!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important}
+html body.accurate-nxe nav#tabs[data-hot-tab="arcade"] button[data-tab="arcade"]:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):not(.zu):not(.zt){color:#3a1804!important;-webkit-text-fill-color:#3a1804!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important}
+html body.accurate-nxe nav#tabs[data-hot-tab="dlc"] button[data-tab="dlc"]:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):not(.zu):not(.zt){color:#22103d!important;-webkit-text-fill-color:#22103d!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important}
+html body.accurate-nxe nav#tabs button[data-tab]:not(.bump):not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):not(.zu){color:#d5e0d9!important;-webkit-text-fill-color:#d5e0d9!important;text-shadow:none!important}
+html body.accurate-nxe nav#tabs #tabInd{transition:transform .34s cubic-bezier(.22,.8,.3,1),width .34s cubic-bezier(.22,.8,.3,1),background .3s,box-shadow .3s!important;left:0!important}
+html body.accurate-nxe nav#tabs[data-hot="g"] #tabInd{background:linear-gradient(90deg,#d6f5c1,#7cd444,#3fa21e)!important;box-shadow:0 0 12px #7cd444aa!important}
+html body.accurate-nxe nav#tabs[data-hot="a"] #tabInd{background:linear-gradient(90deg,#ffe3b8,#ff9c38,#e0600f)!important;box-shadow:0 0 12px #ff8b28cc!important}
+html body.accurate-nxe nav#tabs[data-hot="d"] #tabInd{background:linear-gradient(90deg,#f3eaff,#b99aff,#7a5bd8)!important;box-shadow:0 0 12px #b09affcc!important}
+/* library index menu: roomier, never overlapping text, square view */
+html body.accurate-nxe .letter-menu-overlay .letter-menu-panel{width:min(860px,95vw)!important;max-height:min(82vh,800px)!important}
+html body.accurate-nxe .letter-menu-items{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))!important;grid-auto-rows:minmax(72px,auto);align-content:start}
+html body.accurate-nxe .letter-title-item{height:auto!important;min-height:72px;align-items:center;overflow:hidden;text-align:left!important}
+html body.accurate-nxe .letter-title-copy{min-width:0;flex:1;display:flex!important;flex-direction:column;gap:3px;text-align:left!important;overflow:hidden}
+html body.accurate-nxe .letter-menu-overlay .letter-title-item .letter-title-copy b{display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:3!important;overflow:hidden!important;line-height:1.25!important;white-space:normal!important;text-align:left!important;max-height:3.9em}
+html body.accurate-nxe .letter-menu-overlay .letter-title-item .letter-title-copy small{text-align:left!important;display:block!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html body.accurate-nxe .letter-title-art{flex:0 0 auto}
+html body.accurate-nxe .letter-menu-items.list-mode{grid-template-columns:1fr!important}
+html body.accurate-nxe .letter-menu-items.square-mode{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))!important;grid-auto-rows:auto}
+html body.accurate-nxe .letter-menu-items.square-mode .letter-title-item{aspect-ratio:1/1;flex-direction:column;justify-content:center;gap:10px;padding:12px;text-align:center!important}
+html body.accurate-nxe .letter-menu-items.square-mode .letter-title-art{width:56px;height:56px;font-size:24px}
+html body.accurate-nxe .letter-menu-items.square-mode .letter-title-copy,html body.accurate-nxe .letter-menu-overlay .letter-menu-items.square-mode .letter-title-item .letter-title-copy b{text-align:center!important;align-items:center;flex:0 1 auto}
+html body.accurate-nxe .letter-menu-items.square-mode .letter-title-arrow{display:none}
+.xen-more{grid-column:1/-1;margin:6px auto;padding:10px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.3);color:#fff;font:inherit;cursor:pointer}
+/* download page bigger */
+html body.accurate-nxe #game .gcard{width:min(800px,95vw)!important}
+html body.accurate-nxe #game .gcard>h2{font-size:22px!important;padding:20px 28px!important}
+html body.accurate-nxe #game .gbody{padding:24px 28px!important;gap:26px!important}
+html body.accurate-nxe #game .gcard dd{font-size:16px!important}
+html body.accurate-nxe #game .gcard dt{font-size:12px!important}
+html body.accurate-nxe #game .gextra{padding:14px 28px!important;font-size:13px!important}
+html body.accurate-nxe #game .gfoot{padding:20px 28px!important}
+html body.accurate-nxe #game .cover{min-width:150px;min-height:150px}
+/* Xbox LIVE style centered guide */
+#guidesPanel:not([hidden]){display:flex!important;justify-content:center;max-width:none!important;padding:14px 20px 34px!important;margin:0!important}
+#guidesPanel>.guide-notice,#guidesPanel>.guide-accordion{display:none!important}
+.xg{width:min(1000px,96%);border-radius:8px;overflow:hidden;color:#eef3ee;border:1px solid rgba(235,242,238,.55);border-top-color:rgba(255,255,255,.8);
+ background:radial-gradient(ellipse 60% 40% at 18% 8%,rgba(255,255,255,.24),transparent 70%),radial-gradient(ellipse 70% 30% at 40% 100%,rgba(0,0,0,.4),transparent 70%),var(--tilebg,linear-gradient(160deg,#9aa59d,#68746c 36%,#3d4741 72%,#242b27));
+ box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(var(--tg),.2)}
+.xg-head{display:flex;align-items:center;gap:16px;padding:18px 26px;background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,.06) 52%,rgba(0,0,0,.12) 52%,rgba(255,255,255,.04));border-bottom:2px solid var(--n1)}
+.xg-orb{flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#fff 0,var(--n1l) 22%,var(--n1) 58%,rgba(0,0,0,.5) 100%);box-shadow:0 0 18px rgba(var(--tg),.75),inset 0 -4px 8px rgba(0,0,0,.35)}
+.xg-head h3{margin:0;font-size:24px;font-weight:400;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+.xg-head small{display:block;margin-top:3px;color:#dfe7e1;font-size:12px}
+.xg-body{display:grid;grid-template-columns:280px 1fr;min-height:360px}
+.xg-list{padding:16px;display:flex;flex-direction:column;gap:10px;background:rgba(0,0,0,.2);border-right:1px solid rgba(235,242,238,.2)}
+html body.accurate-nxe .xg .xg-item:not(.on):not(.zz){background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.25))!important;border:1px solid rgba(235,242,238,.28)!important;color:#eef3ee!important;-webkit-text-fill-color:#eef3ee!important;text-shadow:none!important;box-shadow:inset 0 1px rgba(255,255,255,.18)!important}
+.xg-item{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:8px;text-align:left;cursor:pointer;color:#eef3ee;font:inherit;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.22));border:1px solid rgba(235,242,238,.28);box-shadow:inset 0 1px rgba(255,255,255,.18);transition:transform .15s,background .2s}
+.xg-item:hover{transform:translateX(3px);border-color:var(--n1l)}
+html body.accurate-nxe .xg .xg-item .ic{flex:0 0 auto;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:18px;background:var(--pg);border:1px solid var(--pbd);color:var(--ptx);box-shadow:inset 0 1px rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)}
+.xg-item b{display:block;font-size:15px;font-weight:700}.xg-item small{display:block;font-size:11px;opacity:.85;margin-top:2px}
+html body.accurate-nxe .xg .xg-item.on:not(.zz){background:var(--pg)!important;border:1px solid var(--pbd)!important;color:var(--ptx)!important;-webkit-text-fill-color:var(--ptx)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 3px 8px rgba(0,0,0,.45),0 0 16px rgba(var(--tg),.45)}
+.xg-item.on .ic{background:rgba(0,0,0,.35);color:#fff;border-color:rgba(255,255,255,.5)}
+.xg-pane{padding:24px 30px;overflow:auto;max-height:64vh;font-size:14px;line-height:1.65}
+.xg-pane p,.xg-pane li{color:#eef3ee}.xg-pane ol{padding-left:22px;display:flex;flex-direction:column;gap:8px}.xg-pane a{color:var(--n1l)}
+.xg-pane .xg-intro{padding:12px 14px;margin:0 0 16px;border-radius:6px;background:rgba(0,0,0,.25);border:1px solid rgba(235,242,238,.2)}
+@media(max-width:760px){.xg-body{grid-template-columns:1fr}.xg-list{flex-direction:row;overflow:auto;border-right:0}}
+
+
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode){--smoke:linear-gradient(160deg,#9aa59d 0%,#68746c 36%,#3d4741 72%,#242b27 100%)}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-menu-panel:not(.zz):not(.zy):not(.zx){background:radial-gradient(ellipse 60% 40% at 18% 8%,rgba(255,255,255,.26),transparent 70%),radial-gradient(ellipse 70% 30% at 40% 100%,rgba(0,0,0,.4),transparent 70%),linear-gradient(160deg,#9aa59d 0%,#68746c 36%,#3d4741 72%,#242b27 100%)!important;border:1px solid rgba(235,242,238,.55)!important;border-top-color:rgba(255,255,255,.8)!important;border-radius:8px!important;color:#eef3ee!important;box-shadow:0 26px 80px rgba(0,0,0,.7),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(126,220,50,.22)!important}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-menu-head:not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,.06) 52%,rgba(0,0,0,.12) 52%,rgba(255,255,255,.04))!important;border-bottom:2px solid #6cc72a!important;color:#fff!important}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-menu-head small:not(.zz):not(.zy):not(.zx){color:#b7f07a!important;letter-spacing:.22em}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-menu-head h2:not(.zz):not(.zy):not(.zx){color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-menu-head p:not(.zz):not(.zy):not(.zx){color:#dfe7e1!important}
+html body.accurate-nxe .letter-menu-overlay.games-category :is(.letter-menu-tools,.letter-menu-foot):not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(0,0,0,.25))!important;border-color:rgba(235,242,238,.2)!important;color:#dfe7e1!important}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-menu-views:not(.zz):not(.zy):not(.zx){background:rgba(0,0,0,.3)!important;border:1px solid rgba(235,242,238,.3)!important;border-radius:6px!important}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-menu-views button:not(.zz):not(.zy):not(.zx){background:transparent!important;color:#eef3ee!important;border:0!important;box-shadow:none!important}
+html body.accurate-nxe .letter-menu-overlay.games-category :is(.letter-menu-views button.is-active,.letter-menu-close,.xen-menu-dl):not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,#e1ffb4 0%,#9be44c 14%,#56b01e 49%,#56b01e 51%,#7bd33a 100%)!important;border:1px solid #2f7a12!important;color:#0f2a06!important;-webkit-text-fill-color:#0f2a06!important;border-radius:4px!important;font-weight:700!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-title-item:not(.zz):not(.zy):not(.zx){position:relative;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.24))!important;border:1px solid rgba(235,242,238,.25)!important;border-left:4px solid #6cc72a!important;border-radius:4px!important;color:#fff!important;box-shadow:inset 0 1px rgba(255,255,255,.15)!important}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-title-item:is(:hover,:focus-visible):not(.zz):not(.zy):not(.zx){background:linear-gradient(145deg,rgba(126,220,50,.4),rgba(0,0,0,.25))!important;border-color:#b7f07a!important;border-left-color:#b7f07a!important;box-shadow:0 0 14px rgba(126,220,50,.5),inset 0 1px rgba(255,255,255,.25)!important}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-title-art:not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,#e1ffb4 0%,#9be44c 14%,#56b01e 49%,#56b01e 51%,#7bd33a 100%)!important;border:1px solid #2f7a12!important;color:#0f2a06!important;border-radius:6px!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-title-copy b:not(.zz):not(.zy):not(.zx){color:#fff!important}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-title-copy small:not(.zz):not(.zy):not(.zx){color:#cfd8d2!important}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-title-arrow:not(.zz):not(.zy):not(.zx){color:#b7f07a!important}
+html body.accurate-nxe .letter-menu-overlay.games-category .letter-menu-items{scrollbar-color:#6cc72a rgba(0,0,0,.35)}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #nxeContextMenu:not(.zz):not(.zy):not(.zx){background:radial-gradient(ellipse 60% 40% at 18% 8%,rgba(255,255,255,.26),transparent 70%),linear-gradient(160deg,#9aa59d 0%,#68746c 36%,#3d4741 72%,#242b27 100%)!important;border:1px solid rgba(235,242,238,.55)!important;border-radius:8px!important;padding:6px!important;color:#eef3ee;box-shadow:0 20px 50px rgba(0,0,0,.65),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(126,220,50,.25)!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #nxeContextMenu .ctx-heading:not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.05));border-bottom:2px solid #6cc72a!important;color:#fff!important;border-radius:5px 5px 0 0;margin-bottom:6px;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #nxeContextMenu button:not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,#e1ffb4 0%,#9be44c 14%,#56b01e 49%,#56b01e 51%,#7bd33a 100%)!important;border:1px solid #2f7a12!important;color:#0f2a06!important;-webkit-text-fill-color:#0f2a06!important;border-radius:5px!important;margin:3px 0;font-weight:700;text-shadow:0 1px 0 rgba(255,255,255,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #nxeContextMenu button .ctx-icon{color:#0f2a06!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #nxeContextMenu button:hover{filter:brightness(1.1)}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .info:not(.zz):not(.zy){background:radial-gradient(ellipse 60% 120% at 14% 0%,rgba(255,255,255,.26),transparent 70%),radial-gradient(ellipse 70% 40% at 50% 100%,rgba(0,0,0,.4),transparent 70%),linear-gradient(160deg,#9aa59d 0%,#68746c 36%,#3d4741 72%,#242b27 100%)!important;border:1px solid rgba(235,242,238,.55)!important;border-top-color:rgba(255,255,255,.8)!important;border-bottom:3px solid #6cc72a!important;border-radius:8px!important;box-shadow:0 18px 44px rgba(0,0,0,.6),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(126,220,50,.25),0 8px 24px -8px rgba(126,220,50,.55)!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .info .btn:not(.ghost):not(.zz){background:linear-gradient(180deg,#e1ffb4 0%,#9be44c 14%,#56b01e 49%,#56b01e 51%,#7bd33a 100%)!important;border:1px solid #2f7a12!important;color:#0f2a06!important;-webkit-text-fill-color:#0f2a06!important;border-radius:4px!important;font-weight:700!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) .release-mark:not(.zz):not(.zy){background:linear-gradient(180deg,#e1ffb4 0%,#9be44c 14%,#56b01e 49%,#56b01e 51%,#7bd33a 100%)!important;border:1px solid #2f7a12!important;color:#0f2a06!important;-webkit-text-fill-color:#0f2a06!important}
+
+html body.accurate-nxe.arcade-mode{--smoke:linear-gradient(160deg,#aa9e92 0%,#796b5e 36%,#4c3e33 72%,#2d241d 100%)}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-menu-panel:not(.zz):not(.zy):not(.zx){background:radial-gradient(ellipse 60% 40% at 18% 8%,rgba(255,255,255,.26),transparent 70%),radial-gradient(ellipse 70% 30% at 40% 100%,rgba(0,0,0,.4),transparent 70%),linear-gradient(160deg,#aa9e92 0%,#796b5e 36%,#4c3e33 72%,#2d241d 100%)!important;border:1px solid rgba(235,242,238,.55)!important;border-top-color:rgba(255,255,255,.8)!important;border-radius:8px!important;color:#eef3ee!important;box-shadow:0 26px 80px rgba(0,0,0,.7),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(255,150,50,.22)!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-menu-head:not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,.06) 52%,rgba(0,0,0,.12) 52%,rgba(255,255,255,.04))!important;border-bottom:2px solid #f39a3a!important;color:#fff!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-menu-head small:not(.zz):not(.zy):not(.zx){color:#ffd09b!important;letter-spacing:.22em}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-menu-head h2:not(.zz):not(.zy):not(.zx){color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-menu-head p:not(.zz):not(.zy):not(.zx){color:#dfe7e1!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category :is(.letter-menu-tools,.letter-menu-foot):not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(0,0,0,.25))!important;border-color:rgba(235,242,238,.2)!important;color:#dfe7e1!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-menu-views:not(.zz):not(.zy):not(.zx){background:rgba(0,0,0,.3)!important;border:1px solid rgba(235,242,238,.3)!important;border-radius:6px!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-menu-views button:not(.zz):not(.zy):not(.zx){background:transparent!important;color:#eef3ee!important;border:0!important;box-shadow:none!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category :is(.letter-menu-views button.is-active,.letter-menu-close,.xen-menu-dl):not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,#ffe8c2 0%,#ffb257 14%,#e0731a 49%,#e0731a 51%,#ffa23d 100%)!important;border:1px solid #8a3d0a!important;color:#3a1804!important;-webkit-text-fill-color:#3a1804!important;border-radius:4px!important;font-weight:700!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-title-item:not(.zz):not(.zy):not(.zx){position:relative;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.24))!important;border:1px solid rgba(235,242,238,.25)!important;border-left:4px solid #f39a3a!important;border-radius:4px!important;color:#fff!important;box-shadow:inset 0 1px rgba(255,255,255,.15)!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-title-item:is(:hover,:focus-visible):not(.zz):not(.zy):not(.zx){background:linear-gradient(145deg,rgba(255,150,50,.4),rgba(0,0,0,.25))!important;border-color:#ffd09b!important;border-left-color:#ffd09b!important;box-shadow:0 0 14px rgba(255,150,50,.5),inset 0 1px rgba(255,255,255,.25)!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-title-art:not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,#ffe8c2 0%,#ffb257 14%,#e0731a 49%,#e0731a 51%,#ffa23d 100%)!important;border:1px solid #8a3d0a!important;color:#3a1804!important;border-radius:6px!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-title-copy b:not(.zz):not(.zy):not(.zx){color:#fff!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-title-copy small:not(.zz):not(.zy):not(.zx){color:#cfd8d2!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-title-arrow:not(.zz):not(.zy):not(.zx){color:#ffd09b!important}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-menu-items{scrollbar-color:#f39a3a rgba(0,0,0,.35)}
+html body.accurate-nxe.arcade-mode #nxeContextMenu:not(.zz):not(.zy):not(.zx){background:radial-gradient(ellipse 60% 40% at 18% 8%,rgba(255,255,255,.26),transparent 70%),linear-gradient(160deg,#aa9e92 0%,#796b5e 36%,#4c3e33 72%,#2d241d 100%)!important;border:1px solid rgba(235,242,238,.55)!important;border-radius:8px!important;padding:6px!important;color:#eef3ee;box-shadow:0 20px 50px rgba(0,0,0,.65),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(255,150,50,.25)!important}
+html body.accurate-nxe.arcade-mode #nxeContextMenu .ctx-heading:not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.05));border-bottom:2px solid #f39a3a!important;color:#fff!important;border-radius:5px 5px 0 0;margin-bottom:6px;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+html body.accurate-nxe.arcade-mode #nxeContextMenu button:not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,#ffe8c2 0%,#ffb257 14%,#e0731a 49%,#e0731a 51%,#ffa23d 100%)!important;border:1px solid #8a3d0a!important;color:#3a1804!important;-webkit-text-fill-color:#3a1804!important;border-radius:5px!important;margin:3px 0;font-weight:700;text-shadow:0 1px 0 rgba(255,255,255,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)}
+html body.accurate-nxe.arcade-mode #nxeContextMenu button .ctx-icon{color:#3a1804!important}
+html body.accurate-nxe.arcade-mode #nxeContextMenu button:hover{filter:brightness(1.1)}
+html body.accurate-nxe.arcade-mode .info:not(.zz):not(.zy){background:radial-gradient(ellipse 60% 120% at 14% 0%,rgba(255,255,255,.26),transparent 70%),radial-gradient(ellipse 70% 40% at 50% 100%,rgba(0,0,0,.4),transparent 70%),linear-gradient(160deg,#aa9e92 0%,#796b5e 36%,#4c3e33 72%,#2d241d 100%)!important;border:1px solid rgba(235,242,238,.55)!important;border-top-color:rgba(255,255,255,.8)!important;border-bottom:3px solid #f39a3a!important;border-radius:8px!important;box-shadow:0 18px 44px rgba(0,0,0,.6),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(255,150,50,.25),0 8px 24px -8px rgba(255,150,50,.55)!important}
+html body.accurate-nxe.arcade-mode .info .btn:not(.ghost):not(.zz){background:linear-gradient(180deg,#ffe8c2 0%,#ffb257 14%,#e0731a 49%,#e0731a 51%,#ffa23d 100%)!important;border:1px solid #8a3d0a!important;color:#3a1804!important;-webkit-text-fill-color:#3a1804!important;border-radius:4px!important;font-weight:700!important}
+html body.accurate-nxe.arcade-mode .release-mark:not(.zz):not(.zy){background:linear-gradient(180deg,#ffe8c2 0%,#ffb257 14%,#e0731a 49%,#e0731a 51%,#ffa23d 100%)!important;border:1px solid #8a3d0a!important;color:#3a1804!important;-webkit-text-fill-color:#3a1804!important}
+
+html body.accurate-nxe.dlc-mode{--smoke:linear-gradient(160deg,#9e98ad 0%,#6c647c 36%,#443c56 72%,#282435 100%)}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-menu-panel:not(.zz):not(.zy):not(.zx){background:radial-gradient(ellipse 60% 40% at 18% 8%,rgba(255,255,255,.26),transparent 70%),radial-gradient(ellipse 70% 30% at 40% 100%,rgba(0,0,0,.4),transparent 70%),linear-gradient(160deg,#9e98ad 0%,#6c647c 36%,#443c56 72%,#282435 100%)!important;border:1px solid rgba(235,242,238,.55)!important;border-top-color:rgba(255,255,255,.8)!important;border-radius:8px!important;color:#eef3ee!important;box-shadow:0 26px 80px rgba(0,0,0,.7),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(190,140,255,.22)!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-menu-head:not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,.06) 52%,rgba(0,0,0,.12) 52%,rgba(255,255,255,.04))!important;border-bottom:2px solid #a77de9!important;color:#fff!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-menu-head small:not(.zz):not(.zy):not(.zx){color:#e0c9ff!important;letter-spacing:.22em}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-menu-head h2:not(.zz):not(.zy):not(.zx){color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-menu-head p:not(.zz):not(.zy):not(.zx){color:#dfe7e1!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category :is(.letter-menu-tools,.letter-menu-foot):not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(0,0,0,.25))!important;border-color:rgba(235,242,238,.2)!important;color:#dfe7e1!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-menu-views:not(.zz):not(.zy):not(.zx){background:rgba(0,0,0,.3)!important;border:1px solid rgba(235,242,238,.3)!important;border-radius:6px!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-menu-views button:not(.zz):not(.zy):not(.zx){background:transparent!important;color:#eef3ee!important;border:0!important;box-shadow:none!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category :is(.letter-menu-views button.is-active,.letter-menu-close,.xen-menu-dl):not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,#f1e4ff 0%,#c9a2f5 14%,#8450c4 49%,#8450c4 51%,#b184e8 100%)!important;border:1px solid #4c2a82!important;color:#22103d!important;-webkit-text-fill-color:#22103d!important;border-radius:4px!important;font-weight:700!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-title-item:not(.zz):not(.zy):not(.zx){position:relative;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.24))!important;border:1px solid rgba(235,242,238,.25)!important;border-left:4px solid #a77de9!important;border-radius:4px!important;color:#fff!important;box-shadow:inset 0 1px rgba(255,255,255,.15)!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-title-item:is(:hover,:focus-visible):not(.zz):not(.zy):not(.zx){background:linear-gradient(145deg,rgba(190,140,255,.4),rgba(0,0,0,.25))!important;border-color:#e0c9ff!important;border-left-color:#e0c9ff!important;box-shadow:0 0 14px rgba(190,140,255,.5),inset 0 1px rgba(255,255,255,.25)!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-title-art:not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,#f1e4ff 0%,#c9a2f5 14%,#8450c4 49%,#8450c4 51%,#b184e8 100%)!important;border:1px solid #4c2a82!important;color:#22103d!important;border-radius:6px!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-title-copy b:not(.zz):not(.zy):not(.zx){color:#fff!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-title-copy small:not(.zz):not(.zy):not(.zx){color:#cfd8d2!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-title-arrow:not(.zz):not(.zy):not(.zx){color:#e0c9ff!important}
+html body.accurate-nxe .letter-menu-overlay.dlc-category .letter-menu-items{scrollbar-color:#a77de9 rgba(0,0,0,.35)}
+html body.accurate-nxe.dlc-mode #nxeContextMenu:not(.zz):not(.zy):not(.zx){background:radial-gradient(ellipse 60% 40% at 18% 8%,rgba(255,255,255,.26),transparent 70%),linear-gradient(160deg,#9e98ad 0%,#6c647c 36%,#443c56 72%,#282435 100%)!important;border:1px solid rgba(235,242,238,.55)!important;border-radius:8px!important;padding:6px!important;color:#eef3ee;box-shadow:0 20px 50px rgba(0,0,0,.65),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(190,140,255,.25)!important}
+html body.accurate-nxe.dlc-mode #nxeContextMenu .ctx-heading:not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.05));border-bottom:2px solid #a77de9!important;color:#fff!important;border-radius:5px 5px 0 0;margin-bottom:6px;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+html body.accurate-nxe.dlc-mode #nxeContextMenu button:not(.zz):not(.zy):not(.zx){background:linear-gradient(180deg,#f1e4ff 0%,#c9a2f5 14%,#8450c4 49%,#8450c4 51%,#b184e8 100%)!important;border:1px solid #4c2a82!important;color:#22103d!important;-webkit-text-fill-color:#22103d!important;border-radius:5px!important;margin:3px 0;font-weight:700;text-shadow:0 1px 0 rgba(255,255,255,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.4)}
+html body.accurate-nxe.dlc-mode #nxeContextMenu button .ctx-icon{color:#22103d!important}
+html body.accurate-nxe.dlc-mode #nxeContextMenu button:hover{filter:brightness(1.1)}
+html body.accurate-nxe.dlc-mode .info:not(.zz):not(.zy){background:radial-gradient(ellipse 60% 120% at 14% 0%,rgba(255,255,255,.26),transparent 70%),radial-gradient(ellipse 70% 40% at 50% 100%,rgba(0,0,0,.4),transparent 70%),linear-gradient(160deg,#9e98ad 0%,#6c647c 36%,#443c56 72%,#282435 100%)!important;border:1px solid rgba(235,242,238,.55)!important;border-top-color:rgba(255,255,255,.8)!important;border-bottom:3px solid #a77de9!important;border-radius:8px!important;box-shadow:0 18px 44px rgba(0,0,0,.6),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(190,140,255,.25),0 8px 24px -8px rgba(190,140,255,.55)!important}
+html body.accurate-nxe.dlc-mode .info .btn:not(.ghost):not(.zz){background:linear-gradient(180deg,#f1e4ff 0%,#c9a2f5 14%,#8450c4 49%,#8450c4 51%,#b184e8 100%)!important;border:1px solid #4c2a82!important;color:#22103d!important;-webkit-text-fill-color:#22103d!important;border-radius:4px!important;font-weight:700!important}
+html body.accurate-nxe.dlc-mode .release-mark:not(.zz):not(.zy){background:linear-gradient(180deg,#f1e4ff 0%,#c9a2f5 14%,#8450c4 49%,#8450c4 51%,#b184e8 100%)!important;border:1px solid #4c2a82!important;color:#22103d!important;-webkit-text-fill-color:#22103d!important}
+
+html body.accurate-nxe .info:not(.zz):not(.zy)::before{display:block!important;animation:none!important;content:"";position:absolute;left:0;top:0;right:0;width:auto;height:46%;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,.03));box-shadow:none;pointer-events:none;border-radius:8px 8px 0 0}
+html body.accurate-nxe .info .btn.ghost:not(.zz):not(.zy){background:linear-gradient(180deg,#fbfdfb 0%,#dfe6e1 48%,#b4beb8 52%,#d3dbd6 100%)!important;border:1px solid #5d6a63!important;color:#1e2b23!important;-webkit-text-fill-color:#1e2b23!important;text-shadow:0 1px 0 rgba(255,255,255,.6)!important;border-radius:4px!important;box-shadow:inset 0 1px 0 #fff,0 2px 5px rgba(0,0,0,.45)!important}
+html body.accurate-nxe .info::after{display:none}
+#nxeContextMenu.ctx-rec [data-action="search"],#nxeContextMenu.ctx-rec [data-action="settings"],#nxeContextMenu.ctx-rec [data-action="close"],#nxeContextMenu.ctx-rec .ctx-separator{display:none!important}
+#nxeContextMenu:not(.ctx-rec) [data-action="download"]{display:none!important}
+.grel{margin:0;padding:14px 28px;border-top:1px solid rgba(235,242,238,.2)}
+.grel[hidden]{display:none}
+.grel h4{margin:0 0 8px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--n1l)}
+.grel-note{margin:0 0 10px;font-size:13px;line-height:1.5;color:#eef3ee}
+.grel-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.grel-item{display:flex;flex-direction:column;gap:3px;text-align:left;padding:10px 12px;border-radius:5px;cursor:pointer;font:inherit;color:#fff;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.24));border:1px solid rgba(235,242,238,.25);border-left:4px solid var(--n1)}
+.grel-item:hover{border-color:var(--n1l);box-shadow:0 0 12px rgba(var(--tg),.45)}
+.grel-item b{font-size:13px;line-height:1.25}.grel-item small{font-size:11px;color:#cfd8d2}
+html body.accurate-nxe .letter-menu-overlay.arcade-category .letter-menu-head:not(.zz){background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.09) 0 2px,transparent 2px 4px),linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,.06) 52%,rgba(0,0,0,.12) 52%,rgba(255,255,255,.04))!important}
+/* version badge: glossy pill, aligned with the wordmark */
+html body.accurate-nxe header h1 .release-mark:not(.zz):not(.zy){display:inline-flex!important;align-items:center;justify-content:center;vertical-align:middle;height:24px;min-width:0;padding:0 13px!important;margin:0 6px;font-size:12px!important;line-height:1;font-weight:800;letter-spacing:.06em;border-radius:999px!important;text-shadow:0 1px 0 rgba(255,255,255,.45)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -6px 8px rgba(0,0,0,.18),0 2px 5px rgba(0,0,0,.45),0 0 10px rgba(var(--tg),.45)!important}
+html body.accurate-nxe header h1 .release-mark:not(.zz):not(.zy):not(.zx){width:auto!important;min-width:44px!important;padding:0 9px!important;font-size:11px!important;box-sizing:border-box;flex:0 0 auto;overflow:visible!important;white-space:nowrap;margin:0 3px!important;position:relative;top:-1px}
+html body.accurate-nxe .letter-menu-overlay .letter-title-item .letter-title-copy small:not(.zz):not(.zy){text-align:left!important;align-self:flex-start}
+/* controller colours */
+html body.accurate-nxe.ctrl-colors footer .hint .pad{color:#fff!important;text-shadow:0 1px 1px rgba(0,0,0,.55);border:1px solid rgba(0,0,0,.4)!important;box-shadow:inset 0 1px 1px rgba(255,255,255,.7),0 1px 3px rgba(0,0,0,.5)!important}
+html body.accurate-nxe.ctrl-colors footer .hint:nth-child(1) .pad{background:radial-gradient(circle at 35% 28%,#d6ff9a,#6dc22b 45%,#2d7a0f)!important}
+html body.accurate-nxe.ctrl-colors footer .hint:nth-child(2) .pad{background:radial-gradient(circle at 35% 28%,#ffb0a4,#d9302a 45%,#8a1410)!important}
+html body.accurate-nxe.ctrl-colors footer .hint:nth-child(3) .pad{background:radial-gradient(circle at 35% 28%,#aed2ff,#2a74d6 45%,#123f8a)!important}
+html body.accurate-nxe.ctrl-colors footer .hint:nth-child(4) .pad{background:radial-gradient(circle at 35% 28%,#fff6b0,#f2c312 45%,#a87a00)!important;color:#3a2a00!important;text-shadow:0 1px 0 rgba(255,255,255,.4)}
+html body.accurate-nxe.ctrl-colors footer .hint:nth-child(5) .pad{background:linear-gradient(180deg,#ffffff,#cfd6d1 50%,#8b948e)!important;color:#222!important;text-shadow:none}
+
+
+/* invisible browser panel was reserving layout space */
+html body.accurate-nxe .browser:not(.zz):not(.zy):not(.zx):not(.zw){position:absolute!important;inset:0!important;height:auto!important;max-height:none!important}
+html body.accurate-nxe:not(.arcade-mode):not(.dlc-mode) #ribbons{display:none!important}
+/* footer button hints follow the tab colour */
+html body.accurate-nxe footer .hint .pad:not(.zz){background:var(--pg)!important;color:var(--ptx)!important;-webkit-text-fill-color:var(--ptx)!important;border:1px solid var(--pbd)!important;text-shadow:0 1px 0 rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 1px rgba(255,255,255,.7),0 1px 3px rgba(0,0,0,.5)!important}
+/* glass tiles, tighter rows */
+html body.accurate-nxe .grid{row-gap:6px!important}
+html body.accurate-nxe .grid .tile:not(.zz):not(.zy){background:linear-gradient(172deg,rgba(255,255,255,.36) 0%,rgba(255,255,255,.12) 18%,rgba(255,255,255,.03) 38%,rgba(0,0,0,0) 52%),radial-gradient(ellipse 90% 50% at 50% 118%,rgba(var(--tg),.28),transparent 70%),linear-gradient(180deg,rgba(var(--tg),.12),rgba(18,30,24,.58))!important;border:1px solid rgba(255,255,255,.45)!important;border-bottom-color:rgba(255,255,255,.14)!important;border-radius:12px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.85),inset 0 0 0 1px rgba(255,255,255,.1),inset 0 -26px 34px rgba(0,0,0,.3),inset 0 18px 30px rgba(255,255,255,.07),0 10px 22px rgba(0,0,0,.5)!important}
+html body.accurate-nxe .grid .tile:not(.dlc-game-tile):not(.zz)::after{content:"";position:absolute;left:3px;right:3px;top:3px;height:44%;border-radius:10px 10px 50% 50%/10px 10px 20% 20%;background:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.5);pointer-events:none;z-index:0}
+html body.accurate-nxe .grid .tile .size:not(.zz){background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(0,0,0,.4))!important;border:1px solid rgba(255,255,255,.22)!important;border-radius:8px!important}
+/* smaller, squarer download buttons */
+html body.accurate-nxe #game #gDlBox .btn:not(.zz):not(.zy):not(.zx):not(.zw):not(.zv):not(.zu){min-height:38px!important;padding:8px 22px!important;border-radius:9px!important;font-size:13.5px!important;gap:6px;letter-spacing:.02em}
+html body.accurate-nxe .letter-menu-overlay .xen-menu-dl:not(.zz):not(.zy):not(.zx){height:34px;padding:0 16px;border-radius:9px!important;font-size:12.5px}
+/* DLC search mode toggle */
+.xen-dlcmode{display:flex;border:1px solid rgba(235,242,238,.3);border-radius:6px;overflow:hidden;background:rgba(0,0,0,.3);margin-right:auto}
+.xen-dlcmode[hidden]{display:none}
+.xen-dlcmode button{padding:8px 14px;border:0;background:transparent;color:#eef3ee;font:inherit;font-size:12px;cursor:pointer}
+.xen-dlcmode button.is-active{background:var(--pg);color:var(--ptx);font-weight:700}
+.xen-menu-q{flex:1 1 220px}
+/* gamerpic picker */
+#pChangePic{margin-top:6px;align-self:flex-start}
+html body.accurate-nxe #gpDlg{z-index:2600}
+html body.accurate-nxe #gpDlg .gp-card{width:min(880px,95vw);max-height:88vh;display:flex;flex-direction:column;overflow:hidden;color:#eef3ee;background:radial-gradient(ellipse 60% 40% at 18% 8%,rgba(255,255,255,.26),transparent 70%),var(--smoke)!important;border:1px solid rgba(235,242,238,.55)!important;border-top-color:rgba(255,255,255,.8)!important;border-radius:8px!important;box-shadow:0 26px 80px rgba(0,0,0,.7),inset 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(var(--tg),.22)!important}
+html body.accurate-nxe #gpDlg .gp-card>h2{background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,.06) 52%,rgba(0,0,0,.12) 52%,rgba(255,255,255,.04))!important;border-bottom:2px solid var(--n1)!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font-weight:400!important;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+.gp-tools{display:flex;gap:10px;padding:12px 18px 4px}.gp-tools .fld{flex:1;background:linear-gradient(180deg,#eef2ef,#c4cdc7)!important;color:#1e2b23!important;-webkit-text-fill-color:#1e2b23!important;border:1px solid rgba(225,235,226,.65)!important;border-radius:3px!important}
+.gp-status{padding:2px 18px 8px;font-size:12px;color:#dfe7e1}
+.gp-grid{padding:6px 18px 14px;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;min-height:260px;align-content:start}
+.gp-title{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px;border-radius:6px;cursor:pointer;font:inherit;color:#fff;text-align:center;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(0,0,0,.24));border:1px solid rgba(235,242,238,.25);border-bottom:3px solid var(--n1)}
+.gp-title:hover{border-color:var(--n1l);box-shadow:0 0 14px rgba(var(--tg),.5)}
+.gp-title img{width:84px;height:84px;border-radius:8px;object-fit:cover;background:rgba(0,0,0,.35)}.gp-title b{font-size:12.5px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.gp-title small{font-size:11px;color:#cfd8d2}
+.gp-pick{padding:0;border-radius:8px;overflow:hidden;cursor:pointer;aspect-ratio:1;border:2px solid rgba(235,242,238,.3);background:rgba(0,0,0,.35)}.gp-pick:hover{border-color:var(--n1l);box-shadow:0 0 14px rgba(var(--tg),.6)}.gp-pick img{width:100%;height:100%;object-fit:cover;display:block}
+.gp-empty{grid-column:1/-1;text-align:center;color:#dfe7e1;padding:30px 0}
+html body.accurate-nxe #gpDlg .btn:not(.ghost){background:var(--pg)!important;border:1px solid var(--pbd)!important;color:var(--ptx)!important;-webkit-text-fill-color:var(--ptx)!important;border-radius:4px!important;font-weight:700!important}
+html body.accurate-nxe #gpDlg .btn.ghost{background:linear-gradient(180deg,#fbfdfb 0%,#dfe6e1 48%,#b4beb8 52%,#d3dbd6 100%)!important;border:1px solid #5d6a63!important;color:#1e2b23!important;-webkit-text-fill-color:#1e2b23!important;border-radius:4px!important}
+#gpDlg .settings-actions{padding:10px 18px 14px;display:flex;gap:8px;justify-content:flex-end}
 </style>
 <script id="xenios-121">
-(function(){const b=document.getElementById("infoToggle");if(!b)return;let on=true;try{on=localStorage.getItem("xenInfo")!=="0"}catch(e){}
-const ap=()=>{document.body.classList.toggle("hide-info",!on);b.textContent=on?"On":"Off";b.setAttribute("aria-pressed",String(on))};
-b.addEventListener("click",()=>{on=!on;try{localStorage.setItem("xenInfo",on?"1":"0")}catch(e){}ap()});ap();})();
+(function(){
+function mk(id,key,fn,def){const b=document.getElementById(id);if(!b)return;let v=def;try{const s=localStorage.getItem(key);if(s!==null)v=s==="1"}catch(e){}
+const ap=()=>{fn(v,b);b.setAttribute("aria-pressed",String(v))};b.addEventListener("click",()=>{v=!v;try{localStorage.setItem(key,v?"1":"0")}catch(e){}ap()});ap();}
+mk("ctrlToggle","xenCtrl",(v,b)=>{document.body.classList.toggle("ctrl-colors",v);b.textContent=v?"On":"Off"},false);
+mk("infoToggle","xenInfo2",(v,b)=>{document.body.classList.toggle("hide-info",!v);b.textContent=v?"On":"Off"},false);
+const nm=()=>(document.getElementById("iName").textContent||"").split(" · ")[0].trim();
+const c=document.getElementById("iCopy"),f=document.getElementById("iFind");
+if(c)c.addEventListener("click",()=>{try{navigator.clipboard.writeText(nm());c.textContent="✓ Copied";setTimeout(()=>c.textContent="⧉ Copy",1200)}catch(e){}});
+if(f)f.addEventListener("click",()=>{const q=document.getElementById("q");if(!q)return;q.value=nm();q.dispatchEvent(new Event("input",{bubbles:true}));});
+})();
+
+(function(){
+const nav=document.getElementById("tabs"),ind=document.getElementById("tabInd");
+if(nav&&ind){
+const pill=document.createElement("span");pill.id="tabPill";pill.setAttribute("aria-hidden","true");pill.innerHTML='<i class="g"></i><i class="a"></i><i class="d"></i>';nav.insertBefore(pill,nav.firstChild);
+const btns=[...nav.querySelectorAll("button[data-tab]")];let hot=null;
+const key=b=>b.dataset.tab==="arcade"?"a":b.dataset.tab==="dlc"?"d":"g";
+const active=()=>nav.querySelector("button[data-tab].on");
+function place(b){if(!b)return;nav.dataset.hot=key(b);nav.dataset.hotTab=b.dataset.tab;
+const x=b.offsetLeft,w=b.offsetWidth,h=b.offsetHeight,y=b.offsetTop,iw=w*1.1;
+pill.style.transform="translate("+x+"px,"+y+"px)";pill.style.width=w+"px";pill.style.height=h+"px";
+ind.style.width=iw+"px";ind.style.transform="translateX("+(x-(iw-w)/2)+"px)";ind.style.top=(y+h+3)+"px";}
+btns.forEach(b=>{b.addEventListener("mouseenter",()=>{hot=b;place(b)});b.addEventListener("focus",()=>{hot=b;place(b)});});
+nav.addEventListener("mouseleave",()=>{hot=null;place(active())});
+new MutationObserver(()=>{if(!hot)place(active())}).observe(nav,{attributes:true,subtree:true,attributeFilter:["class"]});
+const qI=document.getElementById("q"),PH={games:"Search Games On Demand…",arcade:"Search Xbox LIVE Arcade…",dlc:"Search Add-Ons…",guides:"Search all games, arcade, DLC…"};
+const setPh=()=>{const a=active();if(qI&&a)qI.placeholder=PH[a.dataset.tab]||PH.guides;};setPh();new MutationObserver(setPh).observe(nav,{attributes:true,subtree:true,attributeFilter:["class"]});
+addEventListener("resize",()=>place(hot||active()));setTimeout(()=>place(active()),80);setTimeout(()=>place(active()),600);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>place(hot||active()));
+}
+const gp=document.getElementById("guidesPanel");
+if(gp){const subs=[...gp.querySelectorAll(".guide-sub")],intro=gp.querySelector(".guide-accordion>.guide-copy>p"),note=gp.querySelector(".guide-notice");
+const xg=document.createElement("div");xg.className="xg";
+xg.innerHTML='<div class="xg-head"><span class="xg-orb"></span><div><h3>Xenios Guide</h3><small>'+(note?note.querySelector("span").textContent:"")+'</small></div></div><div class="xg-body"><div class="xg-list" role="tablist"></div><div class="xg-pane" role="tabpanel"></div></div>';
+const list=xg.querySelector(".xg-list"),pane=xg.querySelector(".xg-pane"),ic=["◉","＋","★","⚙"];
+const show=i=>{[...list.children].forEach((c,j)=>{c.classList.toggle("on",i===j);c.setAttribute("aria-selected",String(i===j))});
+pane.innerHTML=(intro?'<p class="xg-intro">'+intro.innerHTML+'</p>':"")+subs[i].querySelector(".guide-copy").innerHTML;pane.scrollTop=0;};
+subs.forEach((s,i)=>{const t=s.querySelector("summary").textContent.split(" — ");const b=document.createElement("button");b.type="button";b.className="xg-item";b.setAttribute("role","tab");
+b.innerHTML='<span class="ic">'+(ic[i]||"◆")+'</span><span><b></b><small></small></span>';b.querySelector("b").textContent=t[0];b.querySelector("small").textContent=t[1]||"";
+b.addEventListener("click",()=>show(i));list.appendChild(b);});
+gp.appendChild(xg);if(subs.length)show(0);}
+})();
 </script>
 <script id="xenios-119-live">
 (function(){
@@ -4687,39 +4932,67 @@ b.addEventListener("click",()=>{on=!on;try{localStorage.setItem("xenInfo",on?"1"
       ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill();
     });
   }
-  function dlc(t,dt){
-    if(!dlc.lat||dlc.w!==W||dlc.h!==H){
-      const o=document.createElement('canvas');o.width=W;o.height=H;const c=o.getContext('2d');
-      const s=Math.max(70,Math.min(110,W/14));dlc.s=s;dlc.f=[];
-      for(let r=-1;r<H/(s*.6)+2;r++)for(let q=-1;q<W/s+2;q++){
-        const cx=q*s+(r%2?s/2:0),cy=r*s*.6,v=(((q*73856093)^(r*19349663))>>>0)%100/100;
-        c.beginPath();c.moveTo(cx,cy-s*.6);c.lineTo(cx+s/2,cy);c.lineTo(cx,cy+s*.6);c.lineTo(cx-s/2,cy);c.closePath();
-        c.fillStyle='rgba('+((150+v*60)|0)+','+((110+v*50)|0)+',255,'+(.03+v*.07)+')';c.fill();
-        c.strokeStyle='rgba(225,200,255,'+(.08+v*.08)+')';c.lineWidth=1;c.stroke();
-        if(v>.78)dlc.f.push({cx,cy,ph:v*40,sp:.5+v});
-      }
-      dlc.lat=o;dlc.w=W;dlc.h=H;
+  function games(t,dt){
+    if(!games.m||games.w!==W||games.h!==H){
+      games.w=W;games.h=H;
+      const o=document.createElement('canvas');o.width=o.height=32;const c=o.getContext('2d');
+      const g=c.createRadialGradient(16,16,0,16,16,16);g.addColorStop(0,'rgba(230,255,200,.95)');g.addColorStop(.4,'rgba(150,235,90,.35)');g.addColorStop(1,'rgba(100,220,60,0)');c.fillStyle=g;c.fillRect(0,0,32,32);
+      games.sp=o;games.m=[];for(let i=0;i<34;i++)games.m.push({x:rnd(0,W),y:rnd(0,H),r:rnd(3,11),v:rnd(5,20),ph:rnd(0,6.28),sp:rnd(.5,1.6),dx:rnd(-6,6)});
     }
-    ctx.globalCompositeOperation='source-over';ctx.drawImage(dlc.lat,0,0,W,H);
     ctx.globalCompositeOperation='lighter';
-    const x=((t*80)%(W+700))-350,g=ctx.createLinearGradient(x,0,x+260,H*.5);
-    g.addColorStop(0,'rgba(230,205,255,0)');g.addColorStop(.5,'rgba(235,215,255,.13)');g.addColorStop(1,'rgba(230,205,255,0)');
-    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-    const s=dlc.s;
-    dlc.f.forEach(f=>{const a=Math.pow(Math.max(0,Math.sin(t*f.sp+f.ph)),8)*.4;if(a<.02)return;
-      ctx.beginPath();ctx.moveTo(f.cx,f.cy-s*.6);ctx.lineTo(f.cx+s/2,f.cy);ctx.lineTo(f.cx,f.cy+s*.6);ctx.lineTo(f.cx-s/2,f.cy);ctx.closePath();
-      ctx.fillStyle='rgba(205,165,255,'+a+')';ctx.fill();});
+    const fg=ctx.createRadialGradient(W*.35,H*1.2,0,W*.35,H*1.2,H*1.05);fg.addColorStop(0,'rgba(80,210,60,.30)');fg.addColorStop(1,'rgba(20,120,40,0)');ctx.fillStyle=fg;ctx.fillRect(0,0,W,H);
+    const rb=(y0,amp,wl,spd,th,al,ph)=>{
+      const st=26,n=Math.ceil(W/st)+2,top=[],bot=[];
+      for(let i=0;i<n;i++){const x=i*st-20,y=y0+amp*Math.sin(x/wl+t*spd+ph)+amp*.45*Math.sin(x/(wl*.43)+t*spd*1.7+ph*2),h=th*(.62+.38*Math.sin(x/(wl*1.3)+t*spd*.6+ph));top.push([x,y]);bot.push([x,y+h]);}
+      const g=ctx.createLinearGradient(0,y0-amp,0,y0+amp+th);g.addColorStop(0,'rgba(140,240,80,0)');g.addColorStop(.35,'rgba(130,235,75,'+al+')');g.addColorStop(.7,'rgba(70,190,50,'+al*.7+')');g.addColorStop(1,'rgba(40,150,40,0)');
+      ctx.beginPath();top.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));for(let i=n-1;i>=0;i--)ctx.lineTo(bot[i][0],bot[i][1]);ctx.closePath();ctx.fillStyle=g;ctx.fill();
+      ctx.beginPath();top.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle='rgba(215,255,170,'+Math.min(.5,al*1.8)+')';ctx.lineWidth=1.4;ctx.stroke();
+    };
+    rb(H*.30,H*.07,W*.16,.22,H*.17,.10,0);rb(H*.52,H*.09,W*.2,-.17,H*.22,.09,2);rb(H*.78,H*.06,W*.14,.26,H*.16,.11,4);
+    rb(H*.40,H*.08,W*.12,-.3,H*.03,.16,1);rb(H*.62,H*.07,W*.18,.34,H*.025,.17,3);rb(H*.22,H*.05,W*.1,.4,H*.02,.15,5);rb(H*.88,H*.05,W*.15,-.28,H*.03,.15,6);
+    const sx=((t*55)%(W+500))-250,sg=ctx.createLinearGradient(sx,0,sx+240,H);sg.addColorStop(0,'rgba(220,255,200,0)');sg.addColorStop(.5,'rgba(220,255,200,.05)');sg.addColorStop(1,'rgba(220,255,200,0)');ctx.fillStyle=sg;ctx.fillRect(0,0,W,H);
+    games.m.forEach(p=>{p.y-=p.v*dt;p.x+=p.dx*dt;if(p.y<-20){p.y=H+20;p.x=rnd(0,W);}const a=.35+.45*Math.sin(t*p.sp+p.ph);ctx.globalAlpha=Math.max(.05,a);const s=p.r*2;ctx.drawImage(games.sp,p.x-s/2,p.y-s/2,s,s);});
+    ctx.globalAlpha=1;
+  }
+  function dlc(t,dt){
+    if(!dlc.neb||dlc.w!==W||dlc.h!==H){
+      dlc.w=W;dlc.h=H;
+      const S=512,o=document.createElement('canvas');o.width=o.height=S;const c=o.getContext('2d');c.globalCompositeOperation='lighter';
+      const pal=['180,110,255','255,120,210','120,150,255'];
+      for(let arm=0;arm<3;arm++)for(let i=0;i<190;i++){
+        const f=i/190,a=arm*2.0944+f*5.4,r=S*.04+f*S*.44,x=S/2+Math.cos(a)*r+rnd(-1,1)*f*30,y=S/2+Math.sin(a)*r+rnd(-1,1)*f*30,rad=10+f*28;
+        const g=c.createRadialGradient(x,y,0,x,y,rad);g.addColorStop(0,'rgba('+pal[(arm+i)%3]+','+(.1-f*.05)+')');g.addColorStop(1,'rgba('+pal[arm]+',0)');c.fillStyle=g;c.fillRect(x-rad,y-rad,rad*2,rad*2);
+      }
+      const k=c.createRadialGradient(S/2,S/2,0,S/2,S/2,S*.2);k.addColorStop(0,'rgba(255,235,255,.75)');k.addColorStop(.3,'rgba(220,170,255,.3)');k.addColorStop(1,'rgba(180,110,255,0)');c.fillStyle=k;c.fillRect(0,0,S,S);
+      dlc.neb=o;dlc.st=[];
+      for(let i=0;i<110;i++)dlc.st.push({x:rnd(0,W),y:rnd(0,H),r:rnd(.5,1.8),v:rnd(2,14)*(i%3?1:2.2),ph:rnd(0,6.28),sp:rnd(.8,3),big:i%14===0});
+      dlc.sh=[];dlc.ns=0;
+    }
+    ctx.globalCompositeOperation='lighter';
+    const hg=ctx.createLinearGradient(0,H*.55,0,H);hg.addColorStop(0,'rgba(255,120,220,0)');hg.addColorStop(1,'rgba(255,120,220,'+(.16+.04*Math.sin(t*.5))+')');ctx.fillStyle=hg;ctx.fillRect(0,H*.55,W,H*.45);
+    const D=Math.max(W*.9,H*1.5);ctx.save();ctx.translate(W*.7,H*.4);ctx.scale(1,.6);ctx.rotate(t*.025);ctx.globalAlpha=.9;ctx.drawImage(dlc.neb,-D/2,-D/2,D,D);ctx.restore();ctx.globalAlpha=1;
+    ctx.save();ctx.translate(W*.2,H*.78);ctx.scale(1,.55);ctx.rotate(-t*.018);ctx.globalAlpha=.45;ctx.drawImage(dlc.neb,-D*.3,-D*.3,D*.6,D*.6);ctx.restore();ctx.globalAlpha=1;
+    dlc.st.forEach(s=>{
+      s.x-=s.v*dt;if(s.x<-4)s.x=W+4;
+      const a=.35+.65*Math.max(0,Math.sin(t*s.sp+s.ph));
+      ctx.fillStyle='rgba(240,225,255,'+a+')';ctx.fillRect(s.x,s.y,s.r*1.6,s.r*1.6);
+      if(s.big&&a>.6){ctx.strokeStyle='rgba(255,240,255,'+(a*.6)+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(s.x-7,s.y);ctx.lineTo(s.x+7,s.y);ctx.moveTo(s.x,s.y-7);ctx.lineTo(s.x,s.y+7);ctx.stroke();}
+    });
+    dlc.ns-=dt;if(dlc.ns<=0&&dlc.sh.length<2){dlc.ns=rnd(2.5,6);dlc.sh.push({x:rnd(W*.3,W),y:rnd(0,H*.4),l:1});}
+    for(let i=dlc.sh.length-1;i>=0;i--){const s=dlc.sh[i];s.x-=620*dt;s.y+=300*dt;s.l-=dt*1.1;if(s.l<=0){dlc.sh.splice(i,1);continue;}
+      const g=ctx.createLinearGradient(s.x,s.y,s.x+150,s.y-72);g.addColorStop(0,'rgba(255,245,255,'+s.l+')');g.addColorStop(1,'rgba(200,150,255,0)');
+      ctx.strokeStyle=g;ctx.lineWidth=2;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(s.x+150,s.y-72);ctx.stroke();}
   }
   function frame(ms){
     if(!reduce&&ms-(frame.l||0)<33){raf=requestAnimationFrame(frame);return;} frame.l=ms;
     const t=ms/1000,dt=Math.min(.05,Math.max(0,t-last));last=t;
     ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,W,H);
-    if(mode==='arcade')arcade(t,dt);else if(mode==='dlc')dlc(t,dt);
+    if(mode==='arcade')arcade(t,dt);else if(mode==='dlc')dlc(t,dt);else if(mode==='games')games(t,dt);
     ctx.globalCompositeOperation='source-over';
     if(!reduce&&mode&&!document.hidden)raf=requestAnimationFrame(frame);
   }
   function sync(){
-    const m=body.classList.contains('arcade-mode')?'arcade':body.classList.contains('dlc-mode')?'dlc':'';
+    const m=body.classList.contains('arcade-mode')?'arcade':body.classList.contains('dlc-mode')?'dlc':'games';
     if(m===mode)return;
     mode=m;cancelAnimationFrame(raf);ctx.clearRect(0,0,W,H);seed();
     if(mode){last=performance.now()/1000;raf=requestAnimationFrame(frame);}
