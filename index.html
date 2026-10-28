@@ -1445,7 +1445,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   <div class="stage">
     <main id="main">
       <section class="nxe-command-rail" aria-label="Dashboard shortcuts">
-        <div class="rail-heading"><span class="rail-kicker">XBOX 360 ARCHIVE</span><strong id="railTitle">Games On Demand</strong><span class="rail-caption">Browse collections, inspect titles, and build a download queue.</span></div>
+        <div class="rail-heading"><span class="rail-kicker">XBOX 360 ARCHIVE</span><strong id="railTitle">Games On Demand</strong><span class="rail-caption" id="railCaption">Browse collections, inspect titles, and build a download queue.</span></div>
         
       </section>
       
@@ -1459,48 +1459,200 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
 
 
 
-          <details class="guide-sub"><summary>PC tools — backups</summary><div class="guide-copy">
-            <h4>TinyXbox360Manager</h4>
-            <ul><li>Recommended PC tool for converting games into working backups, with automatic folder-structure sorting.</li><li>Search for <b>TinyXbox360Manager</b> on GitHub and download it from the project's releases page.</li></ul>
+          <details class="guide-sub" data-ic="4"><summary>PC tools — backups</summary><div class="guide-copy">
+            <p>These tools run on your Windows PC. They turn the game files you own into backups the console can actually read, and put them in the right folders so nothing has to be sorted by hand.</p>
+            <h4>TinyXbox360Manager — recommended</h4>
+            <p><b>What it does:</b> converts game dumps into working backups and sorts the result into the correct console folder structure automatically.</p>
+            <h4>What you need</h4>
+            <ul><li>A Windows PC and the games you want to convert (ISO or disc dump files you own).</li><li>Free space on the PC: roughly the size of the games you are converting.</li><li>Your console drive or a USB stick, ideally formatted FAT32 or NTFS as your setup requires.</li></ul>
+            <h4>Step by step</h4>
+            <ol>
+              <li><b>Download it.</b> Search for <b>TinyXbox360Manager</b> on GitHub and open the project's <b>Releases</b> page. Download the newest release (the Windows build).</li>
+              <li><b>Extract it.</b> Right-click the downloaded zip → <b>Extract All</b>. Put the folder somewhere simple like <code>C:\Tools\TinyXbox360Manager</code>. Don't run it from inside the zip.</li>
+              <li><b>Open it.</b> Double-click the program. If Windows SmartScreen warns you, choose <b>More info → Run anyway</b> only if you downloaded it from the official releases page.</li>
+              <li><b>Add your games.</b> Point the tool at the folder holding your game files, or drag the files onto its window.</li>
+              <li><b>Choose where the output goes.</b> Pick an empty folder on your PC first (for example <code>D:\X360-Output</code>) so you can check the result before copying to a drive.</li>
+              <li><b>Convert.</b> Start the conversion and wait until it finishes. Large games can take several minutes. Don't unplug drives while it works.</li>
+              <li><b>Check the folders.</b> Games on Demand output should look like <code>Content\0000000000000000\&lt;TitleID&gt;\00007000\</code>. If you see that layout, the sorting worked.</li>
+              <li><b>Copy to the console drive.</b> Copy the <code>Content</code> folder to the root of your console drive (<code>Hdd1:\</code> on the console, or the USB stick for <code>Usb0:\</code>). Choose <b>Merge</b> if asked.</li>
+              <li><b>Rescan and play.</b> On the console, rescan your content in Aurora (or your dashboard), then launch the game.</li>
+            </ol>
+            <div class="guide-order"><b>Tip:</b> menu names can differ slightly between versions. If a button is named differently, look for the one that adds games, sets the output folder, or starts the conversion. Only use games you own.</div>
+            <h4>Other tools</h4>
+            <ul><li><a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD</a> — converts ISOs to Games on Demand</li><li><a href="https://github.com/XboxDev/extract-xiso" target="_blank" rel="noopener noreferrer">extract-xiso</a> — extracts ISOs to folders</li></ul>
+          </div></details>
+
+          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 1 — Before you start</summary><div class="guide-copy">
+            <p>This guide uses the <b>Bad Update</b> family of exploits. It works on every Xbox 360 model that is on the final dashboard, with no hardware changes.</p>
+            <h4>Check these first</h4>
+            <ol>
+              <li><b>Xbox 360 only.</b> It does not work on Xbox One or Series consoles.</li>
+              <li><b>Dashboard must be 2.0.17559.0.</b> To check: <b>Settings → System → Console Settings → System Info</b>. The version is listed on that screen.</li>
+              <li><b>Set the console language to English.</b> Other languages can break the exploit.</li>
+              <li><b>Unplug Kinect</b> if you have one. It lowers the success rate a lot.</li>
+              <li><b>Turn off auto sign-in</b> for your profile (<b>Settings → Profile → Sign-in preferences</b>).</li>
+              <li><b>Back up your saves.</b> Copy anything you care about to a USB stick.</li>
+            </ol>
+            <div class="guide-order"><b>Important:</b> the exploit is <b>non-persistent</b>. It has to be run again every time you fully power the console off and on. That is normal, not a failure.</div>
+            <div class="guide-order"><b>Stay offline:</b> disconnect Ethernet and forget your Wi-Fi network before you run it, to avoid an Xbox Live ban.</div>
+          </div></details>
+
+          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 2 — Update to 17559</summary><div class="guide-copy">
+            <p>Skip this step if System Info already says <b>2.0.17559.0</b>.</p>
+            <ol>
+              <li>Download the official <b>offline system update 17559</b> and extract it to a USB stick formatted for the console.</li>
+              <li>Put the USB stick in the console and open <b>Settings → System → Console Settings → System Info</b>, or follow the instructions that come with the offline update.</li>
+              <li>Let the update finish. The console will restart.</li>
+              <li>Check System Info again and confirm it says <b>2.0.17559.0</b>.</li>
+            </ol>
+            <div class="guide-order"><b>Tip:</b> don't update over Xbox Live. Use the offline update so the console stays disconnected.</div>
+            <div class="guide-order"><b>No hard drive?</b> The Avatar data must be present on the console. If you don't have an HDD, the offline update helps provide it.</div>
+          </div></details>
+
+          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 3 — Download the files</summary><div class="guide-copy">
+            <p>You need three things: an <b>entry point</b>, a <b>payload</b>, and a <b>file manager</b>.</p>
+            <h4>1) Entry point (pick one)</h4>
+            <ul><li><b>ABadAvatar</b> — easiest. Uses the Avatar editor, no game needed. <a href="https://github.com/shutterbug2000/ABadAvatar" target="_blank" rel="noopener noreferrer">ABadAvatar</a></li><li><b>Xbox360BadUpdate</b> — uses a supported game: <b>Tony Hawk's American Wasteland</b> or <b>Rock Band Blitz</b>. <a href="https://github.com/Grimdoomer/Xbox360BadUpdate" target="_blank" rel="noopener noreferrer">Xbox360BadUpdate</a></li></ul>
+            <h4>2) Payload (pick one)</h4>
+            <ul><li><b>XeUnshackle</b> — recommended. <a href="https://zff.dev/AsahiRocks/XeUnshackle" target="_blank" rel="noopener noreferrer">XeUnshackle</a></li><li><b>FreeMyXe</b> — also works. <a href="https://github.com/InvoxiPlayGames/FreeMyXe" target="_blank" rel="noopener noreferrer">FreeMyXe</a></li></ul>
+            <h4>3) Homebrew to use afterwards</h4>
+            <ul><li><a href="https://consolemods.org/wiki/Xbox_360:XeXmenu" target="_blank" rel="noopener noreferrer">XeXMenu</a> · <a href="https://github.com/FreestyleDash/freestyledash" target="_blank" rel="noopener noreferrer">FreeStyle 3</a> · Aurora</li></ul>
+            <h4>Read-along guides</h4>
+            <ul><li><a href="https://free60.org/Hacks/Bad_Update_Hack/" target="_blank" rel="noopener noreferrer">Free60 Bad Update guide</a></li><li><a href="https://consolemods.org/wiki/Xbox_360:Bad_Update" target="_blank" rel="noopener noreferrer">ConsoleMods Bad Update guide</a></li></ul>
+          </div></details>
+
+          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 4 — Prepare the USB stick</summary><div class="guide-copy">
+            <ol>
+              <li><b>Format the USB stick to FAT32 (MBR).</b> At least 64 MB is needed. Rock Band Blitz needs 512 MB or larger. For sticks over 32 GB, use <a href="https://rufus.ie" target="_blank" rel="noopener noreferrer">Rufus</a> or format it on the console.</li>
+              <li><b>Extract your entry point</b> to the <b>root</b> of the stick. You should see <code>BadUpdatePayload</code> and <code>Content</code> folders (a game version also has <code>name.txt</code>).</li>
+              <li><b>Add your payload.</b> Open the <code>BadUpdatePayload</code> folder and delete any existing <code>default.xex</code>.</li>
+              <li><b>Copy the payload in.</b> Put XeUnshackle or FreeMyXe in that folder and rename it to <code>default.xex</code> (for example, <code>FreeMyXe.xex</code> becomes <code>default.xex</code>).</li>
+              <li><b>Eject safely</b> from Windows.</li>
+            </ol>
+            <pre><code>USB:\
+ ├─ BadUpdatePayload\
+ │   └─ default.xex      ← XeUnshackle or FreeMyXe
+ └─ Content\</code></pre>
+          </div></details>
+
+          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 5 — Run the exploit</summary><div class="guide-copy">
+            <ol>
+              <li><b>Go offline.</b> Unplug Ethernet and forget Wi-Fi. Unplug Kinect.</li>
+              <li><b>Power the console fully off.</b></li>
+              <li><b>Insert the USB stick</b> and power on.</li>
+            </ol>
+            <h4>If you use ABadAvatar</h4>
+            <ol>
+              <li>At the dashboard you should see a notice from ABadAvatar.</li>
+              <li>Open the <b>profile select</b> screen. If the cursor moves around, the exploit is running.</li>
+              <li><b>Do not sign in</b> to the exploit profile. It has a PIN to stop accidents.</li>
+            </ol>
+            <h4>If you use Rock Band Blitz / Tony Hawk's</h4>
+            <ol>
+              <li>Start the game. Press <b>A</b> and choose <b>USB storage</b> if asked.</li>
+              <li>Wait for the on-screen text that says the exploit is running.</li>
+              <li>If the music or background freezes, reboot the console and try again.</li>
+            </ol>
+            <div class="guide-order"><b>It may take several tries.</b> The success rate is not 100%. If nothing happens after about 20 minutes, power off, power on, and start again.</div>
+          </div></details>
+
+          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 6 — After it works</summary><div class="guide-copy">
+            <ol>
+              <li><b>Payload screen.</b> XeUnshackle or FreeMyXe appears and shows your <b>CPU key</b>. Write it down or take a photo. You will want it later.</li>
+              <li>Press <b>A</b> on <b>OK</b>, then <b>A</b> again when the patch is confirmed.</li>
+              <li>The console goes to the dashboard with unsigned code allowed.</li>
+              <li><b>Now you can reconnect</b> to the internet if you want.</li>
+            </ol>
+            <div class="guide-order"><b>Before the next boot:</b> disconnect from the internet again, then run the exploit again.</div>
+          </div></details>
+
+          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 7 — Install homebrew</summary><div class="guide-copy">
+            <ol>
+              <li>Copy <b>XeXMenu</b>, <b>Aurora</b> or <b>FreeStyle 3</b> to a USB stick.</li>
+              <li>With the exploit active, open your payload's launcher or file manager.</li>
+              <li>Copy the homebrew from the USB stick to the console drive, for example <code>Hdd1:\Apps\</code>.</li>
+              <li>Launch Aurora and point it at your game folders, then <b>rescan</b>.</li>
+            </ol>
+            <p>Then go to the <b>Games</b>, <b>DLC</b>, <b>Arcade</b> and <b>Updates</b> guides to install content.</p>
+          </div></details>
+
+          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 8 — Troubleshooting &amp; links</summary><div class="guide-copy">
+            <h4>If it doesn't work</h4>
+            <ul><li>Confirm dashboard <b>2.0.17559.0</b> and language <b>English</b>.</li><li>Re-format the stick to <b>FAT32 (MBR)</b> and copy the files again.</li><li>Check <code>default.xex</code> is inside <code>BadUpdatePayload</code>.</li><li>Unplug Kinect and other USB devices.</li><li>Fully power off (not standby) and try again.</li></ul>
+            <h4>All jailbreak links</h4>
+            <ul><li><a href="https://free60.org/Hacks/Bad_Update_Hack/" target="_blank" rel="noopener noreferrer">Free60 Bad Update guide</a> · <a href="https://consolemods.org/wiki/Xbox_360:Bad_Update" target="_blank" rel="noopener noreferrer">ConsoleMods Bad Update guide</a></li><li><a href="https://github.com/shutterbug2000/ABadAvatar" target="_blank" rel="noopener noreferrer">ABadAvatar</a> · <a href="https://github.com/Grimdoomer/Xbox360BadUpdate" target="_blank" rel="noopener noreferrer">Xbox360BadUpdate</a> · <a href="https://zff.dev/AsahiRocks/XeUnshackle" target="_blank" rel="noopener noreferrer">XeUnshackle</a> · <a href="https://github.com/InvoxiPlayGames/FreeMyXe" target="_blank" rel="noopener noreferrer">FreeMyXe</a></li><li><a href="https://github.com/dclstn/Xbox360AutoDNS" target="_blank" rel="noopener noreferrer">AutoDNS</a> · <a href="https://consolemods.org/wiki/Xbox_360:XeXmenu" target="_blank" rel="noopener noreferrer">XeXMenu</a> · <a href="https://github.com/FreestyleDash/freestyledash" target="_blank" rel="noopener noreferrer">FreeStyle 3</a> · <a href="https://rufus.ie" target="_blank" rel="noopener noreferrer">Rufus</a></li></ul>
+          </div></details>
+
+          <details class="guide-sub" data-ic="6"><summary>ReLive — USB/HDD Drag and Drop Download</summary><div class="guide-copy">
             <h4>ReLive USB/HDD — Drag and Drop Download</h4>
             <div class="relive-placeholder" role="note" aria-label="ReLive download placeholder">
               <b>Download placeholder</b>
               <p>The ReLive USB/HDD drag-and-drop download will be added here.</p>
               <span>Download link not configured yet</span>
             </div>
-            <h4>Other tools</h4>
-            <ul><li><a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD</a></li><li><a href="https://github.com/XboxDev/extract-xiso" target="_blank" rel="noopener noreferrer">extract-xiso</a></li></ul>
+            <h4>When the download is available</h4>
+            <ol>
+              <li>Download the file and extract it on your PC.</li>
+              <li>Drag and drop the extracted files to your USB stick or console drive.</li>
+              <li>Open it from Aurora or XeXMenu on the console.</li>
+            </ol>
+            <p>Current build: <a href="https://cdn.discordapp.com/attachments/1521567779860381707/1556811745014714449/ReLive_Beta2.zip?backend=b2&amp;ex=6ae134ec&amp;is=6adfe36c&amp;hm=58302ae11932bcd9fec92f14d1c1353815a5d5c077f56700e46be3db07bb638c&amp;" target="_blank" rel="noopener noreferrer">ReLive Beta 2</a> (Discord links can expire).</p>
           </div></details>
 
-          <details class="guide-sub"><summary>Games — GOD and extracted</summary><div class="guide-copy">
-            <h4>Games on Demand (GOD)</h4>
-            <ul><li><code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\00007000\</code></li><li>Convert ISOs first: <a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD</a></li><li>Installing <b>games</b>: you can use <a href="https://github.com/Byrom90/GOD-Unlocker-XB360" target="_blank" rel="noopener noreferrer">GOD Unlocker</a> or <a href="https://consolemods.org/wiki/Xbox_360:XM360" target="_blank" rel="noopener noreferrer">XM360</a> (for installing games only; use XM360 for DLC and Arcade)</li></ul>
+          <details class="guide-sub" data-ic="0"><summary>Games — GOD and extracted</summary><div class="guide-copy">
+            <h4>Games on Demand (GOD) — recommended</h4>
+            <ol>
+              <li><b>Convert the ISO.</b> Open <a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD</a> on your PC and select the game ISO. It makes a folder named with the game's <b>Title ID</b>.</li>
+              <li><b>Copy it over.</b> Put that folder in <code>Hdd1:\Content\0000000000000000\</code> so the full path is <code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\00007000\</code>.</li>
+              <li><b>Rescan</b> your content in Aurora.</li>
+              <li><b>Launch</b> the game.</li>
+            </ol>
+            <p>Installing <b>games</b>: you can use <a href="https://github.com/Byrom90/GOD-Unlocker-XB360" target="_blank" rel="noopener noreferrer">GOD Unlocker</a> or <a href="https://consolemods.org/wiki/Xbox_360:XM360" target="_blank" rel="noopener noreferrer">XM360</a> (use XM360 for DLC and Arcade).</p>
             <h4>Extracted games</h4>
-            <ul><li><code>Hdd1:\Games\&lt;Game Name&gt;\default.xex</code></li><li>Extract ISOs: <a href="https://github.com/XboxDev/extract-xiso" target="_blank" rel="noopener noreferrer">extract-xiso</a></li><li>Guides: <a href="https://consolemods.org/wiki/Xbox_360:Creating_Game_Backups" target="_blank" rel="noopener noreferrer">creating backups</a> · <a href="https://consolemods.org/wiki/Xbox_360:Playing_Game_Backups" target="_blank" rel="noopener noreferrer">playing backups</a></li></ul>
+            <ol>
+              <li>Extract the ISO with <a href="https://github.com/XboxDev/extract-xiso" target="_blank" rel="noopener noreferrer">extract-xiso</a>.</li>
+              <li>Put the folder at <code>Hdd1:\Games\&lt;Game Name&gt;\</code>. It must contain <code>default.xex</code>.</li>
+              <li>Add <code>Hdd1:\Games\</code> to Aurora's scan paths and rescan.</li>
+            </ol>
+            <p>Guides: <a href="https://consolemods.org/wiki/Xbox_360:Creating_Game_Backups" target="_blank" rel="noopener noreferrer">creating backups</a> · <a href="https://consolemods.org/wiki/Xbox_360:Playing_Game_Backups" target="_blank" rel="noopener noreferrer">playing backups</a></p>
             <h4>Multi-disc and editions</h4>
-            <ul><li>Copy every disc. Editions and bundles are linked on each game's page under “Linked titles”</li></ul>
+            <ul><li>Copy every disc. Editions and bundles are linked on each game's page under “Linked titles”.</li></ul>
           </div></details>
 
-          <details class="guide-sub"><summary>DLC — add-ons</summary><div class="guide-copy">
-            <ul><li><code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\00000002\&lt;ContentID&gt;</code></li><li>Install / unlock with <a href="https://consolemods.org/wiki/Xbox_360:XM360" target="_blank" rel="noopener noreferrer">XM360</a></li><li>Rescan your content in Aurora, then launch the game once</li></ul>
+          <details class="guide-sub" data-ic="1"><summary>DLC — add-ons</summary><div class="guide-copy">
+            <ol>
+              <li><b>Download</b> the add-on from the DLC tab (queue several if you want).</li>
+              <li><b>Install with</b> <a href="https://consolemods.org/wiki/Xbox_360:XM360" target="_blank" rel="noopener noreferrer">XM360</a>. Pick the file, then install to the console drive.</li>
+              <li><b>Check the path:</b> <code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\00000002\&lt;ContentID&gt;</code></li>
+              <li><b>Rescan</b> your content in Aurora.</li>
+              <li><b>Launch the game once</b> so it picks the DLC up.</li>
+            </ol>
           </div></details>
 
-          <details class="guide-sub"><summary>Arcade — XBLA packages</summary><div class="guide-copy">
-            <ul><li><code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\000D0000\&lt;ContentID&gt;</code></li><li>Install / unlock with <a href="https://consolemods.org/wiki/Xbox_360:XM360" target="_blank" rel="noopener noreferrer">XM360</a></li><li>Rescan your content and check the Arcade list</li></ul>
+          <details class="guide-sub" data-ic="2"><summary>Arcade — XBLA packages</summary><div class="guide-copy">
+            <ol>
+              <li><b>Download</b> the Arcade title from the Arcade tab.</li>
+              <li><b>Install with</b> <a href="https://consolemods.org/wiki/Xbox_360:XM360" target="_blank" rel="noopener noreferrer">XM360</a>.</li>
+              <li><b>Check the path:</b> <code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\000D0000\&lt;ContentID&gt;</code></li>
+              <li><b>Rescan</b> your content and open the Arcade list.</li>
+            </ol>
           </div></details>
 
-          <details class="guide-sub"><summary>Updates — title updates</summary><div class="guide-copy">
-            <ul><li><code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\000B0000\&lt;update file&gt;</code></li><li>The Updates tab lists only the latest update for each game.</li><li>Rescan your content, then launch the game once.</li></ul>
+          <details class="guide-sub" data-ic="3"><summary>Updates — title updates</summary><div class="guide-copy">
+            <ol>
+              <li><b>Find your game</b> in the Updates tab. Only the <b>latest</b> update for each game is listed.</li>
+              <li><b>Download</b> it, then install it with <a href="https://consolemods.org/wiki/Xbox_360:XM360" target="_blank" rel="noopener noreferrer">XM360</a> or copy it to the path below.</li>
+              <li><b>Path:</b> <code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\000B0000\&lt;update file&gt;</code></li>
+              <li><b>Rescan</b>, then launch the game once to apply it.</li>
+            </ol>
           </div></details>
 
-
-
-          <details class="guide-sub"><summary>Cheat sheet — paths &amp; links</summary><div class="guide-copy">
+          <details class="guide-sub" data-ic="5"><summary>Cheat sheet — paths &amp; links</summary><div class="guide-copy">
             <h4>Content type folders</h4>
             <ul><li><code>00007000</code> Games on Demand</li><li><code>00000002</code> DLC / marketplace</li><li><code>000D0000</code> Arcade (XBLA)</li><li><code>00004000</code> Installed game</li><li><code>000B0000</code> Title updates</li></ul>
-            <p>Replace <code>&lt;TitleID&gt;</code> with the game's 8-character title ID, and use <code>Usb0:\</code> instead of <code>Hdd1:\</code> for a USB drive.</p>
-            <h4>All links</h4>
-            <ul><li><a href="https://consolemods.org/wiki/Xbox_360" target="_blank" rel="noopener noreferrer">ConsoleMods Xbox 360 wiki</a> · <a href="https://free60.org/Hacks/Bad_Update_Hack/" target="_blank" rel="noopener noreferrer">Free60 Bad Update</a></li><li><a href="https://github.com/shutterbug2000/ABadAvatar" target="_blank" rel="noopener noreferrer">ABadAvatar</a> · <a href="https://github.com/Grimdoomer/Xbox360BadUpdate" target="_blank" rel="noopener noreferrer">Xbox360BadUpdate</a> · <a href="https://zff.dev/AsahiRocks/XeUnshackle" target="_blank" rel="noopener noreferrer">XeUnshackle</a> · <a href="https://github.com/InvoxiPlayGames/FreeMyXe" target="_blank" rel="noopener noreferrer">FreeMyXe</a></li><li><a href="https://github.com/dclstn/Xbox360AutoDNS" target="_blank" rel="noopener noreferrer">AutoDNS</a> · <a href="https://cdn.discordapp.com/attachments/1521567779860381707/1556811745014714449/ReLive_Beta2.zip?backend=b2&amp;ex=6ae134ec&amp;is=6adfe36c&amp;hm=58302ae11932bcd9fec92f14d1c1353815a5d5c077f56700e46be3db07bb638c&amp;" target="_blank" rel="noopener noreferrer">ReLive Beta 2</a></li><li><a href="https://consolemods.org/wiki/Xbox_360:XeXmenu" target="_blank" rel="noopener noreferrer">XeXmenu</a> · <a href="https://github.com/FreestyleDash/freestyledash" target="_blank" rel="noopener noreferrer">FreeStyle 3</a> · <a href="https://consolemods.org/wiki/Xbox_360:XM360" target="_blank" rel="noopener noreferrer">XM360</a> · <a href="https://github.com/Byrom90/GOD-Unlocker-XB360" target="_blank" rel="noopener noreferrer">GOD Unlocker</a></li><li><a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD</a> · <a href="https://github.com/XboxDev/extract-xiso" target="_blank" rel="noopener noreferrer">extract-xiso</a> · <a href="https://rufus.ie" target="_blank" rel="noopener noreferrer">Rufus</a></li></ul>
+            <p>Replace <code>&lt;TitleID&gt;</code> with the game's 8-character title ID. Use <code>Usb0:\</code> instead of <code>Hdd1:\</code> for a USB drive.</p>
+            <h4>Links</h4>
+            <ul><li><a href="https://consolemods.org/wiki/Xbox_360" target="_blank" rel="noopener noreferrer">ConsoleMods Xbox 360 wiki</a></li><li><a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD</a> · <a href="https://github.com/XboxDev/extract-xiso" target="_blank" rel="noopener noreferrer">extract-xiso</a> · <a href="https://consolemods.org/wiki/Xbox_360:XM360" target="_blank" rel="noopener noreferrer">XM360</a> · <a href="https://github.com/Byrom90/GOD-Unlocker-XB360" target="_blank" rel="noopener noreferrer">GOD Unlocker</a></li></ul>
           </div></details>
           </div>
         </details>
@@ -1541,19 +1693,6 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     </section>
   </div>
 
-  <section class="info" aria-live="polite">
-    <div class="t"><span id="iName">Select a collection</span><small id="iId">Use the arrow keys, a controller, or hover a tile</small></div>
-    <div class="m">
-      <div><span>Size</span><b id="iSize">—</b></div>
-      <div><span>Added</span><b id="iDate">—</b></div>
-      <div><span>Source</span><b id="iSrc">—</b></div>
-      <div><span>Parts</span><b id="iParts">—</b></div>
-      <div><span>Titles</span><b id="iTitles">—</b></div>
-    </div>
-    <div class="imeter" title="Relative size"><i id="iBar"></i></div>
-    <div class="iact"><button class="btn ghost small" id="iCopy" type="button">⧉ Copy</button><button class="btn ghost small" id="iFind" type="button">⌕ Search</button><button class="btn" id="iOpen" type="button">Ⓐ Browse files</button></div>
-  </section>
-
   <footer>
     <span class="hint"><span class="pad">A</span>Select</span>
     <span class="hint"><span class="pad">B</span>Back</span>
@@ -1577,7 +1716,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
         <div class="st-row"><span><b>Controller colors</b><small>Use real Xbox 360 controller colors (green / red / blue / yellow) for the A B X Y hints instead of the tab color.</small></span><button class="btn ghost small" id="ctrlToggle" type="button" aria-pressed="false">Off</button></div>
         <div class="st-row"><span><b>Title Updates tab</b><small>Show the Updates tab with the latest title update for each game.</small></span><button class="btn ghost small" id="updTabToggle" type="button" aria-pressed="true">On</button></div>
         <div class="st-row"><span><b>Themes tab</b><small>Show the Themes tab with Xbox 360 dashboard themes.</small></span><button class="btn ghost small" id="thmTabToggle" type="button" aria-pressed="true">On</button></div>
-        <div class="st-row"><span><b>Details bar</b><small>Futuristic details HUD with size, source, parts, titles and quick actions.</small></span><button class="btn ghost small" id="infoToggle" type="button" aria-pressed="false">Off</button></div>
+        <div class="st-row"><span><b>Similar-name matching</b><small>Match DLC and Title Updates to games and Arcade titles by similar names (for example an update listed as “Halo 3” on a game titled “Halo 3 Legendary Edition”). May occasionally link the wrong title.</small></span><button class="btn ghost small" id="fuzzyToggle" type="button" aria-pressed="true">On</button></div>
         
       </div>
       <div class="st-group"><h3>Database</h3>
@@ -2199,6 +2338,20 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     }
     $("#count").textContent = groups.length + (groups.length === 1 ? " box" : " boxes") +
       (DB.ready ? " · " + groups.reduce((n, g) => n + entriesFor(g).length, 0).toLocaleString() + " titles" : " · " + list.length + " archives");
+    { const cap = document.getElementById("railCaption");
+      if (cap) {
+        if (isGuides) cap.textContent = "Step-by-step guides for installing games, DLC, updates and jailbreaking.";
+        else {
+          const tab = state.tab;
+          const n = DB.ready ? groups.reduce((t, g) => t + entriesFor(g).length, 0) : list.length;
+          const size = fmtSize(groups.reduce((t, g) => t + (groupBytes(g) || 0), 0));
+          const c = groups.length;
+          const cl = c.toLocaleString() + (c === 1 ? " Collection" : " Collections");
+          if (tab === "games") cap.textContent = n.toLocaleString() + (n === 1 ? " Game" : " Games") + " · " + size + " total";
+          else if (tab === "arcade") cap.textContent = n.toLocaleString() + " Xbox Live Arcade · " + size + " total";
+          else cap.textContent = n.toLocaleString() + " " + (tab === "dlc" ? "DLC" : tab === "updates" ? (n === 1 ? "Update" : "Updates") : (n === 1 ? "Theme" : "Themes")) + " · " + cl + " · " + size + " total";
+        }
+      } }
     buildLetters();
   }
 
@@ -2439,21 +2592,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     });
   }
 
-  function showInfo(g){
-    currentGroup = g;
-    const n = DB.ready ? entriesFor(g).length : 0;
-    $("#iName").textContent = g.name + (g.range ? " · " + g.range : "");
-    $("#iId").textContent = (g.items.length > 1 && g.type !== "arcade" ? g.items.length + " parts · " : "") +
-      (DB.ready ? n.toLocaleString() + " titles in the database" : "database loading…");
-    $("#iSize").textContent = fmtSize(groupBytes(g));
-    $("#iDate").textContent = g.date || "—";
-    $("#iSrc").textContent = g.type === "dlcGame" ? (state.tab === "updates" ? "Title Updates · latest per game" : state.tab === "themes" ? "Xbox 360 Themes · grouped by game" : "DLC · grouped by title") : g.type === "arcade" ? "XBLA / XBLIG" : g.items[0].src;
-    { const sz = groupBytes(g); window.__xmax = Math.max(window.__xmax || 0, sz); $("#iParts").textContent = String((g.items || []).length || 1); $("#iTitles").textContent = DB.ready ? n.toLocaleString() : "…"; $("#iBar").style.width = Math.max(4, Math.round(sz / (window.__xmax || 1) * 100)) + "%"; }
-  }
-  $("#iOpen").addEventListener("click", e => {
-    arm();
-    if (currentGroup) { ripple(e.currentTarget, e); sfx.select(); openBrowser(currentGroup, lastTile || document.activeElement); }
-  });
+  function showInfo(g){ currentGroup = g; }
 
   function updateStats(){
     const total = items.reduce((s, i) => s + i.bytes, 0);
@@ -3251,6 +3390,70 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     d.textContent = val || naText || "—";
     d.className = val ? "" : "na";
   }
+  /* ---- DLC / Title Update collection links on Games + Arcade download pages ---- */
+  function queueParts(e){
+    if (e.d && e.d.length > 1) return e.d.map(d => ({ k: d.i + "/" + d.f, t: e.t + " (Disc " + d.n + ")", c: e.c, i: d.i, f: d.f, s: d.s }));
+    return [{ k: entryKey(e), t: e.t, c: e.c, i: e.i, f: e.f, s: e.s }];
+  }
+  function queueAdd(list){
+    let n = 0;
+    list.forEach(x => { if (!x || !x.i || !x.f) return; if (downloadQueue.some(y => y.k === x.k)) return; downloadQueue.push(x); n++; });
+    if (n) saveQueue();
+    return n;
+  }
+  function queueAllFor(e){
+    const dlc = gameCollection(e, "dlc"), upd = gameCollection(e, "updates");
+    const conv = x => ({ k: entryKey(x), t: x.c === "updates" ? dlcFileLabel(x) : x.t, c: x.c, i: x.i, f: x.f, s: x.s });
+    const nd = dlc ? dlc.dlcEntries.length : 0, nu = upd ? upd.dlcEntries.length : 0;
+    const added = queueAdd([].concat(queueParts(e), dlc ? dlc.dlcEntries.map(conv) : [], upd ? upd.dlcEntries.map(conv) : []));
+    toast(added ? "Added " + added + " to queue (game + " + nd + " DLC + " + nu + " update" + (nu === 1 ? "" : "s") + ")" : "Everything is already in the queue");
+  }
+  const __colCache = new Map();
+  function gameCollection(e, cat){
+    if (!DB.ready || !e) return null;
+    const fz = window.__xenFuzzy !== false;
+    const ck = cat + "|" + fz + "|" + DB.entries.length + "|" + entryKey(e);
+    if (__colCache.has(ck)) return __colCache.get(ck);
+    const base = t => normDlcKey(String(t || "").replace(/\s*\([^)]*\)/g, ""));
+    const full = normDlcKey(e.t), bk = base(e.t);
+    const sv = [state.tab, state.q, state.letter]; let groups = [];
+    state.tab = cat; state.q = ""; state.letter = "";
+    try { groups = dlcGameGroupsRaw(); } catch (err) { groups = []; } finally { state.tab = sv[0]; state.q = sv[1]; state.letter = sv[2]; }
+    /* similar-name matching: "Halo 3" ~ "Halo 3 Legendary Edition", never "Halo" ~ "Halo 3" */
+    const similar = (a, b) => {
+      if (!a || !b || a === b) return false;
+      const sh = a.length <= b.length ? a : b, lo = a.length <= b.length ? b : a;
+      if (sh.length < 4 || !lo.startsWith(sh + " ")) return false;
+      return !/^(\d+|i{1,3}|iv|v|vi{1,3}|ix|x)$/.test(lo.slice(sh.length + 1).split(" ")[0]);
+    };
+    const m = groups.filter(g => g.dlcKey === full || (bk && base(g.dlcName) === bk) || (fz && (similar(base(g.dlcName), bk) || similar(g.dlcKey, full))));
+    let res = null;
+    if (m.length === 1) res = m[0];
+    else if (m.length > 1) res = Object.assign({}, m[0], { dlcEntries: [].concat(...m.map(x => x.dlcEntries)), bytes: m.reduce((t, x) => t + (x.bytes || 0), 0) });
+    __colCache.set(ck, res); return res;
+  }
+  function openGameCollection(g, cat){
+    window.__colReturn = { game: gCur, tab: state.tab, el: gRet, group: g };   /* remember where we came from */
+    closeGame(true);
+    if (letterMenu) letterMenu.hidden = true;
+    setTab(cat);
+    letterMenuCategory = "dlc"; letterMenuCategoryName = cat === "updates" ? "Updates" : "DLC"; letterMenuDlcGame = g; letterMenuLetter = "";
+    const m = ensureLetterMenu(); m.hidden = false;
+    m.querySelector("#letterMenuTitle").textContent = dlcLead() + g.dlcName;
+    m.classList.remove("games-category", "arcade-category"); m.classList.add("dlc-category");
+    paintLetterMenu(); m.querySelector(".letter-menu-close").focus();
+    if (!window.__colObs) {
+      /* when the DLC / Title Update list opened from a game page is closed, go back to that game page */
+      window.__colObs = new MutationObserver(() => {
+        const r = window.__colReturn;
+        if (!r || !letterMenu || !letterMenu.hidden || gameOpen()) return;   /* still open, or moving on to a details page */
+        window.__colReturn = null;
+        if (letterMenuDlcGame !== r.group) return;
+        setTab(r.tab); openGame(r.game, r.el);
+      });
+      window.__colObs.observe(letterMenu, { attributes: true, attributeFilter: ["hidden"] });
+    }
+  }
   function paintGame(e){
     const q = e.q, multi = !!(e.d && e.d.length > 1), k = entryKey(e);
     setField("#gTitle", e.c === "updates" ? dlcFileLabel(e) : e.t);
@@ -3283,6 +3486,29 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
         box.appendChild(a);
       });
     }
+    { const dlb = $("#gDlBox"); dlb.querySelectorAll(".gq-btn").forEach(n => n.remove());
+      if (e.c === "games" || e.c === "arcade") {
+        const gb = el("button", "gq-btn", "☷ " + (e.c === "arcade" ? "Add Arcade to Queue" : "Add Game to Queue")); gb.type = "button";
+        gb.title = "Add only this title to the download queue";
+        gb.addEventListener("click", () => { arm(); sfx.select(); const n = queueAdd(queueParts(e)); toast(n ? "Added to queue: " + e.t : "Already in queue"); });
+        dlb.appendChild(gb);
+      } }
+    { const gmEl = document.querySelector("#game .gmeta");
+      gmEl.querySelectorAll(".gm-links").forEach(n => n.remove());
+      if (e.c === "games" || e.c === "arcade") {
+        const wrap = el("div", "gm-links");
+        [["dlc", "🧩", "DLC", "gm-dlc"], ["updates", "⬆️", "Title Updates", "gm-upd"]].forEach(([cat, ic, label, cls]) => {
+          const g = gameCollection(e, cat), n = g ? g.dlcEntries.length : 0;
+          const b = el("button", "gm-box " + cls); b.type = "button";
+          b.append(el("span", "gm-ic", ic), el("b", "", label), el("small", "", g ? n + (cat === "updates" ? " update" : " add-on") + (n === 1 ? "" : "s") + " · " + fmtSize(g.bytes || 0) : (DB.ready ? "None found" : "Loading…")));
+          if (!g) b.disabled = true; else b.addEventListener("click", () => { arm(); sfx.select(); openGameCollection(g, cat); });
+          wrap.appendChild(b);
+        });
+        const qb = el("button", "gm-queue", "☷ Add All to Queue"); qb.type = "button"; qb.title = "Add the game plus all of its DLC and title updates to the queue";
+        qb.addEventListener("click", () => { arm(); sfx.select(); queueAllFor(e); });
+        wrap.appendChild(qb);
+        gmEl.appendChild(wrap);
+      } }
     $("#gNote").textContent = multi ? "This game has " + e.d.length + " discs. Download each disc separately." : "Archive.org must be actively logged in for this frontend to properly download games.";
   }
   function gameDownload(){
@@ -4528,6 +4754,57 @@ body.accurate-nxe #game .gcard.theme-games dt,body.accurate-nxe #game .gcard.the
 body.accurate-nxe #game .gcard.theme-arcade dt,body.accurate-nxe #game .gcard.theme-arcade .ghead small {color:var(--detail-accent-soft)!important}
 body.accurate-nxe #game .gcard.theme-dlc dt,body.accurate-nxe #game .gcard.theme-dlc .ghead small {color:var(--detail-accent-soft)!important}
 </style>
+<style id="xenios-136">
+section.info,.info[hidden]{display:none!important}
+#count{display:none!important}
+.guide-copy ol{counter-reset:gs;list-style:none;padding-left:0;margin:10px 0}
+.guide-copy ol>li{counter-increment:gs;position:relative;padding:8px 10px 8px 42px;margin:7px 0;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(235,242,238,.12)}
+.guide-copy ol>li::before{content:counter(gs);position:absolute;left:10px;top:8px;width:23px;height:23px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;background:rgba(255,255,255,.16);color:var(--text)}
+.guide-copy .guide-order{margin:10px 0}
+.guide-copy h4{margin:16px 0 6px}
+</style>
+<style id="xenios-gm-links">
+html body.accurate-nxe #game .gcard .gmeta .gm-links{display:grid!important;grid-template-columns:1fr 1fr;gap:10px;background:transparent!important;border:0!important;padding:10px 0 2px!important;box-shadow:none!important}
+html body.accurate-nxe #game .gcard .gm-links .gm-box{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:92px;padding:10px 8px!important;border-radius:12px!important;text-align:center;cursor:pointer;color:#fff!important;-webkit-text-fill-color:#fff!important;text-shadow:0 1px 2px rgba(0,0,0,.6)!important;border:1px solid rgba(255,255,255,.55)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 4px 12px rgba(0,0,0,.45)!important;transition:transform .15s,filter .15s}
+html body.accurate-nxe #game .gcard .gm-links .gm-dlc{background:linear-gradient(160deg,#a57be0,#5b3592 60%,#2e1a4d)!important;border-color:#dfc6ff!important}
+html body.accurate-nxe #game .gcard .gm-links .gm-upd{background:linear-gradient(160deg,#ffd21f,#b88a00 60%,#4a3500)!important;border-color:#fff0a0!important}
+html body.accurate-nxe #game .gcard .gm-links .gm-box:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.12)}
+html body.accurate-nxe #game .gcard .gm-links .gm-box:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.6)}
+.gm-box .gm-ic{font-size:24px;line-height:1}
+.gm-box b{font-size:14px;font-weight:800}
+.gm-box small{font-size:11px;opacity:.9;color:inherit!important}
+</style>
+<script id="xenios-fuzzy-toggle">
+(function(){
+  var KEY="xenFuzzy", b=document.getElementById("fuzzyToggle"), v=true;
+  try{ if(localStorage.getItem(KEY)==="0") v=false; }catch(e){}
+  window.__xenFuzzy=v;
+  function paint(){ window.__xenFuzzy=v; if(b){ b.textContent=v?"On":"Off"; b.setAttribute("aria-pressed",String(v)); } }
+  paint();
+  if(b) b.addEventListener("click",function(){
+    var next=!v;
+    var msg=next
+      ? "Warning: similar-name matching is approximate.\n\nIt links DLC and Title Updates to games whose names only partly match, so it may occasionally attach the wrong update or add-on to a game.\n\nTurn it on?"
+      : "Warning: with similar-name matching off, only exact title matches are linked.\n\nMany Title Updates and DLC that use a shortened title will show \"None found\" on game pages.\n\nTurn it off?";
+    if(!window.confirm(msg)) return;
+    v=next; try{ localStorage.setItem(KEY,v?"1":"0"); }catch(e){}
+    paint();
+  });
+})();
+</script>
+<style id="xenios-gm-queue2">
+html body.accurate-nxe #game .gcard.gcard.gcard.gcard .gm-links .gm-queue{grid-column:1/-1;width:100%;min-height:38px;padding:7px 12px!important;border-radius:10px!important;font-size:13.5px!important;font-weight:800;letter-spacing:.02em;cursor:pointer;color:#1a0f33!important;-webkit-text-fill-color:#1a0f33!important;text-shadow:0 1px 0 rgba(255,255,255,.55)!important;
+  background:linear-gradient(100deg,#3fdc5c 0%,#9be44c 20%,#ffd21f 45%,#f2a6ff 72%,#9a6bf0 100%)!important;background-size:200% 100%!important;animation:gmShift 7s ease-in-out infinite alternate;
+  border:1px solid rgba(255,255,255,.85)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -6px 12px rgba(60,20,110,.25),0 4px 16px rgba(154,107,240,.45),0 0 18px rgba(255,210,31,.3)!important;transition:transform .15s,filter .15s}
+@keyframes gmShift{from{background-position:0% 0}to{background-position:100% 0}}
+html body.accurate-nxe #game .gcard.gcard.gcard.gcard .gm-links .gm-queue:hover{transform:translateY(-2px);filter:brightness(1.1) saturate(1.15)}
+html body.accurate-nxe #game .gcard.gcard.gcard.gcard .gm-links .gm-queue:active{transform:translateY(1px)}
+@media(prefers-reduced-motion:reduce){html body.accurate-nxe #game .gm-queue{animation:none!important}}
+html body.accurate-nxe #game #gDlBox .gq-btn{align-self:center;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:8px 18px!important;border-radius:12px!important;font-size:14px!important;font-weight:800;cursor:pointer;color:#fff!important;-webkit-text-fill-color:#fff!important;text-shadow:0 1px 2px rgba(0,0,0,.6)!important;border:1px solid rgba(255,255,255,.6)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 4px 12px rgba(0,0,0,.45)!important;transition:transform .15s,filter .15s}
+html body.accurate-nxe #game .gcard.theme-games #gDlBox .gq-btn{background:linear-gradient(180deg,#8fdf68,#287c38)!important}
+html body.accurate-nxe #game .gcard.theme-arcade #gDlBox .gq-btn{background:linear-gradient(180deg,#ffb35c,#c35d1e)!important}
+html body.accurate-nxe #game #gDlBox .gq-btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
+</style>
 </body>
 </html>
 <style id="xenios-nxe-final-fix">
@@ -5428,11 +5705,6 @@ const ap=()=>{fn(v,b);b.setAttribute("aria-pressed",String(v))};b.addEventListen
 mk("ctrlToggle","xenCtrl",(v,b)=>{document.body.classList.toggle("ctrl-colors",v);b.textContent=v?"On":"Off"},false);
 mk("updTabToggle","xenTabUpd",(v,b)=>{document.body.classList.toggle("hide-tab-updates",!v);b.textContent=v?"On":"Off";if(!v&&document.body.classList.contains("updates-mode")){const g=document.querySelector('#tabs [data-tab="games"]');if(g)g.click();}},true);
 mk("thmTabToggle","xenTabThm",(v,b)=>{document.body.classList.toggle("hide-tab-themes",!v);b.textContent=v?"On":"Off";if(!v&&document.body.classList.contains("themes-mode")){const g=document.querySelector('#tabs [data-tab="games"]');if(g)g.click();}},true);
-mk("infoToggle","xenInfo2",(v,b)=>{document.body.classList.toggle("hide-info",!v);b.textContent=v?"On":"Off"},false);
-const nm=()=>(document.getElementById("iName").textContent||"").split(" · ")[0].trim();
-const c=document.getElementById("iCopy"),f=document.getElementById("iFind");
-if(c)c.addEventListener("click",()=>{try{navigator.clipboard.writeText(nm());c.textContent="✓ Copied";setTimeout(()=>c.textContent="⧉ Copy",1200)}catch(e){}});
-if(f)f.addEventListener("click",()=>{const q=document.getElementById("q");if(!q)return;q.value=nm();q.dispatchEvent(new Event("input",{bubbles:true}));});
 })();
 
 (function(){
@@ -5458,13 +5730,13 @@ const gp=document.getElementById("guidesPanel");
 if(gp){const subs=[...gp.querySelectorAll(".guide-sub")],intro=gp.querySelector(".guide-accordion>.guide-copy>p"),note=gp.querySelector(".guide-notice");
 const xg=document.createElement("div");xg.className="xg";
 xg.innerHTML='<div class="xg-head"><span class="xg-orb"></span><div><h3>Xenios Guide</h3><small>'+(note?note.querySelector("span").textContent:"")+'</small></div></div><div class="xg-body"><div class="xg-list" role="tablist"></div><div class="xg-pane" role="tabpanel"></div></div>';
-const list=xg.querySelector(".xg-list"),pane=xg.querySelector(".xg-pane"),ic=["<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><circle cx=\"12\" cy=\"12\" r=\"2.6\"/></svg>", "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"3\"/><path d=\"M12 8v8M8 12h8\"/></svg>", "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.7 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z\"/></svg>", "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 16V8M8.5 11.5L12 8l3.5 3.5\"/></svg>", "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M14.7 6.3a4 4 0 0 0-5 5L4 17l3 3 5.7-5.7a4 4 0 0 0 5-5l-2.5 2.5-2.2-.5-.5-2.2z\"/></svg>", "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 7h6l2 2h10v10H3z\"/></svg>"];
+const list=xg.querySelector(".xg-list"),pane=xg.querySelector(".xg-pane"),ic=["<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><circle cx=\"12\" cy=\"12\" r=\"2.6\"/></svg>", "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"3\"/><path d=\"M12 8v8M8 12h8\"/></svg>", "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.7 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z\"/></svg>", "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 16V8M8.5 11.5L12 8l3.5 3.5\"/></svg>", "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M14.7 6.3a4 4 0 0 0-5 5L4 17l3 3 5.7-5.7a4 4 0 0 0 5-5l-2.5 2.5-2.2-.5-.5-2.2z\"/></svg>", "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 7h6l2 2h10v10H3z\"/></svg>", "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 4v10M7.5 10.5L12 15l4.5-4.5M5 19h14\"/></svg>", "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"5\" y=\"11\" width=\"14\" height=\"9\" rx=\"2\"/><path d=\"M8 11V8a4 4 0 0 1 8 0v3\"/></svg>"];
 const btns=[];let grpName="",grpHost=null,grpHead=null,grpN=0;
 const show=i=>{btns.forEach((c,j)=>{c.classList.toggle("on",i===j);c.setAttribute("aria-selected",String(i===j))});
 list.querySelectorAll(".xg-group").forEach(h=>h.classList.toggle("has-on",!!h.nextElementSibling.querySelector(".on")));
 pane.innerHTML=(intro?'<p class="xg-intro">'+intro.innerHTML+'</p>':"")+subs[i].querySelector(".guide-copy").innerHTML;pane.scrollTop=0;};
 subs.forEach((s,i)=>{const t=s.querySelector("summary").textContent.split(" — ");const b=document.createElement("button");b.type="button";b.className="xg-item";b.setAttribute("role","tab");
-b.innerHTML='<span class="ic">'+(ic[i]||ic[5])+'</span><span><b></b><small></small></span>';b.querySelector("b").textContent=t[0];b.querySelector("small").textContent=t[1]||"";
+b.innerHTML='<span class="ic">'+(s.dataset.ic!==undefined&&ic[+s.dataset.ic]||ic[i]||ic[5])+'</span><span><b></b><small></small></span>';b.querySelector("b").textContent=t[0];b.querySelector("small").textContent=t[1]||"";
 b.addEventListener("click",()=>show(i));
 let host=list;
 if(s.dataset.group){
