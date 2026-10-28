@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Xenios NXE 1.40 · Xbox 360 Archive Dashboard</title>
+<title>Xenios NXE 1.51 · Xbox 360 Archive Dashboard</title>
 <style>
   :root{
     --green:#7ed321;
@@ -1412,7 +1412,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     <div class="orb" aria-hidden="true"></div>
     <button class="iconbtn" id="settingsBtn" type="button" title="NXE settings" aria-label="Open settings">⚙</button>
     <div class="brand">
-      <h1><b>Xenios</b> <span class="release-mark">v1.40</span> · Xbox 360 Archive</h1>
+      <h1><b>Xenios</b> <span class="release-mark">v1.51</span> · Xbox 360 Archive</h1>
       <p id="stats">Your Xbox 360 archive dashboard · Offline-friendly library</p>
     </div>
     <div class="spacer"></div>
@@ -1460,24 +1460,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
 
 
           <details class="guide-sub" data-ic="4"><summary>PC tools — backups</summary><div class="guide-copy">
-            <p>These tools run on your Windows PC. They turn the game files you own into backups the console can actually read, and put them in the right folders so nothing has to be sorted by hand.</p>
-            <h4>TinyXbox360Manager — recommended</h4>
-            <p><b>What it does:</b> converts game dumps into working backups and sorts the result into the correct console folder structure automatically.</p>
-            <h4>What you need</h4>
-            <ul><li>A Windows PC and the games you want to convert (ISO or disc dump files you own).</li><li>Free space on the PC: roughly the size of the games you are converting.</li><li>Your console drive or a USB stick, ideally formatted FAT32 or NTFS as your setup requires.</li></ul>
-            <h4>Step by step</h4>
-            <ol>
-              <li><b>Download it.</b> Search for <b>TinyXbox360Manager</b> on GitHub and open the project's <b>Releases</b> page. Download the newest release (the Windows build).</li>
-              <li><b>Extract it.</b> Right-click the downloaded zip → <b>Extract All</b>. Put the folder somewhere simple like <code>C:\Tools\TinyXbox360Manager</code>. Don't run it from inside the zip.</li>
-              <li><b>Open it.</b> Double-click the program. If Windows SmartScreen warns you, choose <b>More info → Run anyway</b> only if you downloaded it from the official releases page.</li>
-              <li><b>Add your games.</b> Point the tool at the folder holding your game files, or drag the files onto its window.</li>
-              <li><b>Choose where the output goes.</b> Pick an empty folder on your PC first (for example <code>D:\X360-Output</code>) so you can check the result before copying to a drive.</li>
-              <li><b>Convert.</b> Start the conversion and wait until it finishes. Large games can take several minutes. Don't unplug drives while it works.</li>
-              <li><b>Check the folders.</b> Games on Demand output should look like <code>Content\0000000000000000\&lt;TitleID&gt;\00007000\</code>. If you see that layout, the sorting worked.</li>
-              <li><b>Copy to the console drive.</b> Copy the <code>Content</code> folder to the root of your console drive (<code>Hdd1:\</code> on the console, or the USB stick for <code>Usb0:\</code>). Choose <b>Merge</b> if asked.</li>
-              <li><b>Rescan and play.</b> On the console, rescan your content in Aurora (or your dashboard), then launch the game.</li>
-            </ol>
-            <div class="guide-order"><b>Tip:</b> menu names can differ slightly between versions. If a button is named differently, look for the one that adds games, sets the output folder, or starts the conversion. Only use games you own.</div>
+            <p>These tools run on your Windows PC and help turn game files you own into formats the console can read. Only use files you own.</p>
             <h4>Other tools</h4>
             <ul><li><a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD</a> — converts ISOs to Games on Demand</li><li><a href="https://github.com/XboxDev/extract-xiso" target="_blank" rel="noopener noreferrer">extract-xiso</a> — extracts ISOs to folders</li></ul>
           </div></details>
@@ -1622,7 +1605,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
           <details class="guide-sub" data-ic="1"><summary>DLC — add-ons</summary><div class="guide-copy">
             <ol>
               <li><b>Download</b> the add-on from the DLC tab (queue several if you want).</li>
-              <li><b>Install with</b> <a href="https://consolemods.org/wiki/Xbox_360:XM360" target="_blank" rel="noopener noreferrer">XM360</a>. Pick the file, then install to the console drive.</li>
+              <li><b>Install with</b> <a href="https://www.wemod.com/horizon" target="_blank" rel="noopener noreferrer">Horizon by WeMod</a> on your PC. Plug in your console USB drive, open Horizon, and add the downloaded file to the drive.</li>
               <li><b>Check the path:</b> <code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\00000002\&lt;ContentID&gt;</code></li>
               <li><b>Rescan</b> your content in Aurora.</li>
               <li><b>Launch the game once</b> so it picks the DLC up.</li>
@@ -1641,9 +1624,18 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
           <details class="guide-sub" data-ic="3"><summary>Updates — title updates</summary><div class="guide-copy">
             <ol>
               <li><b>Find your game</b> in the Updates tab. Only the <b>latest</b> update for each game is listed.</li>
-              <li><b>Download</b> it, then install it with <a href="https://consolemods.org/wiki/Xbox_360:XM360" target="_blank" rel="noopener noreferrer">XM360</a> or copy it to the path below.</li>
+              <li><b>Download</b> it, then install it with <a href="https://www.wemod.com/horizon" target="_blank" rel="noopener noreferrer">Horizon by WeMod</a> on your PC. Plug in your console USB drive, open Horizon, and add the file to the drive.</li>
               <li><b>Path:</b> <code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\000B0000\&lt;update file&gt;</code></li>
               <li><b>Rescan</b>, then launch the game once to apply it.</li>
+            </ol>
+          </div></details>
+
+          <details class="guide-sub" data-ic="1"><summary>Themes — dashboard themes</summary><div class="guide-copy">
+            <ol>
+              <li><b>Download</b> the theme from the Themes tab.</li>
+              <li><b>Install with</b> <a href="https://www.wemod.com/horizon" target="_blank" rel="noopener noreferrer">Horizon by WeMod</a> on your PC. Plug in your console USB drive, open Horizon, and add the theme file to the drive.</li>
+              <li><b>Path:</b> <code>Hdd1:\Content\0000000000000000\FFFE07D1\00030000\&lt;theme file&gt;</code></li>
+              <li><b>Apply it</b> on the console: <b>Settings → Preferences → Themes</b>.</li>
             </ol>
           </div></details>
 
@@ -1715,6 +1707,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       <div class="st-group"><h3>Display</h3>
         <div class="st-row"><span><b>Controller colors</b><small>Use real Xbox 360 controller colors (green / red / blue / yellow) for the A B X Y hints instead of the tab color.</small></span><button class="btn ghost small" id="ctrlToggle" type="button" aria-pressed="false">Off</button></div>
         <div class="st-row"><span><b>Title Updates tab</b><small>Show the Updates tab with the latest title update for each game.</small></span><button class="btn ghost small" id="updTabToggle" type="button" aria-pressed="true">On</button></div>
+        <div class="st-row"><span><b>Theme cover art</b><small>Show each theme's own icon from the archive as its cover art.</small></span><button class="btn ghost small" id="thArtToggle" type="button" aria-pressed="true">On</button></div>
         <div class="st-row"><span><b>Themes tab</b><small>Show the Themes tab with Xbox 360 dashboard themes.</small></span><button class="btn ghost small" id="thmTabToggle" type="button" aria-pressed="true">On</button></div>
         <div class="st-row"><span><b>Similar-name matching</b><small>Match DLC and Title Updates to games and Arcade titles by similar names (for example an update listed as “Halo 3” on a game titled “Halo 3 Legendary Edition”). May occasionally link the wrong title.</small></span><button class="btn ghost small" id="fuzzyToggle" type="button" aria-pressed="true">On</button></div>
         
@@ -2183,9 +2176,23 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       bytes: es.reduce((s, e) => s + e.s, 0), date: "", isNew: false, placeholderOnly: false, name: "Arcade " + L
     })).sort((a, b) => (a.glyph === "#" ? "" : a.glyph).localeCompare(b.glyph === "#" ? "" : b.glyph));
   }
+  /* DLC / Title Updates: a World release shows only "World", never a second region */
+  /* DLC / Updates file line: title + one region (World only if World) + version, no language tags */
+  function dlFileName(e){
+    if (!e || (e.c !== "dlc" && e.c !== "updates") || !Array.isArray(e.g)) return e && e.f;
+    const base = String(e.f || "").split("/").pop(), ext = (base.match(/\.(zip|7z|rar|iso|xiso|gz|tar)$/i) || [""])[0];
+    const reg = rgn(e), isR = t => /^[A-Za-z ,]+$/.test(t) && REGION_RE.test(t);
+    const ver = e.g.filter(t => /^v\d+/i.test(t)), r1 = reg || (e.g.find(isR) || "");
+    const name = String(e.t || base.replace(/\s*\(.*$/, "")).replace(/\s*\((?:USA|Europe|World|Japan|Region Free)\)\s*/ig, " ").trim();
+    return name + (r1 ? " (" + r1 + ")" : "") + ver.map(v => " (" + v + ")").join("") + ext;
+  }
+  /* language tags (Fr, De, En,Es ...): when present they must include English */
+  const notEnglish = tags => { const l = tags.filter(t => LANG_RE.test(t) && !REGION_RE.test(t)); return l.length > 0 && !(l.length === 1 && /^En$/i.test(l[0])); };
+  const isWorldTag = t => REGION_RE.test(t) && /(^|,)\s*world\s*(,|$)/i.test(t);
+  const rgn = e => (e && (e.c === "dlc" || e.c === "updates") && Array.isArray(e.g) && e.g.some(t => /^[A-Za-z ,]+$/.test(t) && /(^|,)\s*world\s*(,|$)/i.test(t))) ? "World" : (e && e.r) || "";
   function dlcFileLabel(e){
     if (e.c === "themes") return String(e.t || e.f);
-    if (e.c === "updates") return String(e.t || e.f) + " — Title Update" + (e.v ? " v" + e.v : "") + (e.r ? " (" + e.r + ")" : "");
+    if (e.c === "updates") return String(e.t || e.f) + " — Title Update" + (e.v ? " v" + e.v : "") + (rgn(e) ? " (" + rgn(e) + ")" : "");
     let title = String(e.t || e.f || "Unknown DLC").split("/").pop().replace(/\.(zip|7z|rar|iso|xiso|gz|tar)$/i, "");
     title = title.replace(/^\s*(?:\[?DLC\]?|ADD[- ]?ON)\s*[-_:]*\s*/i, "").trim();
     title = title.replace(/\s*\((?:USA|Europe|World|Region Free|DLC|Add-?on|Content Pack)\)\s*/ig, " ").trim();
@@ -2273,6 +2280,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       const glyph = span("glyph" + (g.small ? " sm" : "")); glyph.textContent = g.type === "dlcGame" ? g.dlcName : g.glyph;
       const size  = span("size");  size.textContent = fmtSize(groupBytes(g));
       a.append(span("shine"), span("sweep"), badge, glyph);
+      if (g.type === "dlcGame" && state.tab === "themes") addCollectionArt(a, g);
       if (g.range) { const r = span("range"); r.textContent = g.range; a.appendChild(r); }
       a.appendChild(size);
       if (g.isNew) { const n = span("new"); n.title = "New"; a.appendChild(n); }
@@ -2390,7 +2398,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
         }
         const title=(e.c==='dlc'||e.c==='updates'||e.c==='themes'?dlcFileLabel(e):String(e.t||e.f||'')).trim(), key=e.c+'|'+title.toLowerCase(); if(!title||seenS.has(key))return; seenS.add(key);
         const b=el('button','letter-title-item'); b.type='button'; b.setAttribute('role','listitem');
-        const art=el('span','letter-title-art',title.replace(/[^a-z0-9]/ig,'').slice(0,1).toUpperCase()||'#');
+        const art=el('span','letter-title-art',title.replace(/[^a-z0-9]/ig,'').slice(0,1).toUpperCase()||'#'); addThemeArt(art,e);
         const copy=el('span','letter-title-copy'); copy.appendChild(el('b','',title)); copy.appendChild(el('small','',(CAT_NAME[e.c]||'')+' \u00b7 '+fmtSize(e.s||0)));
         b.append(art,copy,el('span','letter-title-arrow','\u203a'));
         b.addEventListener('click',()=>{letterMenu.hidden=true;openGame(e,b);});
@@ -2403,7 +2411,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       records.forEach(e=>{
         const title=dlcFileLabel(e), key=title.toLowerCase(); if(seen.has(key))return; seen.add(key);
         const b=el('button','letter-title-item'); b.type='button'; b.setAttribute('role','listitem');
-        const art=el('span','letter-title-art',title.replace(/[^a-z0-9]/ig,'').slice(0,1).toUpperCase()||'D');
+        const art=el('span','letter-title-art',title.replace(/[^a-z0-9]/ig,'').slice(0,1).toUpperCase()||'D'); addThemeArt(art,e);
         const copy=el('span','letter-title-copy'); copy.appendChild(el('b','',title));
         copy.appendChild(el('small','',fmtSize(e.s||0)+(e.c==='updates'?' \u00b7 Title Update'+(e.v?' v'+e.v:''):'')));
         b.append(art,copy,el('span','letter-title-arrow','›'));
@@ -2770,7 +2778,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       i: it.id, f: name, s: +f.size || 0, m: +f.mtime || 0, h: f.md5 || "",
       c, l: /[A-Z]/.test(first) ? first : "#", p: it.part || 0,
       t: title + (extras.length ? " (" + extras.join(") (") + ")" : ""),
-      g: tags, r: ri.label, k: kind,
+      g: tags, r: (c === "dlc" && tags.some(t => REGION_RE.test(t) && /(^|,)\s*world\s*(,|$)/i.test(t))) ? "World" : ri.label, k: kind,
       sk: rawTitle.toLowerCase().replace(/^[^a-z0-9]+/, ""),
       _nk: title.toLowerCase().replace(/['’]/g, "").replace(/&/g, "and").replace(/[^a-z0-9]+/g, ""),
       _xk: extras.join("|").toLowerCase(),
@@ -2792,6 +2800,8 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     raw.forEach(e => {
       if (!e.c) { drop("Not arcade or DLC: " + e.k); return; }
       if ((e._hr && !e._rr) || (!e._hr && e.c === "games")) { drop("Region not USA / Europe / World"); return; }
+      if (e.c === "dlc" && e._hr && !e.g.some(isWorldTag)) { drop("DLC with a region (only World or no region kept)"); return; }
+      if (e.c === "dlc" && notEnglish(e.g)) { drop("DLC not English"); return; }
       const key = e.c + "|" + e._nk + "|" + e._xk;
       let a = groups.get(key); if (!a) groups.set(key, a = []);
       a.push(e);
@@ -2826,7 +2836,15 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
 
   /* Title updates: one flat archive.org item, files like "Title (Region) (v2).zip".
      Only the latest version per game is kept (USA/World and Europe are kept separately). */
-  function buildUpdates(files){
+  /* English reference list: titles of USA / World games and arcade games already in this database */
+  const tKey = t => normDlcKey(String(t || "").replace(/\([^)]*\)/g, " "));
+  function englishTitles(){
+    const set = new Set();
+    DB.entries.forEach(e => { if ((e.c === "games" || e.c === "arcade") && (e.r === "USA" || e.r === "World")) { const k = tKey(e.t); if (k) set.add(k); } });
+    return set.size >= 20 ? set : null;
+  }
+  const isEnglishTitle = (set, title) => { if (!set) return true; const k = tKey(title); if (!k) return false; if (set.has(k)) return true; for (const g of set) if ((g.length >= 6 && k.startsWith(g + " ")) || (k.length >= 6 && g.startsWith(k + " "))) return true; return false; };
+  function buildUpdates(files, eng){
     const best = new Map();
     (files || []).forEach(f => {
       const name = f.name || "";
@@ -2835,15 +2853,22 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       const tags = []; base.replace(/\(([^)]*)\)/g, (m, t) => { tags.push(t.trim()); return m; });
       const raw = base.replace(/\s*\(.*$/, "").trim() || base;
       const vt = tags.map(t => t.match(/^v(\d+)$/i)).find(Boolean), ver = vt ? +vt[1] : 0;
-      const ri = regionInfo(tags); if (!ri.rank) return;
-      const alt = tags.some(t => /^(UK|Alt|Beta|Proto|Demo)/i.test(t)) ? 1 : 0;
+      /* USA files are preferred; World (or no region) is used when a title has no USA file; other regions are skipped */
+      const hasReg = tags.some(t => REGION_RE.test(t)), isW = tags.some(isWorldTag);
+      const isU = tags.some(t => REGION_RE.test(t) && /(^|,)\s*usa\s*(,|$)/i.test(t));
+      if (hasReg && !isW && !isU) return;
+      if (notEnglish(tags)) return;
+      const ri = { rank: isU ? 3 : isW ? 2 : 1, label: isW ? "World" : isU ? "USA" : "" };
+      const alt = tags.filter(t => !isWorldTag(t) && !/^v\d+$/i.test(t)).length + (tags.some(t => /^(UK|Alt|Beta|Proto|Demo)/i.test(t)) ? 5 : 0);
       const title = flipThe(raw), first = (title.trim()[0] || "#").toUpperCase();
-      const key = normDlcKey(title) + "|" + (ri.rank >= 2 ? "A" : "E");
+      if (!isEnglishTitle(eng, title)) return;
+      const key = normDlcKey(title);
       const e = { i: TU_ID, f: name, s: +f.size || 0, m: +f.mtime || 0, h: f.md5 || "", c: "updates", l: /[A-Z]/.test(first) ? first : "#", p: 0, t: title, g: tags, r: ri.label, k: "Title Update", v: ver, sk: raw.toLowerCase().replace(/^[^a-z0-9]+/, ""), _a: alt };
       const cur = best.get(key);
-      if (!cur || e.v > cur.v || (e.v === cur.v && e._a < cur._a)) best.set(key, e);
+      e._rk = ri.rank;
+      if (!cur || e._rk > cur._rk || (e._rk === cur._rk && (e.v > cur.v || (e.v === cur.v && e._a < cur._a)))) best.set(key, e);
     });
-    return [...best.values()].map(e => { delete e._a; return e; });
+    return [...best.values()].map(e => { delete e._a; delete e._rk; return e; });
   }
   function buildThemes(files){
     const out = [];
@@ -2872,13 +2897,15 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     DB.thBusy = false; render();
   }
   async function ensureUpdates(){
-    if (DB.tuBusy || !DB.ready || DB.entries.some(e => e.c === "updates")) return;
+    if (DB.tuBusy || !DB.ready) return;
+    if (lsGet("xenTuV", "") !== "5") { DB.entries.filter(e => e.c === "updates").forEach(e => DB.byKey.delete(entryKey(e))); DB.entries = DB.entries.filter(e => e.c !== "updates"); }
+    if (DB.entries.some(e => e.c === "updates")) return;
     DB.tuBusy = true; try { render(); } catch (e) {}
     try {
       const j = await fetchJson("https://archive.org/metadata/" + TU_ID);
-      const ups = buildUpdates(j.files);
+      const ups = buildUpdates(j.files, englishTitles());
       ups.forEach(e => { const k = entryKey(e); if (!DB.byKey.has(k)) { DB.entries.push(e); DB.byKey.set(k, e); } });
-      if (ups.length) saveDb();
+      if (ups.length) { lsSet("xenTuV", "5"); saveDb(); }
     } catch (e) { DB.tuErr = String(e.message || e); }
     DB.tuBusy = false; render();
   }
@@ -3302,15 +3329,34 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     if(!es.length){toast("No downloadable files in the queue.","Download queue");return;}
     openDlcBatch(es,"Download queue");
   });
+  /* Themes collection tile: use one theme icon from the collection as its cover art */
+  function addCollectionArt(tile, g){
+    const cands = (g.dlcEntries || []).filter(x => x && x.c === "themes" && x.th).slice(0, 4);
+    if (!cands.length) return;
+    const im = new Image(); im.className = "thart tile-art"; im.alt = ""; im.loading = "lazy"; im.referrerPolicy = "no-referrer";
+    let k = 0; const off = () => document.body.classList.contains("no-th-art");
+    const go = () => { im.dataset.src = themeArtUrl(cands[k]); if (!off()) im.src = im.dataset.src; };
+    im.onload = () => tile.classList.add("has-art");
+    im.onerror = () => { if (++k < cands.length) go(); else im.remove(); };
+    go(); tile.insertBefore(im, tile.firstChild);
+  }
+  function addThemeArt(host, e){
+    if (!e || e.c !== "themes" || !e.th) return;
+    const im = new Image(); im.className = "thart"; im.alt = ""; im.loading = "lazy"; im.referrerPolicy = "no-referrer"; im.dataset.src = themeArtUrl(e);
+    if (!document.body.classList.contains("no-th-art")) im.src = im.dataset.src;
+    im.onload = () => host.classList.add("has-art"); im.onerror = () => im.remove(); host.appendChild(im);
+  }
+  const themeArtUrl = e => "https://archive.org/download/" + TH_ID + "/" + e.th.split("/").map(encodeURIComponent).join("/") + "/Thumbnail.png";
   function rowEl(e, i){
     const isGrid = bw.view === "grid";
     const r = el("div", "item" + (i === bw.sel ? " sel" : "") + (isGrid ? " grid-item" : ""));
     r.dataset.i = i; r.setAttribute("role", "option"); r.tabIndex = -1;
     const th = el("span", "th");
     th.textContent = e.l;
+    addThemeArt(th, e);
     const nm = el("span", "nm");
     const search = bw.g && bw.g.type === "search";
-    const sub = [search ? CAT_NAME[e.c] : "", e.k, e.r, e.d ? e.d.length + " discs" : "", e.q && e.q.rel ? e.q.rel : ""].filter(Boolean).join(" · ");
+    const sub = [search ? CAT_NAME[e.c] : "", e.k, rgn(e), e.d ? e.d.length + " discs" : "", e.q && e.q.rel ? e.q.rel : ""].filter(Boolean).join(" · ");
     nm.append(el("b", "", e.t), el("small", "", sub || e.f));
     r.append(th, nm, el("span", "sz", fmtSize(e.s)));
     const addQ=el("button","queue-add","+ Queue"); addQ.type="button"; addQ.title="Add to optional queue"; addQ.addEventListener("click",ev=>{ev.stopPropagation();queueEntry(e);}); r.appendChild(addQ);
@@ -3460,10 +3506,10 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     setField("#gSize", fmtSize(e.s) + (multi ? " total · " + e.d.map(d => "Disc " + d.n + ": " + fmtSize(d.s)).join(" · ") : e.s ? " (" + e.s.toLocaleString() + " bytes)" : ""));
     $("#gGlyph").textContent = e.l;
     { const cv = $("#gCover"), old = cv.querySelector("img.th"); if (old) old.remove();
-      if (e.c === "themes" && e.th) { const im = new Image(); im.className = "th"; im.alt = ""; im.referrerPolicy = "no-referrer"; im.src = "https://archive.org/download/" + TH_ID + "/" + e.th.split("/").map(encodeURIComponent).join("/") + "/Thumbnail.png"; im.onerror = () => im.remove(); cv.appendChild(im); } }
+      if (e.c === "themes" && e.th) { const im = new Image(); im.className = "th"; im.alt = ""; im.referrerPolicy = "no-referrer"; im.dataset.src = themeArtUrl(e); im.classList.add("thart"); if (!document.body.classList.contains("no-th-art")) im.src = im.dataset.src; im.onerror = () => im.remove(); cv.appendChild(im); } }
 
     const x = $("#gExtra"); x.textContent = "";
-    x.append(document.createTextNode([CAT_NAME[e.c], e.k, e.r].filter(Boolean).join(" · ") + " — " + (multi ? e.d.map(d => d.f).join(" + ") : e.f)));
+    x.append(document.createTextNode((e.c === "dlc" || e.c === "updates" ? [CAT_NAME[e.c], e.k] : [CAT_NAME[e.c], e.k, rgn(e)]).filter(Boolean).join(" · ") + " — " + (multi ? e.d.map(d => d.f).join(" + ") : dlFileName(e))));
     const add = (label, href) => { x.append(document.createTextNode(" · ")); const a = el("a", "", label); a.href = href; a.target = "_blank"; a.rel = "noopener noreferrer"; x.appendChild(a); };
 
     const rl = $("#gRel"); rl.textContent = "";
@@ -5963,6 +6009,7 @@ const ap=()=>{fn(v,b);b.setAttribute("aria-pressed",String(v))};b.addEventListen
 mk("ctrlToggle","xenCtrl",(v,b)=>{document.body.classList.toggle("ctrl-colors",v);b.textContent=v?"On":"Off"},false);
 mk("updTabToggle","xenTabUpd",(v,b)=>{document.body.classList.toggle("hide-tab-updates",!v);b.textContent=v?"On":"Off";if(!v&&document.body.classList.contains("updates-mode")){const g=document.querySelector('#tabs [data-tab="games"]');if(g)g.click();}},true);
 mk("thmTabToggle","xenTabThm",(v,b)=>{document.body.classList.toggle("hide-tab-themes",!v);b.textContent=v?"On":"Off";if(!v&&document.body.classList.contains("themes-mode")){const g=document.querySelector('#tabs [data-tab="games"]');if(g)g.click();}},true);
+mk("thArtToggle","xenThArt",(v,b)=>{document.body.classList.toggle("no-th-art",!v);b.textContent=v?"On":"Off";if(v)document.querySelectorAll("img.thart:not([src])").forEach(i=>{i.src=i.dataset.src})},true);
 })();
 
 (function(){
@@ -6249,4 +6296,34 @@ html body #acctPill.dirty{background:linear-gradient(180deg,#f3b45c,#b9701f)!imp
 #acctPill[hidden]{display:none}
 #acctPill.dirty{background:linear-gradient(180deg,#f3b45c,#b9701f)}
 #acctPill.ok{background:linear-gradient(180deg,#7bd23a,#3d8a14)}
+/* v1.48 transparent tile overlay (DLC / Updates / Themes) */
+html body.accurate-nxe.dlc-mode .tile:not(.zz):not(.zy){background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.012) 70%,rgba(255,255,255,.02))!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html body.accurate-nxe.dlc-mode .tile:not(.zz):not(.zy):hover{background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.04))!important}
+html body.accurate-nxe.dlc-mode .tile:not(.zz):not(.zy)::before,html body.accurate-nxe.dlc-mode .tile:not(.zz):not(.zy)::after{background:none!important}
+html body.accurate-nxe.dlc-mode .tile:not(.zz):not(.zy) .glyph,html body.accurate-nxe.dlc-mode .tile:not(.zz):not(.zy) .name{text-shadow:0 1px 3px rgba(0,0,0,.75),0 0 10px rgba(0,0,0,.45)}
+/* v1.49 transparent page panels (DLC / Updates / Themes) */
+html body.accurate-nxe.dlc-mode header:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode nav#tabs:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode .nxe-command-rail:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode #app:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode .stage:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode #main:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode .count:not(.zz):not(.zy){background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important}
+html body.accurate-nxe.dlc-mode header::before:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode header::after:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode nav#tabs::before:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode nav#tabs::after:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode .nxe-command-rail::before:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode .nxe-command-rail::after:not(.zz):not(.zy){background:none!important}
+html body.accurate-nxe.dlc-mode header:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode .nxe-command-rail:not(.zz):not(.zy){border-color:rgba(255,255,255,.22)!important}
+html body.accurate-nxe.dlc-mode nav#tabs:not(.zz):not(.zy){border-color:transparent!important}
+html body.accurate-nxe.dlc-mode .rail-heading:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode .brand h1:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode .brand small:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode .clock:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode .count:not(.zz):not(.zy),html body.accurate-nxe.dlc-mode .nxe-command-rail strong:not(.zz):not(.zy){text-shadow:0 1px 3px rgba(0,0,0,.8),0 0 10px rgba(0,0,0,.5)}
+/* v1.50 transparent pages + theme cover art toggle */
+html body.accurate-nxe.dlc-mode .search:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode .tile .range:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode .tile .size:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode .blist .item:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode .blist .item .sz:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode .blist .item .nm:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode .letter-menu:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode #game .gcard:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode #game .gcard .ghead:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode #game .gcard .gfoot:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode #game .gcard .gbody:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode #game .gcard .gmeta>div:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode #game .gcard .gextra:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode #game .gcard .grel:not(.zz):not(.zy):not(.zx){background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important}
+html body.accurate-nxe.dlc-mode #game .gcard:not(.zz):not(.zy):not(.zx){border-color:rgba(255,255,255,.25)!important}
+html body.accurate-nxe.dlc-mode #game .gcard h2:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode #game .gcard dd:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode #game .gcard dt:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode #game .gcard .gextra:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode #game .gcard small:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode .blist .item .nm b:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode .blist .item .nm small:not(.zz):not(.zy):not(.zx),html body.accurate-nxe.dlc-mode .blist .item .sz:not(.zz):not(.zy):not(.zx){text-shadow:0 1px 3px rgba(0,0,0,.85),0 0 10px rgba(0,0,0,.55)}
+.item .th,.letter-title-art{position:relative;overflow:hidden}.letter-title-art img.thart{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.letter-title-art.has-art{font-size:0!important;color:transparent!important}.item .th img.thart{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.item .th.has-art{font-size:0!important;color:transparent!important}
+body.no-th-art .item .th img.thart,body.no-th-art .letter-title-art img.thart,body.no-th-art #gCover img.thart{display:none!important}
+/* v1.51 fixed category description, soft scroll edges, collection art */
+html body.accurate-nxe.dlc-mode #main:not(.zz):not(.zy){display:flex!important;flex-direction:column!important;overflow:hidden!important;padding:0!important}
+html body.accurate-nxe.dlc-mode .nxe-command-rail:not(.zz):not(.zy){flex:none!important;position:relative!important;margin-bottom:6px!important}
+html body.accurate-nxe.dlc-mode #count:not(.zz):not(.zy){flex:none!important}
+html body.accurate-nxe.dlc-mode #grid:not(.zz):not(.zy){flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding:22px 4px 46px!important;margin:0!important;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.35) transparent;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 20px,#000 calc(100% - 34px),transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 20px,#000 calc(100% - 34px),transparent 100%)}
+html body.accurate-nxe.dlc-mode #grid::-webkit-scrollbar{width:8px}
+html body.accurate-nxe.dlc-mode #grid::-webkit-scrollbar-track{background:transparent}
+html body.accurate-nxe.dlc-mode #grid::-webkit-scrollbar-thumb{background:rgba(255,255,255,.3);border-radius:8px}
+html body.accurate-nxe.dlc-mode .stage:not(.zz):not(.zy){overflow:hidden!important}
+.tile{position:relative}.tile img.tile-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:0;opacity:.88;pointer-events:none}
+.tile.has-art .glyph,.tile.has-art .badge,.tile.has-art .size,.tile.has-art .range{position:absolute;z-index:3}
+html body.accurate-nxe.dlc-mode .tile.has-art:not(.zz) .glyph{text-shadow:0 1px 4px #000,0 0 14px #000,0 0 6px #000!important;background:linear-gradient(transparent,rgba(0,0,0,.45) 50%,transparent)}
+body.no-th-art .tile img.tile-art{display:none!important}
 </style>
