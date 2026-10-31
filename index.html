@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Xenios NXE 1.51 · Xbox 360 Archive Dashboard</title>
+<title>Xenios NXE 1.55 · Xbox 360 Archive Dashboard</title>
 <style>
   :root{
     --green:#7ed321;
@@ -1412,7 +1412,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     <div class="orb" aria-hidden="true"></div>
     <button class="iconbtn" id="settingsBtn" type="button" title="NXE settings" aria-label="Open settings">⚙</button>
     <div class="brand">
-      <h1><b>Xenios</b> <span class="release-mark">v1.51</span> · Xbox 360 Archive</h1>
+      <h1><b>Xenios</b> <span class="release-mark">v1.55</span> · Xbox 360 Archive</h1>
       <p id="stats">Your Xbox 360 archive dashboard · Offline-friendly library</p>
     </div>
     <div class="spacer"></div>
@@ -1465,128 +1465,12 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
             <ul><li><a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD</a> — converts ISOs to Games on Demand</li><li><a href="https://github.com/XboxDev/extract-xiso" target="_blank" rel="noopener noreferrer">extract-xiso</a> — extracts ISOs to folders</li></ul>
           </div></details>
 
-          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 1 — Before you start</summary><div class="guide-copy">
-            <p>This guide uses the <b>Bad Update</b> family of exploits. It works on every Xbox 360 model that is on the final dashboard, with no hardware changes.</p>
-            <h4>Check these first</h4>
-            <ol>
-              <li><b>Xbox 360 only.</b> It does not work on Xbox One or Series consoles.</li>
-              <li><b>Dashboard must be 2.0.17559.0.</b> To check: <b>Settings → System → Console Settings → System Info</b>. The version is listed on that screen.</li>
-              <li><b>Set the console language to English.</b> Other languages can break the exploit.</li>
-              <li><b>Unplug Kinect</b> if you have one. It lowers the success rate a lot.</li>
-              <li><b>Turn off auto sign-in</b> for your profile (<b>Settings → Profile → Sign-in preferences</b>).</li>
-              <li><b>Back up your saves.</b> Copy anything you care about to a USB stick.</li>
-            </ol>
-            <div class="guide-order"><b>Important:</b> the exploit is <b>non-persistent</b>. It has to be run again every time you fully power the console off and on. That is normal, not a failure.</div>
-            <div class="guide-order"><b>Stay offline:</b> disconnect Ethernet and forget your Wi-Fi network before you run it, to avoid an Xbox Live ban.</div>
-          </div></details>
-
-          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 2 — Update to 17559</summary><div class="guide-copy">
-            <p>Skip this step if System Info already says <b>2.0.17559.0</b>.</p>
-            <ol>
-              <li>Download the official <b>offline system update 17559</b> and extract it to a USB stick formatted for the console.</li>
-              <li>Put the USB stick in the console and open <b>Settings → System → Console Settings → System Info</b>, or follow the instructions that come with the offline update.</li>
-              <li>Let the update finish. The console will restart.</li>
-              <li>Check System Info again and confirm it says <b>2.0.17559.0</b>.</li>
-            </ol>
-            <div class="guide-order"><b>Tip:</b> don't update over Xbox Live. Use the offline update so the console stays disconnected.</div>
-            <div class="guide-order"><b>No hard drive?</b> The Avatar data must be present on the console. If you don't have an HDD, the offline update helps provide it.</div>
-          </div></details>
-
-          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 3 — Download the files</summary><div class="guide-copy">
-            <p>You need three things: an <b>entry point</b>, a <b>payload</b>, and a <b>file manager</b>.</p>
-            <h4>1) Entry point (pick one)</h4>
-            <ul><li><b>ABadAvatar</b> — easiest. Uses the Avatar editor, no game needed. <a href="https://github.com/shutterbug2000/ABadAvatar" target="_blank" rel="noopener noreferrer">ABadAvatar</a></li><li><b>Xbox360BadUpdate</b> — uses a supported game: <b>Tony Hawk's American Wasteland</b> or <b>Rock Band Blitz</b>. <a href="https://github.com/Grimdoomer/Xbox360BadUpdate" target="_blank" rel="noopener noreferrer">Xbox360BadUpdate</a></li></ul>
-            <h4>2) Payload (pick one)</h4>
-            <ul><li><b>XeUnshackle</b> — recommended. <a href="https://zff.dev/AsahiRocks/XeUnshackle" target="_blank" rel="noopener noreferrer">XeUnshackle</a></li><li><b>FreeMyXe</b> — also works. <a href="https://github.com/InvoxiPlayGames/FreeMyXe" target="_blank" rel="noopener noreferrer">FreeMyXe</a></li></ul>
-            <h4>3) Homebrew to use afterwards</h4>
-            <ul><li><a href="https://consolemods.org/wiki/Xbox_360:XeXmenu" target="_blank" rel="noopener noreferrer">XeXMenu</a> · <a href="https://github.com/FreestyleDash/freestyledash" target="_blank" rel="noopener noreferrer">FreeStyle 3</a> · Aurora</li></ul>
-            <h4>Read-along guides</h4>
-            <ul><li><a href="https://free60.org/Hacks/Bad_Update_Hack/" target="_blank" rel="noopener noreferrer">Free60 Bad Update guide</a></li><li><a href="https://consolemods.org/wiki/Xbox_360:Bad_Update" target="_blank" rel="noopener noreferrer">ConsoleMods Bad Update guide</a></li></ul>
-          </div></details>
-
-          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 4 — Prepare the USB stick</summary><div class="guide-copy">
-            <ol>
-              <li><b>Format the USB stick to FAT32 (MBR).</b> At least 64 MB is needed. Rock Band Blitz needs 512 MB or larger. For sticks over 32 GB, use <a href="https://rufus.ie" target="_blank" rel="noopener noreferrer">Rufus</a> or format it on the console.</li>
-              <li><b>Extract your entry point</b> to the <b>root</b> of the stick. You should see <code>BadUpdatePayload</code> and <code>Content</code> folders (a game version also has <code>name.txt</code>).</li>
-              <li><b>Add your payload.</b> Open the <code>BadUpdatePayload</code> folder and delete any existing <code>default.xex</code>.</li>
-              <li><b>Copy the payload in.</b> Put XeUnshackle or FreeMyXe in that folder and rename it to <code>default.xex</code> (for example, <code>FreeMyXe.xex</code> becomes <code>default.xex</code>).</li>
-              <li><b>Eject safely</b> from Windows.</li>
-            </ol>
-            <pre><code>USB:\
- ├─ BadUpdatePayload\
- │   └─ default.xex      ← XeUnshackle or FreeMyXe
- └─ Content\</code></pre>
-          </div></details>
-
-          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 5 — Run the exploit</summary><div class="guide-copy">
-            <ol>
-              <li><b>Go offline.</b> Unplug Ethernet and forget Wi-Fi. Unplug Kinect.</li>
-              <li><b>Power the console fully off.</b></li>
-              <li><b>Insert the USB stick</b> and power on.</li>
-            </ol>
-            <h4>If you use ABadAvatar</h4>
-            <ol>
-              <li>At the dashboard you should see a notice from ABadAvatar.</li>
-              <li>Open the <b>profile select</b> screen. If the cursor moves around, the exploit is running.</li>
-              <li><b>Do not sign in</b> to the exploit profile. It has a PIN to stop accidents.</li>
-            </ol>
-            <h4>If you use Rock Band Blitz / Tony Hawk's</h4>
-            <ol>
-              <li>Start the game. Press <b>A</b> and choose <b>USB storage</b> if asked.</li>
-              <li>Wait for the on-screen text that says the exploit is running.</li>
-              <li>If the music or background freezes, reboot the console and try again.</li>
-            </ol>
-            <div class="guide-order"><b>It may take several tries.</b> The success rate is not 100%. If nothing happens after about 20 minutes, power off, power on, and start again.</div>
-          </div></details>
-
-          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 6 — After it works</summary><div class="guide-copy">
-            <ol>
-              <li><b>Payload screen.</b> XeUnshackle or FreeMyXe appears and shows your <b>CPU key</b>. Write it down or take a photo. You will want it later.</li>
-              <li>Press <b>A</b> on <b>OK</b>, then <b>A</b> again when the patch is confirmed.</li>
-              <li>The console goes to the dashboard with unsigned code allowed.</li>
-              <li><b>Now you can reconnect</b> to the internet if you want.</li>
-            </ol>
-            <div class="guide-order"><b>Before the next boot:</b> disconnect from the internet again, then run the exploit again.</div>
-          </div></details>
-
-          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 7 — Install homebrew</summary><div class="guide-copy">
-            <ol>
-              <li>Copy <b>XeXMenu</b>, <b>Aurora</b> or <b>FreeStyle 3</b> to a USB stick.</li>
-              <li>With the exploit active, open your payload's launcher or file manager.</li>
-              <li>Copy the homebrew from the USB stick to the console drive, for example <code>Hdd1:\Apps\</code>.</li>
-              <li>Launch Aurora and point it at your game folders, then <b>rescan</b>.</li>
-            </ol>
-            <p>Then go to the <b>Games</b>, <b>DLC</b>, <b>Arcade</b> and <b>Updates</b> guides to install content.</p>
-          </div></details>
-
-          <details class="guide-sub" data-group="Jailbreak" data-ic="7"><summary>Step 8 — Troubleshooting &amp; links</summary><div class="guide-copy">
-            <h4>If it doesn't work</h4>
-            <ul><li>Confirm dashboard <b>2.0.17559.0</b> and language <b>English</b>.</li><li>Re-format the stick to <b>FAT32 (MBR)</b> and copy the files again.</li><li>Check <code>default.xex</code> is inside <code>BadUpdatePayload</code>.</li><li>Unplug Kinect and other USB devices.</li><li>Fully power off (not standby) and try again.</li></ul>
-            <h4>All jailbreak links</h4>
-            <ul><li><a href="https://free60.org/Hacks/Bad_Update_Hack/" target="_blank" rel="noopener noreferrer">Free60 Bad Update guide</a> · <a href="https://consolemods.org/wiki/Xbox_360:Bad_Update" target="_blank" rel="noopener noreferrer">ConsoleMods Bad Update guide</a></li><li><a href="https://github.com/shutterbug2000/ABadAvatar" target="_blank" rel="noopener noreferrer">ABadAvatar</a> · <a href="https://github.com/Grimdoomer/Xbox360BadUpdate" target="_blank" rel="noopener noreferrer">Xbox360BadUpdate</a> · <a href="https://zff.dev/AsahiRocks/XeUnshackle" target="_blank" rel="noopener noreferrer">XeUnshackle</a> · <a href="https://github.com/InvoxiPlayGames/FreeMyXe" target="_blank" rel="noopener noreferrer">FreeMyXe</a></li><li><a href="https://github.com/dclstn/Xbox360AutoDNS" target="_blank" rel="noopener noreferrer">AutoDNS</a> · <a href="https://consolemods.org/wiki/Xbox_360:XeXmenu" target="_blank" rel="noopener noreferrer">XeXMenu</a> · <a href="https://github.com/FreestyleDash/freestyledash" target="_blank" rel="noopener noreferrer">FreeStyle 3</a> · <a href="https://rufus.ie" target="_blank" rel="noopener noreferrer">Rufus</a></li></ul>
-          </div></details>
-
-          <details class="guide-sub" data-ic="6"><summary>ReLive — USB/HDD Drag and Drop Download</summary><div class="guide-copy">
-            <h4>ReLive USB/HDD — Drag and Drop Download</h4>
-            <div class="relive-placeholder" role="note" aria-label="ReLive download placeholder">
-              <b>Download placeholder</b>
-              <p>The ReLive USB/HDD drag-and-drop download will be added here.</p>
-              <span>Download link not configured yet</span>
-            </div>
-            <h4>When the download is available</h4>
-            <ol>
-              <li>Download the file and extract it on your PC.</li>
-              <li>Drag and drop the extracted files to your USB stick or console drive.</li>
-              <li>Open it from Aurora or XeXMenu on the console.</li>
-            </ol>
-            <p>Current build: <a href="https://cdn.discordapp.com/attachments/1521567779860381707/1556811745014714449/ReLive_Beta2.zip?backend=b2&amp;ex=6ae134ec&amp;is=6adfe36c&amp;hm=58302ae11932bcd9fec92f14d1c1353815a5d5c077f56700e46be3db07bb638c&amp;" target="_blank" rel="noopener noreferrer">ReLive Beta 2</a> (Discord links can expire).</p>
-          </div></details>
-
           <details class="guide-sub" data-ic="0"><summary>Games — GOD and extracted</summary><div class="guide-copy">
             <h4>Games on Demand (GOD) — recommended</h4>
             <ol>
               <li><b>Convert the ISO.</b> Open <a href="https://consolemods.org/wiki/Xbox_360:ISO2GOD" target="_blank" rel="noopener noreferrer">ISO2GOD</a> on your PC and select the game ISO. It makes a folder named with the game's <b>Title ID</b>.</li>
               <li><b>Copy it over.</b> Put that folder in <code>Hdd1:\Content\0000000000000000\</code> so the full path is <code>Hdd1:\Content\0000000000000000\&lt;TitleID&gt;\00007000\</code>.</li>
+              <li><b>Patch the game</b> with <a href="https://consolemods.org/wiki/images/9/93/360_Content_Manager_3.2.zip" target="_blank" rel="noopener noreferrer">360ContentManager</a>.</li>
               <li><b>Rescan</b> your content in Aurora.</li>
               <li><b>Launch</b> the game.</li>
             </ol>
@@ -1633,7 +1517,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
           <details class="guide-sub" data-ic="1"><summary>Themes — dashboard themes</summary><div class="guide-copy">
             <ol>
               <li><b>Download</b> the theme from the Themes tab.</li>
-              <li><b>Install with</b> <a href="https://www.wemod.com/horizon" target="_blank" rel="noopener noreferrer">Horizon by WeMod</a> on your PC. Plug in your console USB drive, open Horizon, and add the theme file to the drive.</li>
+              <li><b>Inject the theme</b> with <a href="https://www.wemod.com/horizon" target="_blank" rel="noopener noreferrer">Horizon by WeMod</a> on your PC. Plug in your console USB drive, open Horizon, and inject the theme file into the drive.</li>
               <li><b>Path:</b> <code>Hdd1:\Content\0000000000000000\FFFE07D1\00030000\&lt;theme file&gt;</code></li>
               <li><b>Apply it</b> on the console: <b>Settings → Preferences → Themes</b>.</li>
             </ol>
@@ -1800,7 +1684,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   </div>
 </div>
 
-<div id="prog" hidden><span id="progTxt"></span><div class="bar"><i id="progBar"></i></div></div>
+<div id="prog" hidden role="status"><i class="t-orb"></i><div class="t-tx"><b>Xenios</b><em id="progTxt"></em></div><div class="bar"><i id="progBar"></i></div></div>
 <div id="boot"><div class="bootOrb" aria-hidden="true"><span class="bootCore"></span><span class="bootArc"></span></div><p>XENIOS</p><small>INITIALIZING ARCHIVE&nbsp; · &nbsp;PRESS ANY KEY TO SKIP</small></div>
 <div id="toast" role="status"></div>
 
@@ -2348,7 +2232,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       (DB.ready ? " · " + groups.reduce((n, g) => n + entriesFor(g).length, 0).toLocaleString() + " titles" : " · " + list.length + " archives");
     { const cap = document.getElementById("railCaption");
       if (cap) {
-        if (isGuides) cap.textContent = "Step-by-step guides for installing games, DLC, updates and jailbreaking.";
+        if (isGuides) cap.textContent = "Step-by-step guides for installing games, DLC, updates and themes.";
         else {
           const tab = state.tab;
           const n = DB.ready ? groups.reduce((t, g) => t + entriesFor(g).length, 0) : list.length;
@@ -3527,16 +3411,28 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       const list = multi ? e.d : [{ n: 0, i: e.i, f: e.f, s: e.s }];
       list.forEach(d => {
         const a = el("a", "btn big"); { const ic = el("span", "dl-ic", "⬇"), tx = el("span", "dl-tx"); tx.append(el("b", "", multi ? "Disc " + d.n : "Download"), el("small", "", fmtSize(d.s))); a.append(ic, tx); }
-        a.href = dlUrl(d); a.target = "_blank"; a.rel = "noopener noreferrer";
+        a.href = dlUrl(d); a.target = "_blank"; a.rel = "noopener noreferrer"; if (list.length === 1) a.classList.add("gd-solo");
         a.addEventListener("click", ev => { arm(); ripple(a, ev); sfx.select(); flash(); recordDownload(e, d, multi); });
         box.appendChild(a);
       });
+      if (multi && e.d.length > 1) {
+        const all = el("a", "btn big gd-all"); all.href = "#"; all.setAttribute("role", "button");
+        const ic = el("span", "dl-ic", "⬇"), tx = el("span", "dl-tx");
+        tx.append(el("b", "", e.d.length === 2 ? "Download both discs" : "Download all " + e.d.length + " discs"), el("small", "", fmtSize(e.s) + " total"));
+        all.append(ic, tx);
+        all.addEventListener("click", ev => {
+          ev.preventDefault(); arm(); ripple(all, ev); sfx.select(); flash();
+          e.d.forEach(d => recordDownload(e, d, true));
+          openDlcBatch(e.d.map(d => ({ t: e.t + " (Disc " + d.n + ")", s: d.s, i: d.i, f: d.f, c: e.c || "games" })), e.t);
+        });
+        box.appendChild(el("span", "gd-br")); box.appendChild(all); box.appendChild(el("span", "gd-br"));
+      }
     }
     { const dlb = $("#gDlBox"); dlb.querySelectorAll(".gq-btn").forEach(n => n.remove());
       if (e.c === "games" || e.c === "arcade") {
-        const gb = el("button", "gq-btn", "☷ " + (e.c === "arcade" ? "Add Arcade to Queue" : "Add Game to Queue")); gb.type = "button";
+        const gb = el("a", "btn big gq-btn", "☷ " + (e.c === "arcade" ? "Add Arcade to Queue" : "Add Game to Queue")); gb.href = "#"; gb.setAttribute("role", "button");
         gb.title = "Add only this title to the download queue";
-        gb.addEventListener("click", () => { arm(); sfx.select(); const n = queueAdd(queueParts(e)); toast(n ? "Added to queue: " + e.t : "Already in queue"); });
+        gb.addEventListener("click", ev => { ev.preventDefault(); arm(); sfx.select(); const n = queueAdd(queueParts(e)); toast(n ? "Added to queue: " + e.t : "Already in queue"); });
         dlb.appendChild(gb);
       } }
     { const gmEl = document.querySelector("#game .gmeta");
@@ -3555,7 +3451,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
         wrap.appendChild(qb);
         gmEl.appendChild(wrap);
       } }
-    $("#gNote").textContent = multi ? "This game has " + e.d.length + " discs. Download each disc separately." : "Archive.org must be actively logged in for this frontend to properly download games.";
+    $("#gNote").textContent = multi ? "This game has " + e.d.length + " discs. Download each disc, or use Download both discs." : "Archive.org must be actively logged in for this frontend to properly download games.";
   }
   function gameDownload(){
     const f = document.activeElement;
@@ -6326,4 +6222,31 @@ html body.accurate-nxe.dlc-mode .stage:not(.zz):not(.zy){overflow:hidden!importa
 .tile.has-art .glyph,.tile.has-art .badge,.tile.has-art .size,.tile.has-art .range{position:absolute;z-index:3}
 html body.accurate-nxe.dlc-mode .tile.has-art:not(.zz) .glyph{text-shadow:0 1px 4px #000,0 0 14px #000,0 0 6px #000!important;background:linear-gradient(transparent,rgba(0,0,0,.45) 50%,transparent)}
 body.no-th-art .tile img.tile-art{display:none!important}
+/* v1.54 download both discs */
+html body.accurate-nxe #game .gcard:not(.zz):not(.zy):not(.zx){overflow-y:auto!important;overflow-x:hidden!important;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.4) transparent}
+#gDlBox .gd-br{flex:0 0 100%!important;width:100%;height:0!important;display:block;margin:-6px 0!important}
+html body.accurate-nxe #game #gDlBox .gd-all:not(.zz):not(.zy){display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:420px;min-height:40px;margin:0 auto;padding:6px 18px!important;border-radius:5px!important;cursor:pointer;color:#fff!important;font-family:inherit;border:1px solid var(--detail-border,rgba(255,255,255,.4))!important;background:var(--detail-button,linear-gradient(180deg,#8fdf68,#287c38))!important;box-shadow:inset 0 1px 1px rgba(255,255,255,.55),0 3px 10px rgba(0,0,0,.4)!important;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+html body.accurate-nxe #game #gDlBox .gd-all .dl-tx{display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
+html body.accurate-nxe #game #gDlBox .gd-all .dl-tx small{font-size:11px;opacity:.85}
+html body.accurate-nxe #game #gDlBox .gd-all:hover{transform:translateY(-2px);filter:brightness(1.12)}
+/* v1.55 notification-style progress + aligned download buttons */
+html body.accurate-nxe #prog:not(.zz):not(.zy){position:fixed;left:50%;bottom:92px;transform:translateX(-50%);z-index:3000;display:flex;align-items:center;gap:14px;width:min(460px,92vw);min-width:300px;padding:9px 30px 14px 9px;border-radius:999px;color:#fff;overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.34) 0%,rgba(255,255,255,.08) 48%,rgba(0,0,0,0) 50%),linear-gradient(180deg,#4a504c 0%,#1b1f1d 50%,#070908 52%,#151918 100%)!important;
+  border:2px solid rgba(214,224,217,.7)!important;box-shadow:0 0 0 1px rgba(0,0,0,.8),0 10px 30px rgba(0,0,0,.7),0 0 26px rgba(var(--tg,126,220,50),.38),inset 0 1px 1px rgba(255,255,255,.65),inset 0 -6px 12px rgba(var(--tg,126,220,50),.14)!important;font-size:15px}
+html body.accurate-nxe #prog[hidden]{display:none!important}
+html body.accurate-nxe #prog::before{content:"";position:absolute;left:46px;right:14px;top:3px;height:42%;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0));pointer-events:none}
+html body.accurate-nxe #prog .t-orb{position:relative;flex:0 0 auto;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 36% 26%,#fff 0,#e3ffbd 11%,#9be44c 34%,#3f9a14 66%,#123f08 100%);box-shadow:0 0 0 3px #3b403d,0 0 0 4px rgba(255,255,255,.3),inset -3px -5px 9px rgba(0,50,0,.6),0 0 14px rgba(120,230,60,.65)}
+html body.accurate-nxe #prog .t-orb::after{content:"";position:absolute;left:14%;top:6%;width:68%;height:42%;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.05))}
+html body.accurate-nxe #prog .t-tx{display:flex;flex-direction:column;min-width:0;line-height:1.2}
+html body.accurate-nxe #prog .t-tx b{font-weight:500;font-size:17px;text-shadow:0 1px 3px #000}
+html body.accurate-nxe #prog .t-tx em{font-style:normal;font-size:14px;color:#e6ece8;text-shadow:0 1px 3px #000;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html body.accurate-nxe #prog .bar{position:absolute;left:0;right:0;bottom:0;height:8px;margin:0;border-radius:0;background:rgba(0,0,0,.55);overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.8)}
+html body.accurate-nxe #prog .bar i{display:block;height:100%;width:0;background:linear-gradient(180deg,#e3ffbd 0%,#9be44c 40%,#3f9a14 55%,#2d7a0e 100%);box-shadow:0 0 10px rgba(120,230,60,.8);transition:width .25s}
+#gDlBox .gd-br{display:none!important}
+html body.accurate-nxe #game #gDlBox:not(.zz):not(.zy){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:min(440px,100%);margin:0 auto!important;justify-items:stretch;align-items:stretch}
+html body.accurate-nxe #game #gDlBox>a.btn:not(.zz):not(.zy),html body.accurate-nxe #game #gDlBox>.gd-all:not(.zz):not(.zy),html body.accurate-nxe #game #gDlBox>.gq-btn:not(.zz):not(.zy){display:inline-flex!important;align-items:center;justify-content:center;gap:10px;box-sizing:border-box;width:100%!important;max-width:none!important;min-width:0!important;height:46px!important;min-height:46px!important;margin:0!important;padding:0 14px!important;border-radius:5px!important;align-self:auto!important;font-family:inherit;font-size:14px!important;line-height:1.1;cursor:pointer;text-decoration:none}
+html body.accurate-nxe #game #gDlBox>.gd-all,html body.accurate-nxe #game #gDlBox>.gq-btn,html body.accurate-nxe #game #gDlBox>a.gd-solo{grid-column:1/-1}
+html body.accurate-nxe #game #gDlBox>a.btn:hover,html body.accurate-nxe #game #gDlBox>.gd-all:hover,html body.accurate-nxe #game #gDlBox>.gq-btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
+html body.accurate-nxe #game #gDlBox a.btn.big:not(.qa):not(.qb):not(.qc):not(.qd):not(.qe):not(.qf):not(.qg):not(.qh):not(.qi):not(.qj):not(.qk):not(.ql):not(.qm){flex:none!important;width:100%!important;min-width:0!important;max-width:none!important;box-sizing:border-box}
+html body.accurate-nxe #game #gDlBox a.btn.big.gq-btn:not(.qa):not(.qb):not(.qc):not(.qd):not(.qe):not(.qf):not(.qg):not(.qh):not(.qi):not(.qj):not(.qk):not(.ql):not(.qm),html body.accurate-nxe #game #gDlBox a.btn.big.gd-all:not(.qa):not(.qb):not(.qc):not(.qd):not(.qe):not(.qf):not(.qg):not(.qh):not(.qi):not(.qj):not(.qk):not(.ql):not(.qm){color:#fff!important;-webkit-text-fill-color:#fff!important;font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,.55)!important}
 </style>
