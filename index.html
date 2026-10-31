@@ -1596,6 +1596,11 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
         <div class="st-row"><span><b>Similar-name matching</b><small>Match DLC and Title Updates to games and Arcade titles by similar names (for example an update listed as “Halo 3” on a game titled “Halo 3 Legendary Edition”). May occasionally link the wrong title.</small></span><button class="btn ghost small" id="fuzzyToggle" type="button" aria-pressed="true">On</button></div>
         
       </div>
+      <div class="st-group" id="stDownloads"><h3>Downloads</h3>
+        <div class="st-row" id="rowPopEnable"><span><b>Pop-up windows</b><small>Not enabled yet. Lets Xenios open the download queue window and your download links.</small></span><button class="btn small" id="popupEnable" type="button">Enable</button></div>
+        <div class="st-row" id="rowFdmAlert" hidden><span><b>Free Download Manager alert</b><small>Show the Free Download Manager recommendation when Xenios starts.</small></span><button class="btn ghost small" id="fdmAlertToggle" type="button" aria-pressed="false">Off</button></div>
+        <div class="st-row" id="rowPopAlert" hidden><span><b>Pop-up windows alert</b><small>Show the “Enable pop-up windows” prompt when Xenios starts (only while pop-ups are not enabled).</small></span><button class="btn ghost small" id="popAlertToggle" type="button" aria-pressed="false">Off</button></div>
+      </div>
       <div class="st-group"><h3>Database</h3>
         <div class="st-row"><span><b>Export database</b><small>Save the game, arcade and DLC index as JSON.</small></span><button class="btn small" id="bExport" type="button">⬇ Export</button></div>
         <div class="st-row"><span><b>Import database</b><small>Merge a Xenios or Archive.org listing JSON.</small></span><button class="btn ghost small" id="bImport" type="button">⬆ Import</button><input type="file" id="bFile" accept=".json,application/json" multiple hidden></div>
@@ -1777,17 +1782,34 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     if (b >= 1e6)  return (b / 1e6).toFixed(0) + " MB";
     return Math.max(1, Math.round(b / 1e3)) + " KB";
   }
-  function toast(msg, head){
+  const toastQ = []; let toastBusy = false, toastCur = null;
+  function toastNext(){
+    const j = toastQ.shift();
+    if (!j) { toastBusy = false; toastCur = null; return; }
+    toastBusy = true; toastCur = j;
     toastEl.textContent = "";
     const o = document.createElement("i"); o.className = "t-orb";
     const w = document.createElement("span"); w.className = "t-tx";
-    const h = document.createElement("b"); h.textContent = head || "Xenios";
-    const m = document.createElement("em"); m.textContent = msg;
+    const h = document.createElement("b"); h.textContent = j.head || "Xenios";
+    const m = document.createElement("em"); m.textContent = j.msg;
     w.append(h, m); toastEl.append(o, w);
+    void toastEl.offsetWidth;                                   /* restart the pop-in */
     toastEl.classList.add("show");
-    clearTimeout(toast.t);
-    toast.t = setTimeout(() => toastEl.classList.remove("show"), 3600);
+    const dur = Math.min(5600, 2800 + String(j.msg).length * 30);   /* longer text stays a bit longer */
+    setTimeout(() => {
+      toastEl.classList.remove("show");                          /* pop out, then the next one pops in */
+      setTimeout(toastNext, 460);
+    }, dur);
   }
+  function toast(msg, head){
+    msg = String(msg == null ? "" : msg);
+    const last = toastQ.length ? toastQ[toastQ.length - 1] : toastCur;
+    if (last && last.msg === msg && last.head === head) return;   /* ignore an identical repeat */
+    toastQ.push({ msg, head });
+    if (toastQ.length > 6) toastQ.shift();
+    if (!toastBusy) toastNext();
+  }
+  window.__xenToast = toast;
   const lsGet = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
   const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
 
@@ -3026,10 +3048,10 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     if (!silent) { sfx.back(); const r = bw.ret; if (r && document.contains(r)) r.focus({ preventScroll: true }); }
   }
 
-  function openDlcBatch(entries, gameName){
+  function openDlcBatch(entries, gameName, onStart){
     if (!entries.length) { toast("Nothing to download", "Download queue"); return; }
     const w = window.open("", "xenios-dl-queue", "width=900,height=760");
-    if (!w) { toast("Allow pop-ups for Xenios to open the download window.", "Pop-up blocked"); return; }
+    if (!w) { try { window.__xenShowPopupHelp && window.__xenShowPopupHelp(); } catch (err) { /* ignore */ } return; }
     const queueCats = [...new Set(entries.map(e => e.c || "games"))];
     const mixedQueue = queueCats.length > 1;
     const queuePalette = mixedQueue ? {
@@ -3059,7 +3081,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       + "button.gh{background:linear-gradient(180deg,#fbfdfb,#dfe6e1 48%,#b4beb8 52%,#d3dbd6);color:#1e2b23;border:1px solid #5d6a63;box-shadow:inset 0 1px 1px #fff,0 1px 3px rgba(0,0,0,.45)}button:disabled{opacity:.6;cursor:default}"
       + "footer{display:flex;gap:8px;align-items:center;padding:12px 20px 16px;border-top:1px solid rgba(235,242,238,.18);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(0,0,0,.15))}footer .sp{flex:1}";
     const d = w.document; d.open();
-    d.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Xenios download queue</title><style>' + css + '</style></head><body><div class="card"><header><i class="orb"></i><div><h1 id="t"></h1><p id="s"></p></div></header><div class="warn"><b>Before you start:</b> allow <b>pop-ups</b> and <b>multiple automatic downloads</b> for this site, and keep archive.org signed in. Archive.org must be actively logged in for this frontend to properly download games. These are direct download links only; no archive.org collection pages are opened.</div><ul id="rows"></ul><footer><button class="pri" id="start" type="button">Start all downloads</button><button class="gh" id="copy" type="button">Copy links</button><span class="sp"></span><button class="gh" id="close" type="button">Close</button></footer></div></body></html>');
+    d.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Xenios download queue</title><style>' + css + '</style></head><body><div class="card"><header><i class="orb"></i><div><h1 id="t"></h1><p id="s"></p></div></header><ul id="rows"></ul><footer><button class="pri" id="start" type="button">Start all downloads</button><button class="gh" id="pause" type="button" disabled>Pause</button><button class="gh" id="copy" type="button">Copy links</button><span class="sp"></span><button class="gh" id="close" type="button">Close</button></footer></div></body></html>');
     d.close();
     d.getElementById("t").textContent = "⬇ " + gameName;
     d.getElementById("s").textContent = entries.length + " file" + (entries.length === 1 ? "" : "s") + " · " + fmtSize(entries.reduce((sum, e) => sum + (e.s || 0), 0)) + " total";
@@ -3070,9 +3092,49 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       li.append(nm, sz, a); rows.appendChild(li); links.push(a);
     });
     d.getElementById("start").addEventListener("click", () => {
-      let i = 0; const st = d.getElementById("start"); st.disabled = true;
-      const next = () => { if (i >= links.length) { st.textContent = "Requests sent · check your browser's downloads"; return; } links[i++].click(); st.textContent = "Sending " + i + " / " + links.length + "…"; setTimeout(next, 700); };
-      next();
+      const st = d.getElementById("start"), pb = d.getElementById("pause"); st.disabled = true;
+      if (typeof onStart === "function") { try { onStart(); } catch (err) { /* ignore */ } }
+      const run = window.__xenRun = { paused: false, active: true };
+      let pill = document.getElementById("xenRunPill");
+      if (!pill) {
+        pill = document.createElement("div"); pill.id = "xenRunPill";
+        pill.innerHTML = '<span class="rp-t"></span><button type="button" class="rp-b">Pause</button>';
+        document.body.appendChild(pill);
+        pill.querySelector(".rp-b").addEventListener("click", () => { if (window.__xenRun && window.__xenRun.toggle) window.__xenRun.toggle(); });
+      }
+      const pt = pill.querySelector(".rp-t"), pbtn = pill.querySelector(".rp-b");
+      void pill.offsetWidth; pill.classList.add("show");
+      let i = 0, left = 0;
+      const doneTxt = "Requests sent · check your browser's downloads";
+      const say = txt => { try { if (!w.closed) st.textContent = txt; } catch (err) { /* window gone */ } pt.textContent = txt; };
+      const paintPause = () => { const t = run.paused ? "Resume" : "Pause"; pbtn.textContent = t; try { if (!w.closed && pb) pb.textContent = t; } catch (err) { /* ignore */ } };
+      run.toggle = () => { run.paused = !run.paused; paintPause(); say(run.paused ? "Paused · opened " + i + " / " + links.length : "Resuming…"); };
+      if (pb) { pb.disabled = false; pb.addEventListener("click", () => run.toggle()); }
+      paintPause();
+      const fire = a => {   /* just open it: from this window, or from the main page if this one was closed */
+        if (!w.closed) { a.click(); return; }
+        const t = document.createElement("a"); t.href = a.href; t.target = "_blank"; t.rel = "noopener noreferrer";
+        document.body.appendChild(t); t.click(); t.remove();
+      };
+      const finish = () => {
+        run.active = false; say(doneTxt);
+        try { if (!w.closed && pb) pb.disabled = true; } catch (err) { /* ignore */ }
+        setTimeout(() => pill.classList.remove("show"), 4500);
+      };
+      const batch = () => {
+        if (i >= links.length) { finish(); return; }
+        const n = 1;   /* one link at a time */
+        for (let k = 0; k < n; k++) { try { const li = links[i].closest("li"); if (li) li.style.opacity = ".55"; } catch (err) { /* ignore */ } fire(links[i++]); }
+        if (i >= links.length) { finish(); return; }
+        left = 3; tick();
+      };
+      const tick = () => {
+        if (run.paused) { setTimeout(tick, 250); return; }     /* hold the countdown while paused */
+        if (left <= 0) { batch(); return; }
+        say("Opened " + i + " / " + links.length + " · next in " + left + "s");
+        left--; setTimeout(tick, 1000);
+      };
+      batch();
     });
     d.getElementById("copy").addEventListener("click", () => { const t = links.map(a => a.href).join("\n"); (w.navigator.clipboard ? w.navigator.clipboard.writeText(t) : Promise.reject()).then(() => { d.getElementById("copy").textContent = "Copied"; }, () => { d.getElementById("copy").textContent = "Copy failed"; }); });
     d.getElementById("close").addEventListener("click", () => w.close());
@@ -3211,7 +3273,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
     if(!downloadQueue.length) return;
     const es=downloadQueue.filter(x=>x.i&&x.f);
     if(!es.length){toast("No downloadable files in the queue.","Download queue");return;}
-    openDlcBatch(es,"Download queue");
+    openDlcBatch(es,"Download queue",()=>{ downloadQueue=[]; saveQueue(); toast("Queue cleared. Downloads started.","Download queue"); });
   });
   /* Themes collection tile: use one theme icon from the collection as its cover art */
   function addCollectionArt(tile, g){
@@ -3990,7 +4052,9 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       }
       if (data.error) throw new Error(data.error);
       const user = String(data.username || data.screenname || data.user || "Archive.org account").trim();
+      const wasLinked = prof.iaUser === user;
       prof.iaUser = user; prof.iaLinkedAt = Date.now(); saveProf();
+      if (!quiet && !wasLinked) toast("Signed in as " + user, "Logged in");
       keysVerified = true; creds = {a,s}; syncKeyButtons(); setS3Status("Connected · " + user, "ok");
       if (!quiet) setMsg("Connection verified for " + user + ".", false);
       if (!$("#prof").hidden) fillProfile();
@@ -4056,7 +4120,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   }
   loginBtn.addEventListener("click", () => { arm(); openLogin(); });
   document.querySelector("#loginClose").addEventListener("click", () => closeLogin());
-  document.querySelector("#guestStart").addEventListener("click", () => { arm(); guestSession = true; lsSet("xenios_guest_session", true); paintLogin(); toast("Logged in as Guest"); closeLogin(true); });
+  document.querySelector("#guestStart").addEventListener("click", () => { arm(); guestSession = true; lsSet("xenios_guest_session", true); paintLogin(); toast("Signed in as " + (prof.name || "Guest"), "Logged in"); closeLogin(true); });
 
   loginEl.addEventListener("mousedown", e => { if (e.target === loginEl) closeLogin(); });
   $("#kShow").addEventListener("click", () => {
@@ -4085,13 +4149,24 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
   });
   $("#lOut").addEventListener("click", () => {
     arm();
+    const who = prof.iaUser || prof.name || "Guest";
+    if (guestSession && !(creds && prof.iaUser)) {
+      /* guest log out: erase everything stored for this guest, then start with a brand-new profile */
+      try {
+        sessionStorage.setItem("xenios_pending_toast", JSON.stringify({ h: "Logged out", m: who + " · guest data cleared" }));
+        [KEYSTORE, HISTORE, PROFSTORE, QUEUE_KEY, "xenios_guest_session", "xenios_gamerpic_unlock"].forEach(k => localStorage.removeItem(k));
+      } catch (err) { /* ignore */ }
+      guestSession = false; creds = null; remembered = false;
+      location.reload();
+      return;
+    }
     creds = null; remembered = false; guestSession = false;
     try { localStorage.removeItem(KEYSTORE); localStorage.removeItem("xenios_guest_session"); } catch (err) { /* ignore */ }
     prof.iaUser = ""; prof.iaLinkedAt = 0; saveProf();
     kA.value = ""; kS.value = ""; kR.checked = false;
     paintLogin(); closeProfile(true); sfx.back(); setMsg("Logged out. Profile hidden until you sign in again.");
     setS3Status("No Archive.org S3 account verified yet.", "");
-    toast("Logged out");
+    toast(who, "Logged out");
   });
   if (creds) { kA.value=creds.a; kS.value=creds.s; kR.checked=remembered; }
   paintLogin();
@@ -4276,7 +4351,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
         persist(); pend = null;
         await save(true);
         paintLogin(); try { refreshLook(); } catch (_) {} home(); closeLogin(true);
-        toast("Welcome, " + S.user, "Account created");
+        toast("Signed in as " + S.user, "Account created");
       });
     }
 
@@ -4337,6 +4412,7 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
           _set.call(localStorage, "xenios_guest_session", "true");
           sessionStorage.setItem(SK, JSON.stringify({ user: file.user, raw: b64(raw), hdr, dirty }));
           await idbPut(handle);
+          try { sessionStorage.setItem("xenios_pending_toast", JSON.stringify({ h: "Logged in", m: "Signed in as " + file.user })); } catch (_) {}
           location.reload();
         } catch (e) { b.disabled = false; err("Could not sign in: " + (e.message || e)); }
       });
@@ -4348,7 +4424,8 @@ body.accurate-nxe .foot,body.accurate-nxe .foot *{line-height:1.5}
       if (!S) return;
       e.stopImmediatePropagation(); arm();
       if (S.dirty && !(await save(true)) && !confirm("Your latest changes are not saved to the account file. Log out anyway?")) return;
-      S = null; try { sessionStorage.removeItem(SK); } catch (_) {}
+      const outUser = S.user;
+      S = null; try { sessionStorage.removeItem(SK); sessionStorage.setItem("xenios_pending_toast", JSON.stringify({ h: "Logged out", m: outUser })); } catch (_) {}
       await idbPut(null); lsKeys().forEach(k => _rem.call(localStorage, k)); location.reload();
     }, true);
     paint(); onOpen();
@@ -5004,6 +5081,226 @@ html body.accurate-nxe #game #gDlBox .gq-btn{align-self:center;display:inline-fl
 html body.accurate-nxe #game .gcard.theme-games #gDlBox .gq-btn{background:linear-gradient(180deg,#8fdf68,#287c38)!important}
 html body.accurate-nxe #game .gcard.theme-arcade #gDlBox .gq-btn{background:linear-gradient(180deg,#ffb35c,#c35d1e)!important}
 html body.accurate-nxe #game #gDlBox .gq-btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
+</style>
+<style id="xenios-toast-smooth">
+html body.accurate-nxe #toast:not(.zz){opacity:0;transform:translate(-50%,26px) scale(.92);pointer-events:none;will-change:transform,opacity;
+  transition:opacity .26s ease-in,transform .3s cubic-bezier(.5,0,.75,.4)!important}
+html body.accurate-nxe #toast.show:not(.zz){opacity:1;transform:translate(-50%,0) scale(1);
+  transition:opacity .3s ease-out,transform .5s cubic-bezier(.18,1.22,.35,1)!important}
+@media (prefers-reduced-motion:reduce){html body.accurate-nxe #toast:not(.zz){transition:opacity .2s linear!important;transform:translate(-50%,0)!important}}
+</style>
+<script id="xenios-pending-toast">
+(function(){
+  try{
+    var v=sessionStorage.getItem("xenios_pending_toast"); if(!v) return;
+    sessionStorage.removeItem("xenios_pending_toast");
+    var o=JSON.parse(v);
+    setTimeout(function(){ if(window.__xenToast) window.__xenToast(o.m,o.h); },2200);
+  }catch(e){}
+})();
+</script>
+<style id="xenios-run-pill">
+#xenRunPill{position:fixed;right:18px;bottom:18px;z-index:3100;display:flex;align-items:center;gap:12px;max-width:min(92vw,420px);padding:8px 8px 8px 18px;border-radius:999px;color:#fff;font-size:13.5px;
+  background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,.06) 48%,rgba(0,0,0,0) 50%),linear-gradient(180deg,#4a504c,#1b1f1d 50%,#070908 52%,#151918);
+  border:2px solid rgba(214,224,217,.7);box-shadow:0 0 0 1px rgba(0,0,0,.8),0 10px 30px rgba(0,0,0,.7),0 0 22px rgba(var(--tg,126,220,50),.4);
+  opacity:0;transform:translateY(24px) scale(.94);pointer-events:none;transition:opacity .26s ease-in,transform .3s cubic-bezier(.5,0,.75,.4)}
+#xenRunPill.show{opacity:1;transform:none;pointer-events:auto;transition:opacity .3s ease-out,transform .5s cubic-bezier(.18,1.22,.35,1)}
+#xenRunPill .rp-t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-shadow:0 1px 3px #000}
+#xenRunPill .rp-b{flex:0 0 auto;font:inherit;font-weight:700;padding:7px 16px;border-radius:999px;cursor:pointer;color:#10210a;border:1px solid rgba(0,0,0,.5);background:linear-gradient(180deg,#e1ffb4,#9be44c 50%,#56b01e 52%,#7bd33a)}
+#popupHelp .ph-list{margin:0;padding:6px 22px 12px 40px;font-size:13.5px;line-height:1.6;color:#e6ece8}
+#popupHelp .ph-list li{margin:5px 0}
+@media (prefers-reduced-motion:reduce){#xenRunPill,#xenRunPill.show{transition:opacity .2s linear;transform:none}}
+</style>
+<div class="dlg xbx-dlg" id="popupHelp" hidden><div class="xbx-wrap">
+  <div class="xbx" role="dialog" aria-modal="true" aria-labelledby="phTitle">
+    <div class="xbx-head"><i class="xbx-x" aria-hidden="true">✕</i><span id="phTitle">Xenios</span></div>
+    <div class="xbx-body">
+      <p id="phIntro">Pop-ups are blocked. Your browser is blocking pop-up windows for this site. Allow them once and it applies to every page of Xenios:</p>
+      <ol class="ph-list" id="phSteps"></ol>
+    </div>
+    <button class="xbx-ok" id="phTest" type="button">Test again</button>
+    <button class="xbx-opt" id="phClose" type="button">Close</button>
+  </div>
+  <div class="xbx-hints"><span><b class="a">A</b> Select</span><span><b class="b">B</b> Back</span></div>
+</div></div>
+<style id="xenios-alerts-css">
+.st-row[hidden],.st-group[hidden]{display:none!important}
+#fdmWarn,#popPrompt{z-index:3150}#popupHelp{z-index:3200}
+#popPrompt .pp-list{margin:0;padding:4px 22px 8px 40px;font-size:13.5px;line-height:1.6;color:#e6ece8}
+#popPrompt .pp-list li{margin:4px 0}
+#popPrompt h3.pp-h{margin:10px 20px 2px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#bfe9a0}
+</style>
+<div class="dlg xbx-dlg" id="fdmWarn" hidden><div class="xbx-wrap">
+  <div class="xbx" role="dialog" aria-modal="true" aria-labelledby="fdmTitle">
+    <div class="xbx-head"><i class="xbx-x" aria-hidden="true">✕</i><span id="fdmTitle">Xenios</span></div>
+    <div class="xbx-body">
+      <p>Recommended: use Free Download Manager (FDM) with its browser extension. It captures Xenios downloads so they can start without a confirmation prompt.</p>
+      <p>To remove the prompt, you also have to change the “without confirmation” option in FDM's own settings. The name varies by version.</p>
+      <p>Without it, your browser may ask permission for multiple downloads and can time out on big files.</p>
+      <label class="xbx-chk"><input type="checkbox" id="fdmHide"> Don't show this again</label>
+    </div>
+    <a class="xbx-opt" id="fdmGet" href="https://www.freedownloadmanager.org" target="_blank" rel="noopener noreferrer">Get Free Download Manager</a>
+    <button class="xbx-ok" id="fdmOk" type="button">OK</button>
+  </div>
+  <div class="xbx-hints"><span><b class="a">A</b> Select</span><span><b class="b">B</b> Back</span></div>
+</div></div>
+<div class="dlg xbx-dlg" id="popPrompt" hidden><div class="xbx-wrap">
+  <div class="xbx" role="dialog" aria-modal="true" aria-labelledby="ppTitle">
+    <div class="xbx-head"><i class="xbx-x" aria-hidden="true">✕</i><span id="ppTitle">Xenios</span></div>
+    <div class="xbx-body">
+      <p>Pop-up windows are not enabled. Xenios uses them to open the download queue window and your download links.</p>
+      <p>Browsers block pop-ups by default, so without this your downloads won't start. You only do this once, and it applies to every page of Xenios.</p>
+      <p class="xbx-small">Pressing Enable runs a quick test that takes about 5 seconds.</p>
+      <label class="xbx-chk"><input type="checkbox" id="ppHide"> Don't show this again</label>
+    </div>
+    <button class="xbx-ok" id="ppYes" type="button">Enable pop-ups</button>
+    <button class="xbx-opt" id="ppNo" type="button">Not now</button>
+  </div>
+  <div class="xbx-hints"><span><b class="a">A</b> Select</span><span><b class="b">B</b> Back</span></div>
+</div></div>
+<script id="xenios-alerts">
+(function(){
+  var K={fdmHide:"xenios_fdm_warning_hide",fdmOpt:"xenios_fdm_warning_opt",popHide:"xenios_popups_prompt_hide",popOpt:"xenios_popups_prompt_opt",popOk:"xenios_popups_ok"};
+  function g(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function put(k,v){ try{ if(v===null) localStorage.removeItem(k); else localStorage.setItem(k,v); }catch(e){} }
+  function $(id){ return document.getElementById(id); }
+  function note(m,h){ if(window.__xenToast) window.__xenToast(m,h); }
+  var fdm=$("fdmWarn"), pop=$("popPrompt"), help=$("popupHelp");
+
+  /* ---- settings rows: toggles only exist after "Don't show again"; Enable only while not enabled ---- */
+  function show(id,v){ var e=$(id); if(e) e.hidden=!v; }
+  function paintToggle(id,on){ var b=$(id); if(!b) return; b.textContent=on?"On":"Off"; b.setAttribute("aria-pressed",String(on)); b.classList.toggle("on",on); }
+  function refresh(){
+    var ok=g(K.popOk)==="1", fo=g(K.fdmOpt)==="1", po=g(K.popOpt)==="1";
+    show("rowPopEnable",!ok); show("rowFdmAlert",fo); show("rowPopAlert",po && !ok);
+    paintToggle("fdmAlertToggle",g(K.fdmHide)!=="1"); paintToggle("popAlertToggle",g(K.popHide)!=="1");
+    var grp=$("stDownloads"); if(grp) grp.hidden=ok && !fo;
+  }
+  function mark(ok){ put(K.popOk,ok?"1":"0"); refresh(); }
+  window.__xenMarkPopups=mark;
+
+  /* ---- pop-up test ----
+     A pop-up opened straight from a click is always allowed, so it proves nothing. The real
+     downloads open links from a timer, so the test waits for the click's "user activation"
+     to expire (about 5s in Chrome, Edge and Firefox) and then tries to open a window. */
+  var testing=false, BTN=["popupEnable","ppYes","phTest"], orig={};
+  function setBtns(txt,dis){ BTN.forEach(function(id){ var b=$(id); if(!b) return; if(orig[id]===undefined) orig[id]=b.textContent; b.textContent=dis?txt:orig[id]; b.disabled=dis; if(!dis) delete orig[id]; }); }
+  function browser(){ var u=navigator.userAgent; if(/Edg\//.test(u)) return "edge"; if(/Firefox\//.test(u)) return "firefox"; if(/Chrome\//.test(u)||/Chromium\//.test(u)) return "chrome"; return "other"; }
+  function site(){ return location.host || "this page"; }
+  function steps(){
+    var h=site(), br=browser(), L={
+      chrome:["Look at the right end of the address bar for the blocked pop-up icon (a small window with a red ✕) and click it.","Choose <b>Always allow pop-ups and redirects from "+h+"</b>, then click <b>Done</b>.","Can't see the icon? Open <b>Settings → Privacy and security → Site settings → Pop-ups and redirects</b>, click <b>Add</b> next to <b>Allowed to send pop-ups and redirects</b>, and enter <b>"+h+"</b>.","Come back here and press <b>Test again</b>."],
+      edge:["Look at the right end of the address bar for the blocked pop-up icon and click it.","Choose <b>Always allow pop-ups and redirects from "+h+"</b>, then click <b>Done</b>.","Can't see the icon? Open <b>Settings → Cookies and site permissions → Pop-ups and redirects</b>, click <b>Add</b> next to <b>Allow</b>, and enter <b>"+h+"</b>.","Come back here and press <b>Test again</b>."],
+      firefox:["Look for the yellow bar saying Firefox prevented this site from opening a pop-up window, and click <b>Options</b>.","Choose <b>Allow pop-ups for "+h+"</b>.","No bar? Open <b>Settings → Privacy &amp; Security → Permissions</b>, click <b>Exceptions…</b> next to <b>Block pop-up windows</b>, enter <b>"+h+"</b>, click <b>Allow</b>, then <b>Save Changes</b>.","Come back here and press <b>Test again</b>."],
+      other:["Open your browser's site settings for "+h+".","Set <b>Pop-ups and redirects</b> to <b>Allow</b>.","Come back here and press <b>Test again</b>."]
+    };
+    return L[br];
+  }
+  function showHelp(){
+    var ol=$("phSteps"); if(ol) ol.innerHTML=steps().map(function(t){ return "<li>"+t+"</li>"; }).join("");
+    var nm={chrome:"Chrome",edge:"Edge",firefox:"Firefox",other:"your browser"}[browser()];
+    var it=$("phIntro"); if(it) it.textContent="Pop-ups are blocked. The test could not open a pop-up. Allow pop-ups for this site once in "+nm+" and it applies to every page of Xenios:";
+    if(help) help.hidden=false;
+  }
+  window.__xenShowPopupHelp=showHelp;
+  function test(){
+    if(testing) return; testing=true;
+    setBtns("Testing…",true);
+    var t0=Date.now();
+    (function wait(){
+      var active = navigator.userActivation ? navigator.userActivation.isActive : (Date.now()-t0<5600);
+      if(active && Date.now()-t0<9000){ setTimeout(wait,150); return; }
+      var w=null; try{ w=window.open("about:blank","xenios-popup-test","width=300,height=160"); }catch(e){ w=null; }
+      var ok=!!(w && !w.closed);
+      if(ok){ try{ w.close(); }catch(e){} }
+      testing=false; setBtns("",false);
+      if(ok){ mark(true); if(help) help.hidden=true; if(pop) pop.hidden=true; }
+      else { mark(false); showHelp(); }
+    })();
+    return false;
+  }
+  window.__xenEnablePopups=test;
+
+  /* ---- dialogs ---- */
+  function closeDlg(el,chkId,hideKey,optKey,after){
+    var c=$(chkId); if(c&&c.checked){ put(hideKey,"1"); put(optKey,"1"); c.checked=false; }
+    el.hidden=true; document.removeEventListener("keydown",keyH,true); refresh(); if(after) after();
+  }
+  var keyFor=null;
+  function keyH(e){ if(e.key==="Escape" && keyFor){ e.preventDefault(); e.stopPropagation(); keyFor(); } }
+  function openDlg(el,focusId,onEsc){ el.hidden=false; keyFor=onEsc; document.addEventListener("keydown",keyH,true); var f=$(focusId); if(f) f.focus({preventScroll:true}); }
+
+  function showPop(){
+    if(!pop || g(K.popHide)==="1" || g(K.popOk)==="1") return;
+    openDlg(pop,"ppYes",function(){ closeDlg(pop,"ppHide",K.popHide,K.popOpt); });
+  }
+  function showFdm(){
+    if(!fdm || g(K.fdmHide)==="1"){ showPop(); return; }
+    openDlg(fdm,"fdmOk",function(){ closeDlg(fdm,"fdmHide",K.fdmHide,K.fdmOpt,showPop); });
+  }
+  if($("fdmOk")) $("fdmOk").addEventListener("click",function(){ closeDlg(fdm,"fdmHide",K.fdmHide,K.fdmOpt,showPop); });
+  if(fdm) fdm.addEventListener("mousedown",function(e){ if(e.target===fdm) closeDlg(fdm,"fdmHide",K.fdmHide,K.fdmOpt,showPop); });
+  if($("ppNo")) $("ppNo").addEventListener("click",function(){ closeDlg(pop,"ppHide",K.popHide,K.popOpt); });
+  if($("ppYes")) $("ppYes").addEventListener("click",function(){ var c=$("ppHide"); if(c&&c.checked){ put(K.popHide,"1"); put(K.popOpt,"1"); } test(); refresh(); });
+  if(pop) pop.addEventListener("mousedown",function(e){ if(e.target===pop) closeDlg(pop,"ppHide",K.popHide,K.popOpt); });
+  if($("phTest")) $("phTest").addEventListener("click",function(e){ e.stopPropagation(); test(); });
+  if($("phClose")) $("phClose").addEventListener("click",function(){ help.hidden=true; });
+  if(help) help.addEventListener("mousedown",function(e){ if(e.target===help) help.hidden=true; });
+
+  /* ---- settings buttons ---- */
+  if($("popupEnable")) $("popupEnable").addEventListener("click",function(e){ e.stopPropagation(); test(); });
+  if($("fdmAlertToggle")) $("fdmAlertToggle").addEventListener("click",function(){ var on=g(K.fdmHide)!=="1"; put(K.fdmHide,on?"1":null); refresh(); note(on?"The FDM alert is off.":"The FDM alert will show at startup.","Alerts"); });
+  if($("popAlertToggle")) $("popAlertToggle").addEventListener("click",function(){ var on=g(K.popHide)!=="1"; put(K.popHide,on?"1":null); refresh(); note(on?"The pop-up alert is off.":"The pop-up alert will show at startup.","Alerts"); });
+  var st=$("settings"); if(st && window.MutationObserver) new MutationObserver(refresh).observe(st,{attributes:true,attributeFilter:["hidden"]});
+  refresh();
+
+  /* ---- startup: FDM alert, then pop-up alert, the moment the loading screen vanishes ---- */
+  (function(){
+    var b=$("boot"), fired=false;
+    function go(){ if(fired) return; fired=true; showFdm(); }
+    if(!b || !document.body.contains(b) || b.classList.contains("out")){ go(); return; }
+    new MutationObserver(function(){ if(b.classList.contains("out")) go(); }).observe(b,{attributes:true,attributeFilter:["class"]});
+    new MutationObserver(function(){ if(!document.body.contains(b)) go(); }).observe(document.body,{childList:true});
+    setTimeout(go,7000);
+  })();
+})();
+</script>
+<style id="xenios-xbox-dialogs">
+html body.accurate-nxe .dlg.xbx-dlg{background:rgba(0,0,0,.62)}
+.xbx-wrap{display:flex;flex-direction:column;align-items:flex-start;width:min(370px,92vw);animation:xbxIn .28s cubic-bezier(.2,1.1,.4,1) both}
+@keyframes xbxIn{from{opacity:0;transform:scale(.94) translateY(10px)}}
+html body.accurate-nxe .xbx{width:100%;border-radius:0!important;overflow:hidden;background:#d6d6d6!important;border:0!important;box-shadow:0 14px 44px rgba(0,0,0,.7)!important;font-family:"Segoe UI","Myriad Pro",system-ui,sans-serif;color:#4b4b4b;animation:none!important}
+html body.accurate-nxe .xbx-head{display:flex;align-items:center;gap:8px;padding:8px 12px;background:linear-gradient(180deg,#a3a3a3,#868686)!important;color:#fff;font-size:16px;font-weight:700;text-shadow:0 1px 1px rgba(0,0,0,.35)}
+html body.accurate-nxe .xbx-x{flex:none;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:900;line-height:1;color:#fff;background:radial-gradient(circle at 38% 28%,#ff7a6e,#d40f0f 70%);border:1.5px solid #fff;box-shadow:0 1px 2px rgba(0,0,0,.4)}
+html body.accurate-nxe .xbx-body{padding:16px 18px 14px;background:linear-gradient(180deg,#ececec,#d3d3d3);min-height:190px}
+html body.accurate-nxe .xbx-body p{margin:0 0 12px;font-size:16.5px;line-height:1.32;color:#4a4a4a}
+html body.accurate-nxe .xbx-body p.xbx-small{font-size:13.5px;color:#666}
+html body.accurate-nxe .xbx-chk{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:14px;color:#555;cursor:pointer}
+html body.accurate-nxe .xbx-chk input{width:16px;height:16px;accent-color:#2fa800}
+html body.accurate-nxe .xbx .xbx-ok,html body.accurate-nxe .xbx .xbx-opt{display:block;width:100%;box-sizing:border-box;margin:0;padding:9px 16px;border:0!important;border-radius:0!important;text-align:left;text-decoration:none;font:700 17px "Segoe UI","Myriad Pro",system-ui,sans-serif!important;cursor:pointer;text-shadow:none!important;box-shadow:none!important;transform:none!important;letter-spacing:0}
+html body.accurate-nxe .xbx .xbx-ok{background:linear-gradient(180deg,#34c00a,#28a000)!important;color:#fff!important}
+html body.accurate-nxe .xbx .xbx-opt{background:linear-gradient(180deg,#e4e4e4,#cfcfcf)!important;color:#444!important;border-top:1px solid #bdbdbd!important}
+html body.accurate-nxe .xbx .xbx-opt:hover,html body.accurate-nxe .xbx .xbx-opt:focus-visible{background:linear-gradient(180deg,#34c00a,#28a000)!important;color:#fff!important;outline:none}
+html body.accurate-nxe .xbx:has(.xbx-opt:hover) .xbx-ok:not(:hover){background:linear-gradient(180deg,#e4e4e4,#cfcfcf)!important;color:#444!important}
+html body.accurate-nxe .xbx .xbx-ok:disabled{opacity:.65;cursor:default}
+.xbx-hints{display:flex;gap:22px;margin-top:9px;color:#fff;font:600 15px "Segoe UI",system-ui,sans-serif;text-shadow:0 1px 3px #000}
+.xbx-hints span{display:inline-flex;align-items:center;gap:6px}
+.xbx-hints b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;font-size:12px;font-weight:800;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.6),inset 0 1px 1px rgba(255,255,255,.5)}
+.xbx-hints b.a{background:radial-gradient(circle at 38% 28%,#7be04a,#2e9a0c)}
+.xbx-hints b.b{background:radial-gradient(circle at 38% 28%,#ff7a6e,#c41212)}
+</style>
+<style id="xenios-toast-fmt">
+html body.accurate-nxe #toast:not(.zz){border-radius:26px!important;align-items:center;min-width:min(300px,90vw);max-width:min(92vw,480px);padding:10px 24px 10px 10px!important}
+html body.accurate-nxe #toast .t-tx{min-width:0;gap:2px}
+html body.accurate-nxe #toast .t-tx b{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere;line-height:1.2;font-size:16px}
+html body.accurate-nxe #toast .t-tx em{white-space:normal;overflow-wrap:anywhere;line-height:1.3;font-size:14px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;text-overflow:clip}
+</style>
+<style id="xenios-xbox-help">
+html body.accurate-nxe #popupHelp .xbx-body{min-height:0}
+html body.accurate-nxe #popupHelp .xbx-body .ph-list{margin:0 0 6px;padding:0 0 0 24px;font-size:15px;line-height:1.35;color:#4a4a4a}
+html body.accurate-nxe #popupHelp .xbx-body .ph-list li{margin:0 0 9px;padding:0}
+html body.accurate-nxe #popupHelp .xbx-body .ph-list b{color:#333}
+html body.accurate-nxe #popupHelp .xbx-wrap{width:min(430px,94vw)}
 </style>
 </body>
 </html>
